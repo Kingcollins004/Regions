@@ -8,11 +8,6 @@ import Winpiggy from "../Assets/PNG/WinPiggy.png";
 import retire from "../Assets/SVG/WinRetire.svg";
 import houseMoney from "../Assets/SVG/WinMoney.svg";
 import WinDesk from "../Assets/SVG/WinDesk.svg";
-import seeHow from "../Assets/PNG/seeHow.jpg";
-import learn1 from "../Assets/PNG/learnMore1.jpg";
-import learn2 from "../Assets/PNG/learnMore2.jpg";
-import WhyRegions from "../Components/WhyRegions";
-import Footer from "../Components/Footer";
 
 import lock from "../Assets/SVG/lock.svg";
 import { useNavigate } from "react-router-dom";

@@ -4,10 +4,7 @@ import flex1 from "../Assets/PNG/WhyWealthF2.jpg";
 import flex2 from "../Assets/PNG/flex2Img.jpg";
 import flex3 from "../Assets/PNG/WhyWealthF3.jpg";
 import flex4 from "../Assets/PNG/WhyWealthF4.jpg";
-import fin1 from "../Assets/PNG/fin1.jpg";
-import fin2 from "../Assets/PNG/fin2.jpg";
-import fin3 from "../Assets/PNG/fin3.jpg";
-import fin4 from "../Assets/PNG/fin4.jpg";
+
 
 const WhyRegionsW = () => {
   return (
