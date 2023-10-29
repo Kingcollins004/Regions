@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="61px" height="59px" viewBox="0 0 61 59" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
+    <title>retirement-plans</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Wealth-Chapter---Institutional-Services" transform="translate(-139.000000, -930.000000)" stroke-width="2">
+            <g id="Icon-Tiles-x4" transform="translate(68.000000, 891.000000)">
+                <g id="Icon-Tile-1">
+                    <g id="Icon-1" transform="translate(63.000000, 29.000000)">
+                        <g id="retirement-plans" transform="translate(9.000000, 11.000000)">
+                            <path d="M52.7,0.6 L54.1,3.5 C54.3,3.8 54.6,4 54.9,4.1 L58.1,4.6 C59,4.7 59.3,5.8 58.7,6.4 L56.5,8.7 C56.2,8.9 56.1,9.3 56.2,9.6 L56.7,12.8 C56.8,13.7 55.9,14.3 55.2,13.9 L52.3,12.4 C52,12.2 51.6,12.2 51.3,12.4 L48.4,13.9 C47.6,14.3 46.7,13.6 46.9,12.8 L47.4,9.6 C47.5,9.3 47.3,8.9 47.1,8.7 L44.8,6.4 C44.2,5.8 44.5,4.7 45.4,4.6 L48.6,4.1 C48.9,4 49.2,3.8 49.4,3.5 L50.8,0.6 C51.2,-0.2 52.4,-0.2 52.7,0.6 Z" id="Shape" stroke="#88BB00" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M56.7,56.8 L46.5,56.8 C45.4,56.8 44.5,55.9 44.5,54.8 L44.5,20.9 C44.5,19.8 45.4,18.9 46.5,18.9 L56.6,18.9 C57.7,18.9 58.6,19.8 58.6,20.9 L58.6,54.7 C58.7,55.8 57.8,56.8 56.7,56.8 Z" id="Shape" stroke="#767676"></path>
+                            <path d="M34.4,56.8 L24.2,56.8 C23.1,56.8 22.2,55.9 22.2,54.8 L22.2,34.8 C22.2,33.7 23.1,32.8 24.2,32.8 L34.3,32.8 C35.4,32.8 36.3,33.7 36.3,34.8 L36.3,54.7 C36.4,55.8 35.5,56.8 34.4,56.8 Z" id="Shape" stroke="#767676"></path>
+                            <path d="M12.1,56.8 L2,56.8 C0.9,56.8 1.82076576e-13,55.9 1.82076576e-13,54.8 L1.82076576e-13,47.8 C1.82076576e-13,46.7 0.9,45.8 2,45.8 L12.1,45.8 C13.2,45.8 14.1,46.7 14.1,47.8 L14.1,54.8 C14.1,55.8 13.2,56.8 12.1,56.8 Z" id="Shape" stroke="#767676"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

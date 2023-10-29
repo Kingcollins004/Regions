@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": true,
+  "codeium.enableSearch": true,
+  "eslint.format.enable": true,
+  "html-css-class-completion.enableEmmetSupport": true,
+  "files.autoSave": "afterDelay"
+}

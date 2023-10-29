@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import HomePage from "./Pages/HomePage";
+import Login from "./Pages/Login";
+import SmallBusiness from "./Pages/SmallBusiness";
+import Commercial from "./Pages/Commercial";
+import Wealth from "./Pages/Wealth";
 function App() {
+  const theme = extendTheme({
+    styles: {
+      global: {
+        // styles for the `body`
+        body: {
+          fontFamily: "Open Sans, sans-serif"
+        },
+      },
+    },
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider theme={theme}>
+      <Router>
+        <Routes>
+          <Route element={<HomePage />} path="/" />
+          <Route element={<Login />} path="login" />
+          <Route element={<SmallBusiness />} path="small-business" />
+          <Route element={<Commercial />} path="commercial" />
+          <Route element={<Wealth />} path="wealth" />
+        </Routes>
+      </Router>
+    </ChakraProvider>
   );
 }
 
