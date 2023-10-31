@@ -8,7 +8,11 @@ import Winpiggy from "../Assets/PNG/WinPiggy.png";
 import retire from "../Assets/SVG/WinRetire.svg";
 import houseMoney from "../Assets/SVG/WinMoney.svg";
 import WinDesk from "../Assets/SVG/WinDesk.svg";
-
+import tp1 from "../Assets/SVG/TP1.svg";
+import tp2 from "../Assets/SVG/TP2.svg";
+import tp3 from "../Assets/SVG/TP3.svg";
+import tp4 from "../Assets/SVG/TP4.svg";
+import flex1 from "../Assets/PNG/WhyWealthF2.jpg";
 import lock from "../Assets/SVG/lock.svg";
 import { useNavigate } from "react-router-dom";
 import WhyRegionsW from "../Components/WhyRegionsW";
@@ -207,12 +211,13 @@ const Wealth = () => {
         </Flex>
       </Flex>
 
-      <Box paddingX="10%">
+      <Box textAlign="center" marginTop="5%" paddingX="5%">
         <Text fontSize="48px" fontWeight="300" textAlign="center">
-        Tools & Resources
+          Tools & Resources
         </Text>
         <Flex paddingX="3%" justifyContent="space-between">
           <Flex
+            flex="1"
             justifyContent="center"
             flexDirection="column"
             alignItems="center"
@@ -220,12 +225,14 @@ const Wealth = () => {
             padding="3% 4%"
             boxShadow="0 2px 4px 0 rgba(0, 0, 0, 0.2)"
           >
-            <Image width="80px" height="80px" src={Winpiggy} />
+            <Image width="80px" height="80px" src={tp1} />
             <Text fontSize="18px" fontWeight="600" color="#006666">
-              Financial Planning
+              Podcast
             </Text>
+            <Text fontSize="18px">Listen to our regions wealth podcast</Text>
           </Flex>
           <Flex
+            flex="1"
             justifyContent="center"
             flexDirection="column"
             alignItems="center"
@@ -233,12 +240,14 @@ const Wealth = () => {
             padding="3% 4%"
             boxShadow="0 2px 4px 0 rgba(0, 0, 0, 0.2)"
           >
-            <Image width="80px" height="80px" src={retire} />
+            <Image width="80px" height="80px" src={tp2} />
             <Text fontSize="18px" fontWeight="600" color="#006666">
-              Retirement Planning
+              Calculators
             </Text>
+            <Text fontSize="18px">Calculate your retirement needs</Text>
           </Flex>
           <Flex
+            flex="1"
             justifyContent="center"
             flexDirection="column"
             alignItems="center"
@@ -246,15 +255,14 @@ const Wealth = () => {
             padding="3% 4%"
             boxShadow="0 2px 4px 0 rgba(0, 0, 0, 0.2)"
           >
-            <Image width="80px" height="80px" src={houseMoney} />
+            <Image width="80px" height="80px" src={tp3} />
             <Text fontSize="18px" fontWeight="600" color="#006666">
-              Private Wealth
+              Insights Library
             </Text>
-            <Text fontSize="18px" fontWeight="600" color="#006666">
-              Management
-            </Text>
+            <Text fontSize="18px">Learn more about wealth management</Text>
           </Flex>
           <Flex
+            flex="1"
             justifyContent="center"
             flexDirection="column"
             alignItems="center"
@@ -262,26 +270,54 @@ const Wealth = () => {
             padding="3% 4%"
             boxShadow="0 2px 4px 0 rgba(0, 0, 0, 0.2)"
           >
-            <Image width="80px" height="80px" src={WinDesk} />
+            <Image width="80px" height="80px" src={tp4} />
             <Text fontSize="18px" fontWeight="600" color="#006666">
-              Didital Investing
+              Online Guide
             </Text>
-          </Flex>
-          <Flex
-            justifyContent="center"
-            flexDirection="column"
-            alignItems="center"
-            borderRadius="20px"
-            padding="3% 3.5%"
-            boxShadow="0 2px 4px 0 rgba(0, 0, 0, 0.2)"
-          >
-            <Image width="80px" height="80px" src={WinBag} />
-            <Text fontSize="18px" fontWeight="600" color="#006666">
-              Institutional Wealth
+            <Text fontSize="18px">
+              Take a quiz on your investment and savings progress
             </Text>
           </Flex>
         </Flex>
       </Box>
+
+      <Flex marginTop="5%" justifyContent="center" alignItems="top">
+        <Box>
+          <Image width="450px" borderRadius="20px" src={flex1} />
+        </Box>
+        <Box marginLeft="5%" width="45%">
+          <Text fontSize="40px" fontWeight="300">
+            Private Wealth Management Solutions
+          </Text>
+          <Text fontSize="16px">
+            Whether you are early in your journey of financial planning and
+            investing or managing a high-net-worth portfolio, trust Regions for
+            guidance that can prepare you for every step and every major life
+            moment.
+          </Text>
+          <Flex marginTop="2%">
+            <Button
+              backgroundColor="#558800"
+              padding="4% 5%"
+              borderRadius="25px"
+              color="#006666"
+              border="1px solid lightgray"
+            >
+              Explore our offerings
+            </Button>
+            <Button
+              marginLeft="2%"
+              backgroundColor="white"
+              boxShadow="0 2px 4px 0 rgba(0, 0, 0, 0.2)"
+              padding="4% 5%"
+              borderRadius="25px"
+              color="#558800"
+            >
+              Find a wealth advisor
+            </Button>
+          </Flex>
+        </Box>
+      </Flex>
     </Box>
   );
 };
