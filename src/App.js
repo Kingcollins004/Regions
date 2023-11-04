@@ -8,6 +8,7 @@ import Commercial from "./Pages/Commercial";
 import Wealth from "./Pages/Wealth";
 import Signup from "./Pages/Signup";
 import Dashboard from "./Pages/Dashboard";
+import Transactions from "./Pages/Transactions";
 function App() {
   const theme = extendTheme({
     styles: {
@@ -30,6 +31,7 @@ function App() {
           <Route element={<Wealth />} path="wealth" />
           <Route element={<Signup />} path="signup" />
           <Route element={<Dashboard />} path="dashboard" />
+          <Route element={<Transactions />} path="transactions" />
         </Routes>
       </Router>
     </ChakraProvider>
