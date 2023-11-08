@@ -5,20 +5,28 @@ import { useNavigate, Link } from "react-router-dom";
 import "../App.css";
 
 const Signup = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    const handleDashboard = () => {
-        navigate("/dashboard")
-    }
+  const handleDashboard = () => {
+    navigate("/dashboard");
+  };
   return (
     <Flex align="center" flexDirection="column">
-      <Box marginTop="2%">
+      <Box marginTop={{ base: "5%", md: "2%" }}>
         <Image src={logo} />
       </Box>
-      <Text marginTop="1%" fontSize="52px" fontWeight="300">
+      <Text
+        marginTop="1%"
+        fontSize={{ base: "24px", md: "52" }}
+        fontWeight={{ base: "500", md: "300" }}
+      >
         Create your account online
       </Text>
-      <Text fontSize="18px" marginTop="1%" fontWeight="600">
+      <Text
+        fontSize={{ base: "14px", md: "18px" }}
+        marginTop="1%"
+        fontWeight={{ base: "300", md: "600" }}
+      >
         Open an account on our online banking platform
       </Text>
       <Box
@@ -26,7 +34,7 @@ const Signup = () => {
         padding="1% 2%"
         marginTop="2%"
         borderRadius="30px"
-        width="38%"
+        width={{ base: "95%", md: "38%" }}
       >
         <Box>
           <Text marginTop="5%" marginBottom="1%" fontWeight="600">
@@ -85,12 +93,24 @@ const Signup = () => {
       <Box marginTop="1%" textAlign="center">
         <Text fontSize="14px" marginTop="2%">
           Have an Online Banking account?
-          <Link className="link"> Login.</Link>
+          <Link to="/login" className="link">
+            {" "}
+            Login.
+          </Link>
         </Text>
       </Box>
 
-      <Flex width="60%" paddingTop="2%" justifyContent="center">
-        <Flex alignItems="center" justifyContent="space-between" width="100%">
+      <Flex
+        width={{ base: "95%", md: "60%" }}
+        paddingTop="2%"
+        justifyContent="center"
+      >
+        <Flex
+          alignItems="center"
+          flexWrap="wrap"
+          justifyContent={{ base: "space-around", md: "space-between" }}
+          width="100%"
+        >
           <Text
             color="#838383"
             fontSize="14px"
@@ -184,7 +204,7 @@ const Signup = () => {
           </Text>
         </Flex>
       </Flex>
-      <Text marginTop="1%" fontSize="13px">
+      <Text marginTop="1%" width={{ base: "95%", md: "100%" }} fontSize="13px">
         Call <Link className="link">1-800-REGIONS (1-800-734-4667)</Link> or
         visit <Link className="link">Regions Help & Suppor</Link>t.
       </Text>

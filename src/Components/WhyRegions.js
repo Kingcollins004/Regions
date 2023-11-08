@@ -10,24 +10,35 @@ import fin4 from "../Assets/PNG/fin4.jpg";
 
 const WhyRegions = () => {
   return (
-    <Box paddingX="10%" marginTop="5%">
-      <Flex justifyContent="center" alignItems="top">
-        <Box marginRight="5%" width="45%">
-          <Text fontSize="40px" fontWeight="300">
+    <Box paddingX={{ base: "2%", md: "10%" }} marginTop="5%">
+      <Flex
+        justifyContent="center"
+        alignItems="top"
+        flexDirection={{ base: "column", md: "row" }}
+      >
+        <Box marginRight="5%" width={{ base: "100%", md: "45%" }}>
+          <Text
+            fontSize={{ base: "20px", md: "40px" }}
+            fontWeight={{ base: "500", md: "300" }}
+          >
             Earn a predictable, competitive return with a Regions CD Account
           </Text>
-          <Text fontSize="16px">
+          <Text
+            fontSize={{ base: "14px", md: "16px" }}
+            marginTop={{ base: "3%", md: "5%" }}
+          >
             Open a Regions Certificate of Deposit account today and grow your
             savings with a predictable return and minimal risk1. We offer
             flexible terms from 7 days to 72 months with minimum opening
             deposits starting at $500.
           </Text>
-          <Flex marginTop="2%">
+          <Flex marginTop={{ base: "5%", md: "2%" }}>
             <Button
               backgroundColor="#558800"
               padding="4% 5%"
               borderRadius="25px"
               color="white"
+              fontSize={{ base: "13px", md: "16px" }}
             >
               Check rates
             </Button>
@@ -38,25 +49,46 @@ const WhyRegions = () => {
               padding="4% 5%"
               borderRadius="25px"
               color="#558800"
+              fontSize={{ base: "13px", md: "16px" }}
             >
               Learn More
             </Button>
           </Flex>
         </Box>
-        <Box>
+        <Box marginTop={{ base: "5%", md: "0" }}>
           <Image width="450px" borderRadius="20px" src={flex1} />
         </Box>
       </Flex>
 
-      <Flex marginTop="5%" justifyContent="center" alignItems="center">
+      <Flex
+        marginTop="5%"
+        flexDirection={{ base: "column", md: "row" }}
+        justifyContent="center"
+        alignItems="center"
+      >
         <Box>
-          <Image width="400px" borderRadius="20px" src={flex2} />
+          <Image
+            width={{ base: "380px", md: "400px" }}
+            height={{ base: "250px", md: "280px" }}
+            borderRadius="20px"
+            src={flex2}
+          />
         </Box>
-        <Box marginLeft="5%" width="45%">
-          <Text fontSize="40px" fontWeight="300">
+        <Box
+          marginLeft={{ base: "0", md: "5%" }}
+          width={{ base: "100%", md: "45%" }}
+        >
+          <Text
+            fontSize={{ base: "20px", md: "40px" }}
+            marginTop={{ base: "3%", md: "0" }}
+            fontWeight={{ base: "500", md: "300" }}
+          >
             Digital investing
           </Text>
-          <Text fontSize="16px">
+          <Text
+            fontSize={{ base: "14px", md: "16px" }}
+            marginTop={{ base: "2%", md: "0" }}
+          >
             We put you in control, with a diversified investment portfolio
             that's based on your financial goals and risk tolerance, plus access
             to our team of Financial Advisors for planning and guidance whenever
@@ -68,6 +100,8 @@ const WhyRegions = () => {
               padding="4% 5%"
               borderRadius="25px"
               color="white"
+              fontSize={{ base: "13px", md: "16px" }}
+              marginTop={{ base: "2%", md: "0" }}
             >
               See how to get started with InestPath
             </Button>
@@ -75,12 +109,23 @@ const WhyRegions = () => {
         </Box>
       </Flex>
 
-      <Flex marginTop="5%" justifyContent="center" alignItems="center">
-        <Box marginRight="5%" width="45%">
-          <Text fontSize="40px" fontWeight="300">
+      <Flex
+        marginTop="5%"
+        justifyContent="center"
+        flexDirection={{ base: "column", md: "row" }}
+        alignItems="center"
+      >
+        <Box
+          marginRight={{ base: "0", md: "5%" }}
+          width={{ base: "100%", md: "45%" }}
+        >
+          <Text
+            fontSize={{ base: "20px", md: "40px" }}
+            fontWeight={{ base: "500", md: "300" }}
+          >
             Create a budget and track goals
           </Text>
-          <Text fontSize="16px">
+          <Text fontSize={{ base: "14px", md: "16px" }}>
             Get a clear picture of your finances with Regions My GreenInsights.
             We make it easy to manage your money at home or on the go.
           </Text>
@@ -90,21 +135,22 @@ const WhyRegions = () => {
               padding="4% 5%"
               borderRadius="25px"
               color="white"
+              marginTop={{ base: "2%", md: "0" }}
             >
               Learn more about My GreenInsights
             </Button>
           </Flex>
         </Box>
-        <Box>
+        <Box marginTop={{ base: "3%", md: "0" }}>
           <Image width="400px" borderRadius="20px" src={flex3} />
         </Box>
       </Flex>
 
       <Box marginTop="9%">
-        <Text textAlign="center" fontSize="46px" fontWeight="300">
+        <Text textAlign="center" fontSize={{ base: "28px", md: "46px" }} fontWeight={{ base: "400", md: "300" }}>
           Financial tips and tools
         </Text>
-        <Flex>
+        <Flex flexDirection={{ base: "column", md: "row" }}>
           <Box
             borderRadius="15px"
             boxShadow="0 2px 4px 0 rgba(0, 0, 0, 0.2)"

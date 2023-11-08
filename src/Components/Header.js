@@ -1,22 +1,71 @@
-import React, { useState } from "react";
-import { Flex, Box, Image, Text, Button } from "@chakra-ui/react";
+import React from "react";
+import {
+  Flex,
+  Box,
+  Image,
+  Text,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+} from "@chakra-ui/react";
 import logo from "../Assets/SVG/regionsLogo.svg";
-import search from "../Assets/SVG/search.svg";
-import help from "../Assets/SVG/help.svg";
+
 import { Link } from "react-router-dom";
-import WhyRegions from "./WhyRegions";
+
+import { useMediaQuery } from "@chakra-ui/react";
+import menu from "../Assets/SVG/menuG.svg";
 
 const Header = () => {
-  const [signup, setSignup] = useState(true);
-
-  const handleClick = () => {
-    if (signup) {
-      setSignup(false);
-    }
-  };
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
   return (
     <div>
-      {signup ? (
+      {isMobile ? (
+        <Flex
+          paddingX="10%"
+          paddingTop="3%"
+          borderBottom="1px solid lightgray"
+          justifyContent="space-between"
+        >
+          <Box flex="1">
+            <Image src={logo} />
+          </Box>
+          <Menu>
+            <MenuButton marginRight="-5%" backgroundColor="white" as={Button}>
+              <Image src={menu} />
+            </MenuButton>
+            <MenuList>
+              <MenuItem width="100%">
+                <Link to="/">Personal</Link>
+              </MenuItem>
+              <MenuItem width="100%">
+                <Link to="/small-business">Small Business</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to="/commercial">Commercial</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to="/wealth">Wealth</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to="/commercial">Commercial</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to="/Resources">Resources</Link>
+              </MenuItem>
+              <MenuItem>
+                {" "}
+                <Link to="/login">Login</Link>
+              </MenuItem>
+              <MenuItem>
+                {" "}
+                <Link to="/signup">Sign up</Link>
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        </Flex>
+      ) : (
         <Flex
           paddingX="10%"
           paddingTop="3%"
@@ -46,24 +95,25 @@ const Header = () => {
           </Flex>
 
           <Flex
-            marginTop="-1%"
+            marginTop="-1.5%"
             flex="1"
-            justifyContent="space-between"
             alignItems="center"
+            justifyContent="flex-end"
           >
-            <Flex alignItems="center">
-              <Image width="20px" src={help} />
-              <Text>Help & Support</Text>
-            </Flex>
+            <Button
+              padding="3% 10%"
+              backgroundColor="#558800"
+              color="white"
+              marginRight="3%"
+            >
+              <Link to="/login">Login</Link>
+            </Button>
 
-            <Flex alignItems="center">
-              <Image src={search} />
-              <Text>Search</Text>
-            </Flex>
+            <Button padding="3% 10%" backgroundColor="#558800" color="white">
+              <Link to="/sign-up">Sign up</Link>
+            </Button>
           </Flex>
         </Flex>
-      ) : (
-        <WhyRegions />
       )}
     </div>
   );

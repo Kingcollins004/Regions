@@ -8,7 +8,7 @@ import {
   Input,
   Checkbox,
 } from "@chakra-ui/react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../Assets/SVG/regionsLogo.svg";
 import "../App.css";
 
@@ -16,21 +16,21 @@ const Login = () => {
   return (
     <div>
       <Flex align="center" flexDirection="column">
-        <Box marginTop="2%">
+        <Box marginTop={{ base: "4%", md: "2%" }}>
           <Image src={logo} />
         </Box>
-        <Text marginTop="3%" fontSize="52px" fontWeight="300">
+        <Text marginTop={{ base: "7%", md: "3%" }} fontSize={{ base: "20px", md: "52px" }} fontWeight={{ base: "500", md: "300" }}>
           Access your account online
         </Text>
-        <Text fontSize="18px" marginTop="3%" fontWeight="600">
+        <Text fontSize={{ base: "14px", md: "18px" }} marginTop="3%" fontWeight="600">
           Login to online banking
         </Text>
         <Box
           boxShadow="1px 2px 4px 0px rgba(0, 0, 0, 0.2)"
           padding="1% 2%"
-          marginTop="2%"
+          marginTop={{ base: "10%", md: "2%" }}
           borderRadius="30px"
-          width="28%"
+          width={{ base: "95%", md: "28%" }}
         >
           <Text marginTop="5%" marginBottom="1%" fontWeight="600">
             Username
@@ -69,8 +69,9 @@ const Login = () => {
             <Link className="link" to="/signup">Enroll now.</Link>
           </Text>
         </Box>
-        <Flex width="60%" paddingTop="3%" justifyContent="center">
-          <Flex alignItems="center" justifyContent="space-between" width="100%">
+
+        <Flex width={{ base: "95%", md: "60%" }} paddingTop={{ base: "7%", md: "3%" }} justifyContent="center">
+          <Flex alignItems="center" flexWrap="wrap" justifyContent={{ base: "space-around", md: "space-between" }} width="100%">
             <Text
               color="#838383"
               fontSize="14px"
@@ -164,7 +165,7 @@ const Login = () => {
             </Text>
           </Flex>
         </Flex>
-        <Text marginTop="7%" fontSize="13px">
+        <Text marginTop="7%" width={{ base: "95%", md: "100%" }} fontSize="13px">
           Call <Link className="link">1-800-REGIONS (1-800-734-4667)</Link> or
           visit <Link className="link">Regions Help & Suppor</Link>t.
         </Text>
