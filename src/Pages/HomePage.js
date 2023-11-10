@@ -1,7 +1,6 @@
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import Header from "../Components/Header";
-
 import displayImg from "../Assets/SVG/displayImg.svg";
 import displayImg2 from "../Assets/SVG/homeMobile.svg";
 import moneyStack from "../Assets/SVG/moneyStack.svg";
@@ -30,7 +29,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <Box>
+      <Box margin="0" padding="0">
         <Header />
         <Box paddingX={{ base: "2%", md: "10%" }}>
           <Button
@@ -41,7 +40,7 @@ const HomePage = () => {
             color="white"
             marginTop="5%"
             padding="7% 5%"
-            display={{base: "flex", md: "none"}}
+            display={{ base: "flex", md: "none" }}
           >
             <Image src={lock} /> Log in
           </Button>
@@ -49,14 +48,13 @@ const HomePage = () => {
             <Flex
               alignItems="center"
               backgroundImage={displayImg2}
-              height={{ base: "450px", md: "550px" }}
-              width="100%"
-              justifyContent="space-between"
               backgroundRepeat="no-repeat"
+              bgSize="cover"
+              height="fit-content"
               flexDirection={{ base: "column", md: "row" }}
               marginTop="5%"
             >
-              <Box padding="3% 2%" marginLeft="4%" marginTop="50%">
+              <Box padding="3% 2%" marginTop="45%">
                 <Text
                   color="white"
                   fontSize={{ base: "28px", md: "44px" }}
@@ -154,7 +152,10 @@ const HomePage = () => {
           )}
         </Box>
 
-        <Box paddingX={{ base: "2%", md: "10%" }}>
+        <Box
+          paddingX={{ base: "2%", md: "10%" }}
+          marginTop={{ base: "5%", md: "0" }}
+        >
           <Text
             fontSize={{ base: "20px", md: "44px" }}
             fontWeight={{ base: "500", md: "300" }}
@@ -167,7 +168,7 @@ const HomePage = () => {
             flexDirection={{ base: "column", md: "row" }}
           >
             <Flex
-              justifyContent={{ base: "space-between", md: "center" }}
+              justifyContent={{ base: "space-evenly", md: "center" }}
               flexDirection={{ base: "row", md: "column" }}
               alignItems="center"
               borderRadius="20px"
@@ -178,7 +179,7 @@ const HomePage = () => {
               <Text>Checking</Text>
             </Flex>
             <Flex
-              justifyContent={{ base: "space-between", md: "center" }}
+              justifyContent={{ base: "space-evenly", md: "center" }}
               flexDirection={{ base: "row", md: "column" }}
               alignItems="center"
               borderRadius="20px"
@@ -186,11 +187,13 @@ const HomePage = () => {
               boxShadow="0 2px 4px 0 rgba(0, 0, 0, 0.2)"
             >
               <Image width="80px" height="80px" src={moneyFan} />
-              <Text>Debit & Prepaid</Text>
-              <Text>Cards</Text>
+              <Flex flexDirection={{ base: "row", md: "column" }}>
+                <Text>Debit & Prepaid</Text>
+                <Text marginLeft={{ base: "5px", md: "0" }}>Cards</Text>
+              </Flex>
             </Flex>
             <Flex
-              justifyContent={{ base: "space-between", md: "center" }}
+              justifyContent={{ base: "space-evenly", md: "center" }}
               flexDirection={{ base: "row", md: "column" }}
               alignItems="center"
               borderRadius="20px"
@@ -201,7 +204,7 @@ const HomePage = () => {
               <Text>Credit Cards</Text>
             </Flex>
             <Flex
-              justifyContent={{ base: "space-between", md: "center" }}
+              justifyContent={{ base: "space-evenly", md: "center" }}
               flexDirection={{ base: "row", md: "column" }}
               alignItems="center"
               borderRadius="20px"
@@ -212,7 +215,7 @@ const HomePage = () => {
               <Text>Savings</Text>
             </Flex>
             <Flex
-              justifyContent={{ base: "space-between", md: "center" }}
+              justifyContent={{ base: "space-evenly", md: "center" }}
               flexDirection={{ base: "row", md: "column" }}
               alignItems="center"
               borderRadius="20px"
@@ -220,11 +223,13 @@ const HomePage = () => {
               boxShadow="0 2px 4px 0 rgba(0, 0, 0, 0.2)"
             >
               <Image width="80px" height="80px" src={moneyBag} />
-              <Text>Loans and Lines of</Text>
-              <Text>Credit</Text>
+              <Flex flexDirection={{ base: "row", md: "column" }}>
+                <Text>Loans and Lines of</Text>
+                <Text marginLeft={{ base: "5px", md: "0" }}>Credit</Text>
+              </Flex>
             </Flex>
             <Flex
-              justifyContent={{ base: "space-between", md: "center" }}
+              justifyContent={{ base: "space-evenly", md: "center" }}
               flexDirection={{ base: "row", md: "column" }}
               alignItems="center"
               borderRadius="20px"

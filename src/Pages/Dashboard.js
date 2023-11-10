@@ -180,7 +180,7 @@ const Dashboard = () => {
                   placement="right"
                   onClose={onClose}
                   finalFocusRef={btnRef}
-                  size="sm"
+                  size={{base: "xs", md: "sm"}}
                 >
                   <DrawerOverlay />
                   <DrawerContent width="150%">

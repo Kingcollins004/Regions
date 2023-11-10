@@ -42,7 +42,7 @@ const Signup = () => {
           </Text>
           <Input
             placeholder="Susan Crater"
-            padding="5%"
+            padding="7%"
             borderRadius="15px"
             border="3px solid #528400"
             type="text"
@@ -53,8 +53,8 @@ const Signup = () => {
             Email
           </Text>
           <Input
-            placeholder="Susan Crater"
-            padding="5%"
+            placeholder="youremail@example.com"
+            padding="7%"
             borderRadius="15px"
             border="3px solid #528400"
             type="example@youremail.com"
@@ -65,8 +65,7 @@ const Signup = () => {
             Password
           </Text>
           <Input
-            placeholder="Susan Crater"
-            padding="5%"
+            padding="7%"
             borderRadius="15px"
             border="3px solid #528400"
             type="password"

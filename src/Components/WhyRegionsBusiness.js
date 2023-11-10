@@ -8,17 +8,17 @@ import fin4 from "../Assets/PNG/Bfin3.jpg";
 
 const WhyRegionsBusiness = () => {
   return (
-    <Box paddingX="10%" marginTop="5%">
-      <Flex marginTop="5%" justifyContent="center" alignItems="center">
+    <Box paddingX={{ base: "2%", md: "10%" }} marginTop="5%">
+      <Flex flexDirection={{ base: "column", md: "row" }} marginTop="5%" justifyContent="center" alignItems="center">
         <Box>
           <Image width="400px" borderRadius="20px" src={flex2} />
         </Box>
         
-        <Box marginLeft="5%" width="45%">
-          <Text fontSize="40px" fontWeight="300">
+        <Box marginLeft="5%" width={{ base: "100%", md: "45%" }}>
+          <Text fontSize={{ base: "20px", md: "40px" }} fontWeight={{ base: "500", md: "300" }}>
             Build a custom financial plan with Greenprint for Business
           </Text>
-          <Text fontSize="16px">
+          <Text fontSize={{ base: "14px", md: "16px" }} fontWeight={{ base: "300", md: "500" }}>
             Using Greenprint for Business, our bankers can help you create a
             customized financial plan to help your business grow stronger and
             achieve its financial goals.
@@ -36,15 +36,15 @@ const WhyRegionsBusiness = () => {
         </Box>
       </Flex>
 
-      <Flex marginTop="5%" justifyContent="center" alignItems="center">
+      <Flex flexDirection={{ base: "column", md: "row" }} marginTop="5%" justifyContent="center" alignItems="center">
         <Box>
           <Image width="400px" borderRadius="20px" src={flex3} />
         </Box>
-        <Box marginLeft="5%" width="45%">
-          <Text fontSize="40px" fontWeight="300">
+        <Box marginLeft="5%" width={{ base: "100%", md: "45%" }}>
+          <Text fontSize={{ base: "20px", md: "40px" }} fontWeight={{ base: "500", md: "300" }}>
             Stay a step ahead with Digital Services for Small Business
           </Text>
-          <Text fontSize="16px">
+          <Text fontSize={{ base: "14px", md: "16px" }}>
             Our online banking services for business can help you simplify your
             finances, save time and increase productivity.
           </Text>
@@ -62,10 +62,10 @@ const WhyRegionsBusiness = () => {
       </Flex>
 
       <Box marginTop="9%">
-        <Text textAlign="center" fontSize="46px" fontWeight="300">
+        <Text textAlign="center" fontSize={{ base: "24px", md: "46px" }} fontWeight={{ base: "500", md: "300" }}>
         Next Step for Business resources
         </Text>
-        <Flex marginX="10%">
+        <Flex flexDirection={{ base: "column", md: "row" }} marginX={{ base: "2%", md: "10%" }}>
           <Box
             borderRadius="15px"
             boxShadow="0 2px 4px 0 rgba(0, 0, 0, 0.2)"

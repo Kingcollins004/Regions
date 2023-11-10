@@ -51,9 +51,7 @@ const Header = () => {
               <MenuItem>
                 <Link to="/commercial">Commercial</Link>
               </MenuItem>
-              <MenuItem>
-                <Link to="/Resources">Resources</Link>
-              </MenuItem>
+
               <MenuItem>
                 {" "}
                 <Link to="/login">Login</Link>
@@ -88,9 +86,6 @@ const Header = () => {
             </Text>
             <Text color="#222222" marginX="2%">
               <Link to="/wealth">Wealth</Link>
-            </Text>
-            <Text color="#222222" marginX="2%">
-              <Link to="/resources">Resources</Link>
             </Text>
           </Flex>
 
