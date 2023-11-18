@@ -5,57 +5,34 @@ import {
   Flex,
   Image,
   Text,
-  Table,
-  Thead,
-  Tbody,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
 } from "@chakra-ui/react";
 import logo from "../Assets/SVG/logoW.svg";
 import notification from "../Assets/SVG/notificationIcon.svg";
-import user from "../Assets/SVG/userIcon.svg";
 import settings from "../Assets/SVG/settingsIcon.svg";
 import line from "../Assets/SVG/lineIcon.svg";
-import money from "../Assets/SVG/moneyIcon.svg";
-import moneyT from "../Assets/SVG/moneyIconT.svg";
-import chart from "../Assets/SVG/chartIcon.svg";
-import percentage from "../Assets/SVG/percentageIcon.svg";
-import savings from "../Assets/SVG/savingsIcon.svg";
 import backgorund from "../Assets/SVG/dashboardBackground.svg";
-import financialData from "../Utilities/TransactionData";
 import { Link } from "react-router-dom";
-import { useDisclosure } from "@chakra-ui/react";
-import SendMoney from "../Components/SendMoney";
 import menu from "../Assets/SVG/menuW.svg";
 import { useMediaQuery } from "@chakra-ui/react";
-import moneySend from "../Assets/SVG/money-send.svg";
-import { useLocation } from "react-router-dom";
-import { collection, doc, getDoc, getFirestore } from "firebase/firestore";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "../Feature/action";
-import { useSelector } from "react-redux";
+import DashboardComp from "../Components/DashboardComp";
+import DashbaordBAckgroundContent from "../Components/DashbaordBAckgroundContent";
 
 const Dashboard = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [isMobile] = useMediaQuery("(max-width: 768px)");
-  const btnRef = React.useRef();
   const [userData, setUserData] = useState({});
   const dispatch = useDispatch();
 
   const auth = getAuth();
   const user = auth.currentUser;
   const uid = user.uid;
-
   const db = getFirestore();
   const docRef = doc(db, "users", uid);
 
@@ -63,44 +40,33 @@ const Dashboard = () => {
     const handleDashboard = async () => {
       try {
         const docSnap = await getDoc(docRef);
-        // Place your code using 'await' here
         if (docSnap.exists()) {
-          const userData = docSnap.data(); // Extract user data from the document snapshot
+          const userData = docSnap.data();
           setUserData(userData);
           const userInfo = {
-            firstName: userData.firstName, // Access the user's first name
-            lastName: userData.lastName, // Access the user's last name
-            // const address = userData.address; // Access the user's address
-            // const phoneNumber = userData.phoneNumber; // Access the user's phone number
-            // const state = userData.state; // Access the user's state
-            // const country = userData.country; // Access the user's country
-            // const imageUrl = userData.imageUrl; // Access the user's image URL
-            amount: userData.amount, // Access the user's amount
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            address: userData.address,
+            phoneNumber: userData.phoneNumber,
+            state: userData.state,
+            country: userData.country,
+            imageUrl: userData.image,
+            balance: userData.Balance,
+            euroAmount: userData.EuroAmount,
+            savingsAmount: userData.savingsAmount,
           };
           dispatch(setUser(userInfo));
           console.log("Document data:", docSnap.data());
         } else {
-          // docSnap.data() will be undefined in this case
           console.log("No such document!");
         }
       } catch (error) {
         console.error("Error fetching user document: ", error);
       }
     };
+
     handleDashboard();
-  }, [])
-
-  
-
-  // const firstName = userData.firstName; // Access the user's first name
-  // const lastName = userData.lastName; // Access the user's last name
-  // // const address = userData.address; // Access the user's address
-  // // const phoneNumber = userData.phoneNumber; // Access the user's phone number
-  // // const state = userData.state; // Access the user's state
-  // // const country = userData.country; // Access the user's country
-  // // const imageUrl = userData.imageUrl; // Access the user's image URL
-  // const amount = userData.amount; // Access the user's amount
-  const userInfo = useSelector((state) => state.user);
+  }, []);
 
   return (
     <Box margin="0">
@@ -181,281 +147,9 @@ const Dashboard = () => {
           </Flex>
         )}
 
-        <Box paddingY="5%" color="white" marginTop={{ base: "1%", md: "0" }}>
-          <Flex flexDirection={{ base: "column", md: "row" }}>
-            <Box flex="1">
-              <Text fontSize="22px" fontWeight="600">
-                Welcome, {userInfo.firstName + ` ` + userInfo.lastName}
-              </Text>
-              <Text marginTop={{ base: "5%", md: "5%" }}>Total Balance</Text>
-              <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
-                ${userInfo.amount.toLocaleString()}
-              </Text>
-              <Text fontSize="14px" fontWeight="light">
-                $325.32 today, Oct 31st
-              </Text>
-            </Box>
-
-            <Flex
-              flexDirection={{ base: "column", md: "row" }}
-              flex="1"
-              justifyContent="flex-end"
-              marginTop={{ base: "10%", md: "0" }}
-              alignItems={{ base: "left", md: "center" }}
-            >
-              <Text
-                paddingBottom={{ base: "5%", md: "0" }}
-                borderBottom={{ base: "1px solid lightgray", md: "none" }}
-                marginRight="5%"
-              >
-                View Analytics
-              </Text>
-              <Image
-                display={{ base: "none", md: "block" }}
-                marginRight="5%"
-                height="20%"
-                src={line}
-              />
-
-              <Flex marginTop={{ base: "7%", md: "0" }}>
-                <Button
-                  ref={btnRef}
-                  onClick={onOpen}
-                  marginRight="2%"
-                  backgroundColor="#88BB00"
-                  borderRadius="25px"
-                  color="white"
-                  // padding={{base: "2% 4%", md:"3% 7%"}}
-                  width={{ base: "100%", md: "250px" }}
-                >
-                  <Image width="20px" marginRight="5%" src={moneySend} />
-                  Send Money
-                </Button>
-                <Drawer
-                  isOpen={isOpen}
-                  placement="right"
-                  onClose={onClose}
-                  finalFocusRef={btnRef}
-                  size={{ base: "xs", md: "sm" }}
-                >
-                  <DrawerOverlay />
-                  <DrawerContent width="150%">
-                    <SendMoney balance={userInfo.amount} />
-                  </DrawerContent>
-                </Drawer>
-              </Flex>
-            </Flex>
-          </Flex>
-        </Box>
+        <DashbaordBAckgroundContent />
       </Box>
-
-      <Box marginTop={{ base: "-40%", md: "-8%" }}>
-        <Flex alignItems="center" marginX="5%" marginBottom="10px">
-          <Image marginX="5px" src={chart} />
-          <Text marginX="5px" fontSize="16px" color="white">
-            Overview
-          </Text>
-          <Text
-            marginX="5px"
-            fontSize="12px"
-            fontWeight="500"
-            color="lightgrey"
-          >
-            Last 30 days
-          </Text>
-        </Flex>
-
-        <Flex color="white" flexDirection={{ base: "column", md: "row" }}>
-          <Box
-            height="250px"
-            boxShadow="0px 0px 10px rgba(0,0,0,0.25)"
-            padding={{ base: "4% 6%", md: "2.5% 2%" }}
-            flex="1"
-            marginX="5%"
-            marginY="10px"
-            color="black"
-            backgroundColor="white"
-          >
-            <Image src={money} />
-            <Flex alignItems="center" marginTop="5%">
-              <Text>Domestic account</Text>
-              <Image marginX="2%" src={percentage} />
-              <Text fontSize="12px">12.5%</Text>
-            </Flex>
-            <Text fontSize="32px" marginTop="5%" fontWeight="600">
-              ${userInfo.amount.toLocaleString()}
-            </Text>
-          </Box>
-          <Box
-            height="250px"
-            boxShadow="0px 0px 10px rgba(0,0,0,0.25)"
-            padding={{ base: "4% 6%", md: "2.5% 2%" }}
-            flex="1"
-            marginX="5%"
-            marginY="10px"
-            color="black"
-            backgroundColor="white"
-          >
-            <Image src={moneyT} />
-            <Flex marginTop="5%" alignItems="center">
-              <Text>Euro account</Text>
-              <Image marginX="2%" src={percentage} />
-              <Text fontSize="12px">6.2%</Text>
-            </Flex>
-            <Text fontSize="32px" marginTop="5%" fontWeight="600">
-              $15,674.01
-            </Text>
-          </Box>
-          <Box
-            height="250px"
-            boxShadow="0px 0px 10px rgba(0,0,0,0.25)"
-            padding={{ base: "4% 6%", md: "2.5% 2%" }}
-            flex="1"
-            marginX="5%"
-            marginY="10px"
-            color="black"
-            backgroundColor="white"
-          >
-            <Image src={savings} />
-            <Flex marginTop="5%" alignItems="center">
-              <Text>Savings account</Text>
-            </Flex>
-            <Text fontSize="32px" marginTop="5%" fontWeight="600">
-              $32,674.01
-            </Text>
-          </Box>
-        </Flex>
-
-        <Box>
-          <Flex marginTop={{ base: "5%", md: "2%" }} marginX="5%">
-            <Text flex="1" fontSize={{ base: "14px", md: "20px" }}>
-              Recent Transaction
-            </Text>
-            <Text
-              fontSize={{ base: "12px", md: "14px" }}
-              fontWeight="medium"
-              color="green"
-              flex="1"
-              textAlign="right"
-            >
-              <Link to="/transactions">View all</Link>
-            </Text>
-          </Flex>
-          {isMobile ? (
-            <TableContainer marginX="2%" marginTop="3%">
-              <Table size="sm">
-                <Thead>
-                  <Tr width="fit-content">
-                    <Text marginX="3%" width="fit-content">
-                      Month: Nov
-                    </Text>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {financialData.slice(0, 6).map((transaction, index) => (
-                    <Tr
-                      key={index}
-                      style={{
-                        backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
-                      }}
-                    >
-                      <Flex>
-                        <Flex
-                          flex="1"
-                          padding="3% 1%"
-                          flexDirection={{ base: "column", md: "row" }}
-                        >
-                          <Td fontWeight="500" fontSize="16px" border="none">
-                            {transaction.Name}
-                          </Td>
-                          <Td color="#838383" fontSize="12px" border="none">
-                            {transaction.Date}
-                          </Td>
-                        </Flex>
-
-                        <Flex
-                          flex="1"
-                          padding="3% 2%"
-                          flexDirection={{ base: "column", md: "row" }}
-                          justifyContent="flex-end"
-                        >
-                          {transaction.Debit === 0 ? null : (
-                            <Td
-                              textAlign="right"
-                              border="none"
-                              color="#880000"
-                              fontSize="16px"
-                              fontWeight="500"
-                            >
-                              ${transaction.Debit}
-                            </Td>
-                          )}
-                          {transaction.Credit === 0 ? null : (
-                            <Td
-                              textAlign="right"
-                              border="none"
-                              fontSize="16px"
-                              color="#558800"
-                              fontWeight="500"
-                            >
-                              ${transaction.Credit}
-                            </Td>
-                          )}
-                          <Td fontWeight="500" fontSize="16px" border="none">
-                            {transaction.Description}
-                          </Td>
-                        </Flex>
-                      </Flex>
-                    </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            </TableContainer>
-          ) : (
-            <TableContainer marginX="5%" marginTop="1%">
-              <Table marginY={{ base: "7%", md: "2%" }} size="sm">
-                <Thead>
-                  <Tr>
-                    <Th>Name</Th>
-                    <Th>Reference No</Th>
-                    <Th>Date</Th>
-                    <Th>Description</Th>
-                    <Th>Amount</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {financialData.slice(0, 6).map((transaction, index) => (
-                    <Tr
-                      key={index}
-                      style={{
-                        backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
-                      }}
-                    >
-                      <Td padding="3% 2%" fontWeight="500">
-                        {transaction.Name}
-                      </Td>
-                      <Td>{transaction.ReferenceNo}</Td>
-                      <Td color="#838383">{transaction.Date}</Td>
-                      <Td>{transaction.Description}</Td>
-
-                      {transaction.Debit === 0 ? null : (
-                        <Td color="#880000" fontSize="16px" fontWeight="500">
-                          ${transaction.Debit}
-                        </Td>
-                      )}
-                      {transaction.Credit === 0 ? null : (
-                        <Td fontSize="16px" color="#558800" fontWeight="500">
-                          ${transaction.Credit}
-                        </Td>
-                      )}
-                    </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            </TableContainer>
-          )}
-        </Box>
-      </Box>
+      <DashboardComp />
     </Box>
   );
 };
