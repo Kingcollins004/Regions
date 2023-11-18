@@ -31,8 +31,7 @@ const Commercial = () => {
 
   
   const handleClick = () => {
-    navigate("/login");
-    
+    navigate("/login"); 
   };
   return (
     <div>

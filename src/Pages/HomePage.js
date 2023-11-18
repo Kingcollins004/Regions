@@ -169,7 +169,7 @@ const HomePage = () => {
           >
             <Flex
               justifyContent={{ base: "space-evenly", md: "center" }}
-              flexDirection={{ base: "row", md: "column" }}
+              flexDirection={{ base: "column", md: "column" }}
               alignItems="center"
               borderRadius="20px"
               padding="3% 4%"
@@ -180,7 +180,7 @@ const HomePage = () => {
             </Flex>
             <Flex
               justifyContent={{ base: "space-evenly", md: "center" }}
-              flexDirection={{ base: "row", md: "column" }}
+              flexDirection="column"
               alignItems="center"
               borderRadius="20px"
               padding="3% 4%"
@@ -194,7 +194,7 @@ const HomePage = () => {
             </Flex>
             <Flex
               justifyContent={{ base: "space-evenly", md: "center" }}
-              flexDirection={{ base: "row", md: "column" }}
+              flexDirection="column"
               alignItems="center"
               borderRadius="20px"
               padding="3% 4%"
@@ -205,7 +205,7 @@ const HomePage = () => {
             </Flex>
             <Flex
               justifyContent={{ base: "space-evenly", md: "center" }}
-              flexDirection={{ base: "row", md: "column" }}
+              flexDirection="column"
               alignItems="center"
               borderRadius="20px"
               padding="3% 4%"
@@ -216,7 +216,7 @@ const HomePage = () => {
             </Flex>
             <Flex
               justifyContent={{ base: "space-evenly", md: "center" }}
-              flexDirection={{ base: "row", md: "column" }}
+              flexDirection="column"
               alignItems="center"
               borderRadius="20px"
               padding="3% 3.5%"
@@ -230,7 +230,7 @@ const HomePage = () => {
             </Flex>
             <Flex
               justifyContent={{ base: "space-evenly", md: "center" }}
-              flexDirection={{ base: "row", md: "column" }}
+              flexDirection="column"
               alignItems="center"
               borderRadius="20px"
               padding="3% 4%"

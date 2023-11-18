@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Box,
   Button,
@@ -12,16 +12,91 @@ import { Link } from "react-router-dom";
 import logo from "../Assets/SVG/regionsLogo.svg";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { Toaster, toast } from "react-hot-toast";
+
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+// const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[*!@#$%]).{8,24}$/;
+const PWD_REGEX = /^.{8,24}$/;
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidemail] = useState(false);
+  const [password, setPassword] = useState("");
+  const [validPwd, setValidPwd] = useState(false);
+  const [pwdFocus, setPwdFocus] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const userRef = useRef();
 
-  const handleClick = () => {
-    navigate("/dashboard");
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  useEffect(() => {
+    const result = EMAIL_REGEX.test(email);
+    setValidemail(result);
+  }, [email]);
+
+  useEffect(() => {
+    const result = PWD_REGEX.test(password);
+    setValidPwd(result);
+  }, [password]);
+
+  // const togglePasswordVisibility = () => {
+  //   setShowPassword(!showPassword);
+  // };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    if (!email && !password) {
+      toast.error("Please input your Email and Password");
+    }
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+        toast.success("Success");
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response) {
+          const { data, status } = error.response;
+          console.error(`Error ${status}:`, data);
+
+          if (status === 409 && data.error === "This email is already in use") {
+            // Provide a user-friendly message for email already in use
+            toast.error(
+              "This email address is already in use. Please use a different email."
+            );
+          } else {
+            // Provide a generic error message for other cases
+            toast.error(
+              "An error occurred while signing up. Please try again."
+            );
+          }
+        } else if (error.request) {
+          console.error("No response received from the server.");
+          toast.error(
+            "No response received from the server. Please try again."
+          );
+        } else {
+          console.error("Error setting up the request:", error.message);
+          toast.error("An error occurred. Please try again.");
+        }
+      });
   };
   return (
     <div>
       <Flex align="center" flexDirection="column">
+        <Toaster position="top-center" reverseOrder={false} />
+
         <Box marginTop={{ base: "4%", md: "2%" }}>
           <Image src={logo} />
         </Box>
@@ -55,6 +130,12 @@ const Login = () => {
             borderRadius="15px"
             border="3px solid #528400"
             type="email"
+            value={email}
+            onChange={handleEmailChange}
+            id="email"
+            ref={userRef}
+            required
+            aria-invalid={validEmail ? "false" : "true"}
           />
           <Box>
             <Text marginTop="5%" marginBottom="1%" fontWeight="600">
@@ -64,8 +145,17 @@ const Login = () => {
               padding="7%"
               borderRadius="15px"
               border="3px solid #528400"
-              type="password"
+              // type="password"
               placeholder="•••••••••••••••••••••••••••"
+              type={showPassword ? "text" : "password"}
+              id="password"
+              onChange={handlePasswordChange}
+              value={password}
+              required
+              aria-invalid={validPwd ? "false" : "true"}
+              aria-describedby="pwdnote"
+              onFocus={() => setPwdFocus(true)}
+              onBlur={() => setPwdFocus(false)}
             />
           </Box>
           <Flex marginTop="2%">

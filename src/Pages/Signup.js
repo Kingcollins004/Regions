@@ -1,15 +1,80 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, Button, Flex, Image, Text, Input } from "@chakra-ui/react";
 import logo from "../Assets/SVG/regionsLogo.svg";
+import eye from "../Assets/SVG/eye.svg";
+import eyeOff from "../Assets/SVG/eyeOff.svg";
 import { useNavigate, Link } from "react-router-dom";
 import "../App.css";
+import { Toaster, toast } from "react-hot-toast";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[*!@#$%]).{8,24}$/;
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [validName, setValidName] = useState(false);
+  const [userFocus, setUserFocus] = useState(false);
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidemail] = useState(false);
+  const [password, setPassword] = useState("");
+  const [validPwd, setValidPwd] = useState(false);
+  const [pwdFocus, setPwdFocus] = useState(false);
+  const userRef = useRef();
 
-  const handleDashboard = () => {
-    navigate("/dashboard");
+  const [show, setShow] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShow(!show);
   };
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+
+  
+
+  useEffect(() => {
+    const result = EMAIL_REGEX.test(email);
+    setValidemail(result);
+  }, [email]);
+
+  useEffect(() => {
+    const result = PWD_REGEX.test(password);
+    setValidPwd(result);
+  }, [password]);
+
+  
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleDashboard = async (e) => {
+    e.preventDefault();
+    const isValidPwd = PWD_REGEX.test(password);
+    const isValidEmail = EMAIL_REGEX.test(email);
+
+    if (!isValidPwd || !isValidEmail) {
+      toast.error("Fill in your information to sign up");
+      return;
+    }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        navigate("/create-profile");
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    
+  };
+
   return (
     <Flex align="center" flexDirection="column">
       <Box marginTop={{ base: "5%", md: "2%" }}>
@@ -38,26 +103,20 @@ const Signup = () => {
       >
         <Box>
           <Text marginTop="5%" marginBottom="1%" fontWeight="600">
-            Fullname
-          </Text>
-          <Input
-            placeholder="Susan Crater"
-            padding="7%"
-            borderRadius="15px"
-            border="3px solid #528400"
-            type="text"
-          />
-        </Box>
-        <Box>
-          <Text marginTop="5%" marginBottom="1%" fontWeight="600">
             Email
           </Text>
           <Input
             placeholder="youremail@example.com"
-            padding="7%"
+            padding={{ base: "7%", md: "5%" }}
             borderRadius="15px"
             border="3px solid #528400"
             type="example@youremail.com"
+            value={email}
+            onChange={handleEmailChange}
+            id="email"
+            ref={userRef}
+            required
+            aria-invalid={validEmail ? "false" : "true"}
           />
         </Box>
         <Box>
@@ -65,11 +124,31 @@ const Signup = () => {
             Password
           </Text>
           <Input
-            padding="7%"
+            padding={{ base: "7%", md: "5%" }}
             borderRadius="15px"
             border="3px solid #528400"
-            type="password"
+            type={show ? "text" : "password"}
+            placeholder="Enter password"
+            id="password"
+            onChange={handlePasswordChange}
+            value={password}
+            required
+            aria-invalid={validPwd ? "false" : "true"}
+            aria-describedby="pwdnote"
+            onFocus={() => setPwdFocus(true)}
+            onBlur={() => setPwdFocus(false)}
           />
+          <Box width="3.5rem">
+            <Button
+              h="1.75rem"
+              size="sm"
+              onClick={togglePasswordVisibility}
+              backgroundColor="white"
+              _hover={{
+                bg: "wihte",
+              }}
+            ></Button>
+          </Box>
         </Box>
         <Flex
           justifyContent="center"
@@ -99,111 +178,12 @@ const Signup = () => {
         </Text>
       </Box>
 
-      <Flex
-        width={{ base: "95%", md: "60%" }}
-        paddingTop="2%"
-        justifyContent="center"
+      <Text
+        textAlign={{ base: "center", md: "left" }}
+        marginTop={{ base: "7%", md: "1%" }}
+        width={{ base: "85%", md: "100%" }}
+        fontSize="13px"
       >
-        <Flex
-          alignItems="center"
-          flexWrap="wrap"
-          justifyContent={{ base: "space-around", md: "space-between" }}
-          width="100%"
-        >
-          <Text
-            color="#838383"
-            fontSize="14px"
-            fontWeight="600px"
-            _hover={{
-              color: "#528400",
-              borderBottom: "1.5px solid #528400",
-              transition: "1s",
-            }}
-            marginX="2%"
-          >
-            About Regions
-          </Text>
-          <Text
-            _hover={{
-              color: "#528400",
-              borderBottom: "1.5px solid #528400",
-              transition: "1s",
-            }}
-            color="#838383"
-            fontSize="14px"
-            fontWeight="600px"
-            marginX="2%"
-          >
-            Investor Relations
-          </Text>
-          <Text
-            _hover={{
-              color: "#528400",
-              borderBottom: "1.5px solid #528400",
-              transition: "1s",
-            }}
-            color="#838383"
-            fontSize="14px"
-            fontWeight="600px"
-            marginX="2%"
-          >
-            Economic Report
-          </Text>
-          <Text
-            _hover={{
-              color: "#528400",
-              borderBottom: "1.5px solid #528400",
-              transition: "1s",
-            }}
-            color="#838383"
-            fontSize="14px"
-            fontWeight="600px"
-            marginX="2%"
-          >
-            Property for sale
-          </Text>
-          <Text
-            _hover={{
-              color: "#528400",
-              borderBottom: "1.5px solid #528400",
-              transition: "1s",
-            }}
-            color="#838383"
-            fontSize="14px"
-            fontWeight="600px"
-            marginX="2%"
-          >
-            Careers
-          </Text>
-          <Text
-            _hover={{
-              color: "#528400",
-              borderBottom: "1.5px solid #528400",
-              transition: "1s",
-            }}
-            color="#838383"
-            fontSize="14px"
-            fontWeight="600px"
-            marginX="2%"
-          >
-            The regions community
-          </Text>
-          <Text
-            _hover={{
-              color: "#528400",
-              borderBottom: "1.5px solid #528400",
-              transition: "1s",
-            }}
-            color="#838383"
-            fontSize="14px"
-            fontWeight="600px"
-            marginX="2%"
-          >
-            News
-          </Text>
-        </Flex>
-      </Flex>
-      <Text marginTop="1%" width={{ base: "95%", md: "100%" }} fontSize="13px">
         Call <Link className="link">1-800-REGIONS (1-800-734-4667)</Link> or
         visit <Link className="link">Regions Help & Suppor</Link>t.
       </Text>
