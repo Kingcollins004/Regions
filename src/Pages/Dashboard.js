@@ -129,7 +129,7 @@ const Dashboard = () => {
           <Flex flexDirection={{ base: "column", md: "row" }}>
             <Box flex="1">
               <Text fontSize="22px" fontWeight="600">
-                Welcome, {userInfo.firstName + ` ` + userInfo.lastName}
+                Welcome,
               </Text>
               <Text marginTop={{ base: "5%", md: "5%" }}>Total Balance</Text>
               <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
@@ -247,7 +247,7 @@ const Dashboard = () => {
               <Text fontSize="12px">6.2%</Text>
             </Flex>
             <Text fontSize="32px" marginTop="5%" fontWeight="600">
-            ${userInfo.euro.toLocaleString()}
+              ${userInfo.euro.toLocaleString()}
             </Text>
           </Box>
           <Box
@@ -265,7 +265,7 @@ const Dashboard = () => {
               <Text>Savings account</Text>
             </Flex>
             <Text fontSize="32px" marginTop="5%" fontWeight="600">
-            ${userInfo.savings.toLocaleString()}
+              ${userInfo.savings.toLocaleString()}
             </Text>
           </Box>
         </Flex>
@@ -375,7 +375,10 @@ const Dashboard = () => {
                         backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
                       }}
                     >
-                      <Td padding={{base: "3% 2%", md:"2%"}} fontWeight="500">
+                      <Td
+                        padding={{ base: "3% 2%", md: "2%" }}
+                        fontWeight="500"
+                      >
                         {transaction.Name}
                       </Td>
                       <Td>{transaction.ReferenceNo}</Td>
