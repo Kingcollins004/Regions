@@ -8,19 +8,15 @@ import { auth } from "../firebase";
 import toast, { Toaster } from "react-hot-toast";
 const CreateProfile = () => {
   const [image, setImage] = useState(null);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
   const navigate = useNavigate();
 
-  const handleFirstNameChange = (e) => {
-    setFirstName(e.target.value);
-  };
-  const handleLastNameChange = (e) => {
-    setLastName(e.target.value);
+  const handleFullNameChange = (e) => {
+    setFullName(e.target.value);
   };
   const handleAddressChange = (e) => {
     setAddress(e.target.value);
@@ -85,8 +81,7 @@ const CreateProfile = () => {
   
     try {
       await setDoc(doc(db, "users", uid), {
-        firstName: firstName,
-        lastName: lastName,
+        fullName: fullName,
         address: address,
         phoneNumber: phoneNumber,
         state: state,
@@ -98,7 +93,7 @@ const CreateProfile = () => {
         savings: savings
       });
   
-      console.log(firstName);
+      console.log(fullName);
       toast.success("Profile Successlly created. return to login page");
       navigate("/login");
     } catch (e) {
@@ -183,7 +178,7 @@ const CreateProfile = () => {
       >
         <Box>
           <Text marginTop="5%" marginBottom="1%" fontWeight="600">
-            First Name{" "}
+            Full Name{" "}
             <span style={{ fontWeight: "300", fontSize: "14px" }}>
               (required)
             </span>
@@ -194,27 +189,11 @@ const CreateProfile = () => {
             borderRadius="15px"
             border="3px solid #528400"
             type="text"
-            value={firstName}
-            onChange={handleFirstNameChange}
+            value={fullName}
+            onChange={handleFullNameChange}
           />
         </Box>
-        <Box>
-          <Text marginTop="5%" marginBottom="1%" fontWeight="600">
-            Last Name{" "}
-            <span style={{ fontWeight: "300", fontSize: "14px" }}>
-              (required)
-            </span>
-          </Text>
-          <Input
-            placeholder="Snow"
-            padding={{base: "7%", md:"5%"}}
-            borderRadius="15px"
-            border="3px solid #528400"
-            type="text"
-            value={lastName}
-            onChange={handleLastNameChange}
-          />
-        </Box>
+
         <Box>
           <Text marginTop="5%" marginBottom="1%" fontWeight="600">
             Address{" "}

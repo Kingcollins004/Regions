@@ -129,7 +129,7 @@ const Dashboard = () => {
           <Flex flexDirection={{ base: "column", md: "row" }}>
             <Box flex="1">
               <Text fontSize="22px" fontWeight="600">
-                Welcome,
+                Welcome, {userInfo.fullName}
               </Text>
               <Text marginTop={{ base: "5%", md: "5%" }}>Total Balance</Text>
               <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
