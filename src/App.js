@@ -11,6 +11,7 @@ import Dashboard from "./Pages/Dashboard";
 import Transactions from "./Pages/Transactions";
 import Verification from "./Pages/Verification";
 import CreateProfile from "./Pages/CreateProfile";
+import ConfirmEmail from "./Pages/ConfirmEmail";
 function App() {
   const theme = extendTheme({
     styles: {
@@ -35,6 +36,7 @@ function App() {
           <Route element={<Dashboard />} path="dashboard" />
           <Route element={<Transactions />} path="transactions" />
           <Route element={<Verification />} path="verification" />
+          <Route element={<ConfirmEmail />} path="confirm-email" />
           <Route element={<CreateProfile />} path="create-profile" />
         </Routes>
       </Router>

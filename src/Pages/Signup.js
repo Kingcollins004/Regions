@@ -1,22 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Button, Flex, Image, Text, Input } from "@chakra-ui/react";
 import logo from "../Assets/SVG/regionsLogo.svg";
-import eye from "../Assets/SVG/eye.svg";
-import eyeOff from "../Assets/SVG/eyeOff.svg";
 import { useNavigate, Link } from "react-router-dom";
 import "../App.css";
 import { Toaster, toast } from "react-hot-toast";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import { auth } from "../firebase";
-import { collection, addDoc, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[*!@#$%]).{8,24}$/;
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [validName, setValidName] = useState(false);
-  const [userFocus, setUserFocus] = useState(false);
   const [email, setEmail] = useState("");
   const [validEmail, setValidemail] = useState(false);
   const [password, setPassword] = useState("");
@@ -34,8 +32,6 @@ const Signup = () => {
     userRef.current.focus();
   }, []);
 
-  
-
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
     setValidemail(result);
@@ -46,7 +42,6 @@ const Signup = () => {
     setValidPwd(result);
   }, [password]);
 
-  
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -55,6 +50,12 @@ const Signup = () => {
     setPassword(e.target.value);
   };
 
+  const sendVerificationEmail = async (user) => {
+    await sendEmailVerification(user);
+    toast.success(
+      "A verification email has been sent to your address. Please verify your email to complete the signup process."
+    );
+  };
   const handleDashboard = async (e) => {
     e.preventDefault();
     const isValidPwd = PWD_REGEX.test(password);
@@ -64,19 +65,24 @@ const Signup = () => {
       toast.error("Fill in your information to sign up");
       return;
     }
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        navigate("/create-profile");
-        console.log(userCredential);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      await sendVerificationEmail(user);
+      navigate("/confirm-email", { state: { email } });
+    } catch (error) {
+      console.log(error);
+      toast.error("An error occurred during signup. Please try again later.");
+    }
   };
 
   return (
     <Flex align="center" flexDirection="column">
+      <Toaster position="top-center" reverseOrder={false} />
       <Box marginTop={{ base: "5%", md: "2%" }}>
         <Image src={logo} />
       </Box>

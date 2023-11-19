@@ -31,8 +31,6 @@ const CreateProfile = () => {
     setCountry(e.target.value);
   };
 
-  
-
   const handleUpload = (e) => {
     if (e.target.files.length > 0) {
       const selectedImage = URL.createObjectURL(e.target.files[0]);
@@ -41,8 +39,8 @@ const CreateProfile = () => {
   };
 
   const generateRandomAmount = () => {
-    const minAmount = 300000.00; // $1 million
-    const maxAmount = 5000000.00; // $10 million
+    const minAmount = 300000.0; // $1 million
+    const maxAmount = 5000000.0; // $10 million
     const amount =
       Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minAmount;
     return amount;
@@ -51,8 +49,8 @@ const CreateProfile = () => {
   const amount = generateRandomAmount();
 
   const generateEuroAmount = () => {
-    const minAmount = 3000.00; // $1 million
-    const maxAmount = 15000.00; // $10 million
+    const minAmount = 3000.0; // $1 million
+    const maxAmount = 15000.0; // $10 million
     const euro =
       Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minAmount;
     return euro;
@@ -61,8 +59,8 @@ const CreateProfile = () => {
   const euro = generateEuroAmount();
 
   const generateSavingAmount = () => {
-    const minAmount = 6300.00; // $1 million
-    const maxAmount = 20000.00; // $10 million
+    const minAmount = 6300.0; // $1 million
+    const maxAmount = 20000.0; // $10 million
     const savings =
       Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minAmount;
     return savings;
@@ -70,15 +68,14 @@ const CreateProfile = () => {
 
   const savings = generateSavingAmount();
 
-  
-  const db = getFirestore()
+  const db = getFirestore();
 
   const handleDashboard = async (e) => {
     e.preventDefault();
-  
+
     const user = auth.currentUser;
     const uid = user.uid;
-  
+
     try {
       await setDoc(doc(db, "users", uid), {
         fullName: fullName,
@@ -90,23 +87,20 @@ const CreateProfile = () => {
         amount: amount,
         id: uid,
         euro: euro,
-        savings: savings
+        savings: savings,
       });
-  
       console.log(fullName);
       toast.success("Profile Successlly created. return to login page");
       navigate("/login");
     } catch (e) {
       console.error("Error adding document: ", e);
-      toast.error("Sorry an error occured")
+      toast.error("Sorry an error occured");
     }
   };
 
-  
-
   return (
     <Flex align="center" flexDirection="column">
-     <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
       <Box marginTop={{ base: "5%", md: "2%" }}>
         <Image src={logo} />
       </Box>
@@ -185,7 +179,7 @@ const CreateProfile = () => {
           </Text>
           <Input
             placeholder="Martha"
-            padding={{base: "7%", md:"5%"}}
+            padding={{ base: "7%", md: "5%" }}
             borderRadius="15px"
             border="3px solid #528400"
             type="text"
@@ -202,7 +196,7 @@ const CreateProfile = () => {
             </span>
           </Text>
           <Input
-            padding={{base: "7%", md:"5%"}}
+            padding={{ base: "7%", md: "5%" }}
             borderRadius="15px"
             border="3px solid #528400"
             type="text"
@@ -218,7 +212,7 @@ const CreateProfile = () => {
             </span>
           </Text>
           <Input
-            padding={{base: "7%", md:"5%"}}
+            padding={{ base: "7%", md: "5%" }}
             borderRadius="15px"
             border="3px solid #528400"
             type="number"
@@ -234,7 +228,7 @@ const CreateProfile = () => {
             </span>
           </Text>
           <Input
-            padding={{base: "7%", md:"5%"}}
+            padding={{ base: "7%", md: "5%" }}
             borderRadius="15px"
             border="3px solid #528400"
             type="text"
@@ -250,7 +244,7 @@ const CreateProfile = () => {
             </span>
           </Text>
           <Input
-            padding={{base: "7%", md:"5%"}}
+            padding={{ base: "7%", md: "5%" }}
             borderRadius="15px"
             border="3px solid #528400"
             type="text"

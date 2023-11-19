@@ -82,8 +82,7 @@ const Login = () => {
             const userData = docSnap.data();
             setUserData(userData);
             const userInfo = {
-              firstName: userData.firstName,
-              lastName: userData.lastName,
+              fullName: userData.fullName,
               address: userData.address,
               phoneNumber: userData.phoneNumber,
               state: userData.state,
