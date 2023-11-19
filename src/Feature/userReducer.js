@@ -1,12 +1,11 @@
-// reducers.js
 import { createReducer } from '@reduxjs/toolkit';
-import { setUser } from './action';
+import { setUser } from './action'; // Import the 'setUser' action creator
 
-const initialState = null;
+const initialState = null; // Initial state: null
 
 const userReducer = createReducer(initialState, (builder) => {
-  builder.addCase(setUser, (state, action) => {
-    return action.payload;
+  builder.addCase(setUser, (state, action) => { // Handle 'setUser' action
+    return action.payload; // Update state with payload
   });
 });
 

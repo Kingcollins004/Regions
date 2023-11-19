@@ -5,6 +5,7 @@ import profileImg from "../Assets/SVG/profileImg.svg";
 import { useNavigate, Link } from "react-router-dom";
 import { getFirestore, setDoc, doc } from "firebase/firestore";
 import { auth } from "../firebase";
+import toast, { Toaster } from "react-hot-toast";
 const CreateProfile = () => {
   const [image, setImage] = useState(null);
   const [firstName, setFirstName] = useState("");
@@ -53,42 +54,64 @@ const CreateProfile = () => {
 
   const amount = generateRandomAmount();
 
-  
+  const generateEuroAmount = () => {
+    const minAmount = 3000.00; // $1 million
+    const maxAmount = 15000.00; // $10 million
+    const euro =
+      Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minAmount;
+    return euro;
+  };
+
+  const euro = generateEuroAmount();
+
+  const generateSavingAmount = () => {
+    const minAmount = 6300.00; // $1 million
+    const maxAmount = 20000.00; // $10 million
+    const savings =
+      Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minAmount;
+    return savings;
+  };
+
+  const savings = generateSavingAmount();
 
   
   const db = getFirestore()
 
   const handleDashboard = async (e) => {
     e.preventDefault();
+  
     const user = auth.currentUser;
     const uid = user.uid;
-      try {
-        await setDoc(doc(db, "users", uid), {
-          firstName: firstName,
-          lastName: lastName,
-          address: address,
-          phoneNumber: phoneNumber,
-          state: state,
-          country: country,
-          imageUrl: image,
-          amount: amount,
-          id: uid
-        });
-    
-        console.log(firstName);
-        alert("Document written to database");
-        navigate("/dashboard");
-      } catch (e) {
-        console.error("Error adding document: ", e);
-      }
-   
-    navigate("/dashboard");
+  
+    try {
+      await setDoc(doc(db, "users", uid), {
+        firstName: firstName,
+        lastName: lastName,
+        address: address,
+        phoneNumber: phoneNumber,
+        state: state,
+        country: country,
+        imageUrl: image,
+        amount: amount,
+        id: uid,
+        euro: euro,
+        savings: savings
+      });
+  
+      console.log(firstName);
+      toast.success("Profile Successlly created. return to login page");
+      navigate("/login");
+    } catch (e) {
+      console.error("Error adding document: ", e);
+      toast.error("Sorry an error occured")
+    }
   };
 
   
 
   return (
     <Flex align="center" flexDirection="column">
+     <Toaster position="top-center" reverseOrder={false} />
       <Box marginTop={{ base: "5%", md: "2%" }}>
         <Image src={logo} />
       </Box>

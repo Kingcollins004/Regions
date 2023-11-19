@@ -105,7 +105,7 @@ const Header = () => {
             </Button>
 
             <Button padding="3% 10%" backgroundColor="#558800" color="white">
-              <Link to="/sign-up">Sign up</Link>
+              <Link to="/signup">Sign up</Link>
             </Button>
           </Flex>
         </Flex>

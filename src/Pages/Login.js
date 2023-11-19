@@ -15,6 +15,10 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Toaster, toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUser } from "../Feature/action";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
+
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 // const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[*!@#$%]).{8,24}$/;
@@ -29,6 +33,8 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const userRef = useRef();
+  const [userData, setUserData] = useState({});
+  const dispatch = useDispatch();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -48,50 +54,84 @@ const Login = () => {
     setValidPwd(result);
   }, [password]);
 
-  // const togglePasswordVisibility = () => {
-  //   setShowPassword(!showPassword);
-  // };
-
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-
-    if (!email && !password) {
+  
+    if (!email || !password) {
       toast.error("Please input your Email and Password");
+      return; // Prevent further execution if email or password is missing
     }
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log(userCredential);
-        toast.success("Success");
-        navigate("/dashboard");
-      })
-      .catch((error) => {
-        console.log(error);
-        if (error.response) {
-          const { data, status } = error.response;
-          console.error(`Error ${status}:`, data);
-
-          if (status === 409 && data.error === "This email is already in use") {
-            // Provide a user-friendly message for email already in use
-            toast.error(
-              "This email address is already in use. Please use a different email."
-            );
+  
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      console.log(userCredential);
+      toast.success("Success");
+      navigate("/dashboard");
+  
+      // Fetch user data from Firestore and store it in Redux
+      const handleDashboard = async () => {
+        const uid = user.uid;
+        const db = getFirestore();
+        const docRef = doc(db, "users", uid);
+  
+        try {
+          const docSnap = await getDoc(docRef);
+  
+          if (docSnap.exists()) {
+            const userData = docSnap.data();
+            setUserData(userData);
+            const userInfo = {
+              firstName: userData.firstName,
+              lastName: userData.lastName,
+              address: userData.address,
+              phoneNumber: userData.phoneNumber,
+              state: userData.state,
+              country: userData.country,
+              imageUrl: userData.imageUrl,
+              amount: userData.amount,
+              euro: userData.euro,
+              savings: userData.savings
+            };
+            dispatch(setUser(userInfo));
           } else {
-            // Provide a generic error message for other cases
-            toast.error(
-              "An error occurred while signing up. Please try again."
-            );
+            console.log('No such document!');
           }
-        } else if (error.request) {
-          console.error("No response received from the server.");
+        } catch (error) {
+          console.error('Error fetching user document:', error);
+        }
+      };
+  
+      await handleDashboard(); // Fetch user data and update Redux store
+    } catch (error) {
+      console.error(error);
+      if (error.response) {
+        const { data, status } = error.response;
+        console.error(`Error ${status}:`, data);
+  
+        if (status === 409 && data.error === "This email is already in use") {
+          // Provide a user-friendly message for email already in use
           toast.error(
-            "No response received from the server. Please try again."
+            "This email address is already in use. Please use a different email."
           );
         } else {
-          console.error("Error setting up the request:", error.message);
-          toast.error("An error occurred. Please try again.");
+          // Provide a generic error message for other cases
+          toast.error(
+            "An error occurred while signing up. Please try again."
+          );
         }
-      });
+      } else if (error.request) {
+        console.error("No response received from the server.");
+        toast.error(
+          "No response received from the server. Please try again."
+        );
+      } else {
+        console.error("Error setting up the request:", error.message);
+        toast.error("An error occurred. Please try again.");
+      }
+    }
   };
+  
   return (
     <div>
       <Flex align="center" flexDirection="column">

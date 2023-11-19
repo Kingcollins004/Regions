@@ -32,9 +32,11 @@ const DashbaordBAckgroundContent = () => {
               Welcome, {userInfo.firstName + ` ` + userInfo.lastName}
             </Text>
             <Text marginTop={{ base: "5%", md: "5%" }}>Total Balance</Text>
-            <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
-              ${userInfo.amount}
-            </Text>
+            {userInfo && (
+              <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
+                ${userInfo.amount}
+              </Text>
+            )}
             <Text fontSize="14px" fontWeight="light">
               $325.32 today, Oct 31st
             </Text>
