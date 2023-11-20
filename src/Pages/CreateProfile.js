@@ -6,6 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { getFirestore, setDoc, doc } from "firebase/firestore";
 import { auth } from "../firebase";
 import toast, { Toaster } from "react-hot-toast";
+
 const CreateProfile = () => {
   const [image, setImage] = useState(null);
   const [fullName, setFullName] = useState("");

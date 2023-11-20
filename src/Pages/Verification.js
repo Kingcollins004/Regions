@@ -12,7 +12,6 @@ import {
   ModalOverlay,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
 } from "@chakra-ui/react";
 import logo from "../Assets/SVG/regionsLogo.svg";
 import React, { useState, useEffect, useRef } from "react";
@@ -21,10 +20,6 @@ import { useNavigate } from "react-router-dom";
 
 const Verification = () => {
   const navigate = useNavigate();
-
- 
-
-  const { onClose } = useDisclosure();
   const [verificationCode, setVerificationCode] = useState(["", "", "", ""]);
   const inputContainerRef = useRef(null);
   const [timer, setTimer] = useState(90);

@@ -90,7 +90,8 @@ const Login = () => {
               imageUrl: userData.imageUrl,
               amount: userData.amount,
               euro: userData.euro,
-              savings: userData.savings
+              savings: userData.savings,
+              email: email
             };
             dispatch(setUser(userInfo));
           } else {

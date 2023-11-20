@@ -50,12 +50,41 @@ const Signup = () => {
     setPassword(e.target.value);
   };
 
-  const sendVerificationEmail = async (user) => {
-    await sendEmailVerification(user);
-    toast.success(
-      "A verification email has been sent to your address. Please verify your email to complete the signup process."
-    );
+  const generateVerificationCode = () => {
+    const code = Math.floor(100000 + Math.random() * 900000);
+    return code.toString();
   };
+
+  // const verificationLink = "http://localhost:3001/verify-email";
+
+  const sendVerificationEmail = async (user) => {
+    const verificationCode = generateVerificationCode();
+    try {
+      await sendEmailVerification(user, {
+        from: "ezecollins004@gmail.com",
+        to: user.email,
+        subject: "Email Verification",
+        actionCodeSettings: {
+          // Use the actual URL of your verification page
+          url: "https://regions-mu.vercel.app/confirm-email",
+          // Handle the user on this page.
+          handleCodeInApp: true,
+        },
+        text: `Please verify your email address by entering the following code:
+    
+        ${verificationCode}`,
+      });
+      toast.success("A verification email has been sent to your address. Please verify your email to complete the signup process.");
+    } catch (error) {
+      console.error("Error sending verification email:", error);
+      // Handle error appropriately
+    }
+  };
+  
+  
+  
+  
+
   const handleDashboard = async (e) => {
     e.preventDefault();
     const isValidPwd = PWD_REGEX.test(password);
@@ -185,7 +214,7 @@ const Signup = () => {
       </Box>
 
       <Text
-        textAlign={{ base: "center", md: "left" }}
+        textAlign={{ base: "center", md: "center" }}
         marginTop={{ base: "7%", md: "1%" }}
         width={{ base: "85%", md: "100%" }}
         fontSize="13px"

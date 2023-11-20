@@ -1,7 +1,7 @@
 const financialData = [
   {
     Account: 123456,
-    Name: "John Doe",
+    Name: "John Trevor",
     ReferenceNo: "ABC123",
     Date: "2023-11-04",
     Description: "Payment for Services",

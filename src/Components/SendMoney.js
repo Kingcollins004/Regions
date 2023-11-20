@@ -118,7 +118,7 @@ const SendMoney = ({ balance }) => {
               Send Money
             </Text>
             <Flex flex="1" justifyContent="flex-end">
-              <Image width="15%" src={cancel} />
+              <Image onClick={closeModal} width="15%" src={cancel} />
             </Flex>
           </Flex>
 
