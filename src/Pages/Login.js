@@ -87,11 +87,14 @@ const Login = () => {
               phoneNumber: userData.phoneNumber,
               state: userData.state,
               country: userData.country,
-              imageUrl: userData.imageUrl,
+              image: userData.imageUrl,
               amount: userData.amount,
               euro: userData.euro,
               savings: userData.savings,
-              email: email
+              email: email,
+              accountNumber: userData.accountNumber,
+              accountType: userData.accountType,
+              ssn: userData.ssn
             };
             dispatch(setUser(userInfo));
           } else {

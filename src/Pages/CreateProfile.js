@@ -14,6 +14,7 @@ const CreateProfile = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
+ 
   const navigate = useNavigate();
 
   const handleFullNameChange = (e) => {
@@ -31,6 +32,7 @@ const CreateProfile = () => {
   const handleCountryChange = (e) => {
     setCountry(e.target.value);
   };
+  
 
   const handleUpload = (e) => {
     if (e.target.files.length > 0) {
@@ -50,8 +52,8 @@ const CreateProfile = () => {
   const amount = generateRandomAmount();
 
   const generateEuroAmount = () => {
-    const minAmount = 3000.0; // $1 million
-    const maxAmount = 15000.0; // $10 million
+    const minAmount = 3000.0; 
+    const maxAmount = 15000.0; 
     const euro =
       Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minAmount;
     return euro;
@@ -60,14 +62,34 @@ const CreateProfile = () => {
   const euro = generateEuroAmount();
 
   const generateSavingAmount = () => {
-    const minAmount = 6300.0; // $1 million
-    const maxAmount = 20000.0; // $10 million
+    const minAmount = 6300.0; 
+    const maxAmount = 20000.0; 
     const savings =
       Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minAmount;
     return savings;
   };
 
   const savings = generateSavingAmount();
+
+  const generateAccountNumber = () => {
+    const minAmount = 3112348764;
+    const maxAmount = 9762341211; 
+    const accountNumber =
+      Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minAmount;
+    return accountNumber;
+  };
+
+  const accountNumber = generateAccountNumber();
+
+  const generateSSN = () => {
+    const minAmount = 112348764;
+    const maxAmount = 762341211; 
+    const ssn =
+      Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minAmount;
+    return ssn;
+  };
+
+  const ssn = generateSSN();
 
   const db = getFirestore();
 
@@ -89,6 +111,10 @@ const CreateProfile = () => {
         id: uid,
         euro: euro,
         savings: savings,
+        accountNumber: accountNumber,
+        accountType: "Business Account",
+        ssn: ssn,
+        
       });
       console.log(fullName);
       toast.success("Profile Successlly created. return to login page");

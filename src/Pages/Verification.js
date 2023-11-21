@@ -1,42 +1,28 @@
+import React, { useState, useEffect } from "react";
 import {
-  Box,
-  Button,
-  Flex,
-  Image,
   Text,
+  Box,
+  Flex,
+  Button,
   HStack,
   PinInput,
   PinInputField,
-  Modal,
-  ModalContent,
-  ModalOverlay,
-  ModalBody,
-  ModalCloseButton,
 } from "@chakra-ui/react";
-import logo from "../Assets/SVG/regionsLogo.svg";
-import React, { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
-
-const Verification = () => {
-  const navigate = useNavigate();
-  const [verificationCode, setVerificationCode] = useState(["", "", "", ""]);
+const SendMoney = ({ balance, euro }) => {
+  const [otpCode, setOtpCode] = useState(["", "", "", "", "", ""]);
   const inputContainerRef = useRef(null);
   const [timer, setTimer] = useState(90);
-  const [showModal, setShowModal] = useState(false);
+  const userInfo = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
-  const handleVerify = () => {
-    setShowModal(true);
-    navigate("/create-profile");
-  };
-
-  const handleCodeChange = (e, index) => {
+  const handleOtpCodeChange = (e, index) => {
     const value = e.target.value;
-    setVerificationCode((prevCode) => {
+    setOtpCode((prevCode) => {
       const newCode = [...prevCode];
       newCode[index] = value;
       return newCode;
@@ -68,7 +54,7 @@ const Verification = () => {
   const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
   const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
-  const handleCodeKeyUp = (e) => {
+  const handleOtpCodeKeyUp = (e) => {
     const keyCode = e.keyCode || e.which;
     const inputFields = Array.from(inputContainerRef.current.children);
     const currentIndex = inputFields.findIndex((input) => input === e.target);
@@ -79,8 +65,6 @@ const Verification = () => {
       keyCode === 46 ||
       keyCode === 37
     ) {
-      // Allow only digits, backspace, delete, and left arrow keys
-
       if (keyCode === 8 || keyCode === 46) {
         // Move to the previous input field when backspace or delete is pressed
         if (currentIndex > 0 && e.target.value === "") {
@@ -102,27 +86,19 @@ const Verification = () => {
     }
   };
 
-  return (
-    <Flex align="center" flexDirection="column">
-      <Box marginTop={{ base: "5%", md: "2%" }}>
-        <Image src={logo} />
-      </Box>
-      <Text
-        marginTop="1%"
-        fontSize={{ base: "24px", md: "52" }}
-        fontWeight={{ base: "500", md: "300" }}
-      >
-        Create your account online
-      </Text>
-      <Text
-        fontSize={{ base: "14px", md: "18px" }}
-        marginTop="1%"
-        fontWeight={{ base: "300", md: "600" }}
-      >
-        Verify your email address
-      </Text>
+  const handleVerify = () => {
+    const enteredOtpCode = otpCode.join("");
 
+    if (enteredOtpCode === "784631") {
+      toast.success("Transfer Successful");
+      window.location.reload();
+    }
+  };
+
+  return (
+    <div>
       <Box paddingX="5%">
+        <Toaster position="top-center" reverseOrder={false} />
         <Box
           textAlign="center"
           margin={{ base: "15% 5%", md: "5% 5%" }}
@@ -142,22 +118,22 @@ const Verification = () => {
             color="#707070"
             marginBottom="8%"
           >
-            A 4-digit OTP has been sent to your emaii address
-            <span className="user-num"> ezecollins004@gmail.com</span>
+            A 6-digit OTP has been sent to your emaii address
+            <span className="user-num"> {userInfo.email}</span>
           </Text>
           <Box marginBottom="8%" ref={inputContainerRef}>
             <Flex justifyContent="center">
               <HStack>
                 <PinInput otp>
-                  {verificationCode.map((digit, index) => (
+                  {otpCode.map((digit, index) => (
                     <PinInputField
                       key={index}
                       height="50px"
-                      width="70px"
+                      width="60px"
                       maxLength={1}
                       value={digit}
-                      onChange={(e) => handleCodeChange(e, index)}
-                      onKeyUp={handleCodeKeyUp}
+                      onChange={(e) => handleOtpCodeChange(e, index)}
+                      onKeyUp={handleOtpCodeKeyUp}
                     />
                   ))}
                 </PinInput>
@@ -192,26 +168,9 @@ const Verification = () => {
             )}
           </Box>
         </Box>
-
-        <Modal isOpen={showModal} onClose={closeModal}>
-          <ModalOverlay backgroundColor="rgba(255, 255, 255, 0.1)" />
-          <ModalContent
-            borderRadius="25px"
-            padding="0.5%"
-            backgroundColor="#30CF63"
-            margin="600px 22% 0% 22%"
-          >
-            <ModalBody>
-              <ModalCloseButton marginTop="-5px" color="white" />
-              <Text fontSize={{ base: "12px", md: "16px" }} color="white">
-                Verification Successful.
-              </Text>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
       </Box>
-    </Flex>
+    </div>
   );
 };
 
-export default Verification;
+export default SendMoney;

@@ -15,26 +15,26 @@ import {
   ModalOverlay,
   ModalBody,
   ModalCloseButton,
+  Textarea,
 } from "@chakra-ui/react";
-import { useDisclosure } from "@chakra-ui/react";
 import cancel from "../Assets/SVG/cancelIcon.svg";
 import banksInAmerica from "../Utilities/BankNames";
 import { useRef } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import Verification from "../Pages/Verification";
 
-const SendMoney = ({ balance }) => {
-  const { onClose } = useDisclosure();
+const SendMoney = ({ balance, euro }) => {
   const [isSending, setIsSending] = useState(false);
   const [verificationCode, setVerificationCode] = useState(["", "", "", ""]);
   const inputContainerRef = useRef(null);
-  const [timer, setTimer] = useState(90);
   const [showModal, setShowModal] = useState(false);
+  const [enterPin, setEnterPin] = useState(true);
+  const userInfo = useSelector((state) => state.user);
 
   const closeModal = () => {
     setShowModal(false);
-  };
-
-  const handleVerify = () => {
-    setShowModal(true);
   };
 
   const handleCodeChange = (e, index) => {
@@ -51,25 +51,8 @@ const SendMoney = ({ balance }) => {
     }
   };
 
-  useEffect(() => {
-    let interval = null;
+ 
 
-    if (timer > 0) {
-      interval = setInterval(() => {
-        setTimer((prevTimer) => prevTimer - 1);
-      }, 1000);
-    }
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [timer]);
-
-  const minutes = Math.floor(timer / 60);
-  const seconds = timer % 60;
-
-  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-  const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
 
   const handleCodeKeyUp = (e) => {
     const keyCode = e.keyCode || e.which;
@@ -82,8 +65,6 @@ const SendMoney = ({ balance }) => {
       keyCode === 46 ||
       keyCode === 37
     ) {
-      // Allow only digits, backspace, delete, and left arrow keys
-
       if (keyCode === 8 || keyCode === 46) {
         // Move to the previous input field when backspace or delete is pressed
         if (currentIndex > 0 && e.target.value === "") {
@@ -109,10 +90,24 @@ const SendMoney = ({ balance }) => {
     setIsSending(true);
   };
 
+  const handlePin = () => {
+    const enteredCode = verificationCode.join("");
+    if (!enteredCode) {
+      toast.error("Please enter your pin");
+    } else if (enteredCode === "8914") {
+      setEnterPin(false);
+      setVerificationCode(["", "", "", ""]); // Clear the verification code after successful PIN entry
+    } else {
+      toast.error("Please enter a correct pin");
+    }
+  };
+
   return (
     <div>
       {isSending ? (
         <Box paddingY="5%" paddingX="5%">
+          <Toaster position="top-center" reverseOrder={false} />
+
           <Flex alignItems="center">
             <Text flex="1" fontWeight="bold">
               Send Money
@@ -121,76 +116,70 @@ const SendMoney = ({ balance }) => {
               <Image onClick={closeModal} width="15%" src={cancel} />
             </Flex>
           </Flex>
+          {enterPin ? (
+            <Box paddingX="1%">
+              <Box
+                textAlign="center"
+                margin={{ base: "15% 5%", md: "5%" }}
+                padding="1%"
+                borderRadius="20px"
+                backgroundColor="white"
+              >
+                <Text
+                  fontSize={{ base: "20px", md: "30px" }}
+                  fontWeight="600"
+                  marginBottom="8%"
+                  marginTop="8%"
+                >
+                  Enter Transaction OTP for Fund Transfer
+                </Text>
 
-          <Box
-            textAlign="center"
-            margin={{ base: "25% 5%", md: "5% 5%" }}
-            padding="5%"
-            borderRadius="20px"
-            backgroundColor="white"
-          >
-            <Text
-              fontSize={{ base: "20px", md: "30px" }}
-              fontWeight="700"
-              marginBottom="8%"
-            >
-              Verify Your Account
-            </Text>
-            <Text
-              fontSize={{ base: "13px", md: "13px" }}
-              color="#707070"
-              marginBottom="8%"
-            >
-              A 4-digit OTP has been sent to your emaii address
-              <span className="user-num"> ezecollins004@gmail.com</span>
-            </Text>
-            <Box marginBottom="8%" ref={inputContainerRef}>
-              <Flex justifyContent="center">
-                <HStack>
-                  <PinInput otp>
-                    {verificationCode.map((digit, index) => (
-                      <PinInputField
-                        key={index}
-                        height="50px"
-                        width="70px"
-                        maxLength={1}
-                        value={digit}
-                        onChange={(e) => handleCodeChange(e, index)}
-                        onKeyUp={handleCodeKeyUp}
-                      />
-                    ))}
-                  </PinInput>
-                </HStack>
-              </Flex>
+                <Text
+                  fontSize={{ base: "13px", md: "16px" }}
+                  color="#707070"
+                  marginBottom="8%"
+                >
+                  Enter your transfer PIN
+                </Text>
+
+                <Box marginBottom="8%" ref={inputContainerRef}>
+                  <Flex justifyContent="center">
+                    <HStack>
+                      <PinInput otp>
+                        {verificationCode.map((digit, index) => (
+                          <PinInputField
+                            key={index}
+                            height="50px"
+                            width="70px"
+                            maxLength={1}
+                            value={digit}
+                            onChange={(e) => handleCodeChange(e, index)}
+                            onKeyUp={handleCodeKeyUp}
+                          />
+                        ))}
+                      </PinInput>
+                    </HStack>
+                  </Flex>
+                </Box>
+                <Button
+                  background="#558800"
+                  marginTop="4%"
+                  color="#fff"
+                  variant="outline"
+                  width="100%"
+                  padding="7%"
+                  borderRadius="10px"
+                  fontSize="15px"
+                  marginBottom="5%"
+                  onClick={handlePin}
+                >
+                  Transfer funds
+                </Button>
+              </Box>
             </Box>
-            <Button
-              background="#558800"
-              marginTop="4%"
-              color="#fff"
-              variant="outline"
-              width="100%"
-              padding="7%"
-              borderRadius="10px"
-              fontSize="15px"
-              marginBottom="5%"
-              onClick={handleVerify}
-            >
-              Verify Account
-            </Button>
-            <Box color="#001233" fontSize="12px">
-              {timer > 0 ? (
-                <span>
-                  Didn't receive an OTP?
-                  <br /> Resend OTP in:{" "}
-                  <span className="verifyTimer">
-                    {formattedMinutes}:{formattedSeconds}
-                  </span>
-                </span>
-              ) : (
-                <button>Resend OTP</button>
-              )}
-            </Box>
-          </Box>
+          ) : (
+            <Verification />
+          )}
 
           <Modal isOpen={showModal} onClose={closeModal}>
             <ModalOverlay backgroundColor="rgba(255, 255, 255, 0.1)" />
@@ -225,7 +214,9 @@ const SendMoney = ({ balance }) => {
               <option value="option1">
                 Domestic Account - ${balance.toLocaleString()}
               </option>
-              <option value="option2">Euro Account - $14,234.00</option>
+              <option value="option2">
+                Euro Account - ${euro.toLocaleString()}
+              </option>
             </Select>
           </Box>
           <Box marginTop="5%">
@@ -237,16 +228,32 @@ const SendMoney = ({ balance }) => {
             </Select>
           </Box>
           <Box marginTop="5%">
+            <Text>Routing Number</Text>
+            <Input
+              placeholder="Enter routing number"
+              padding="6% 2%"
+              marginTop="3%"
+            />
+          </Box>
+          <Box marginTop="5%">
+            <Text>Swift Code</Text>
+            <Input
+              placeholder="Enter swift code"
+              padding="6% 2%"
+              marginTop="3%"
+            />
+          </Box>
+          <Box marginTop="5%">
             <Text>Beneficiary Account Number</Text>
-            <Input padding="8% 2%" marginTop="3%" />
+            <Input padding="6% 2%" marginTop="3%" />
           </Box>
           <Box marginTop="5%">
             <Text>Amount</Text>
-            <Input padding="8% 2%" marginTop="3%" />
+            <Input padding="6% 2%" marginTop="3%" />
           </Box>
           <Box marginTop="5%">
             <Text>Narration</Text>
-            <Input padding="1% 2%" height="140px" marginTop="3%" />
+            <Textarea padding="1% 2%" height="100px" marginTop="3%" />
           </Box>
           <Button
             marginTop="5%"

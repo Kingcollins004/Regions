@@ -83,9 +83,6 @@ const Dashboard = () => {
                 <MenuItem>
                   <Link to="/transactions">Transactions</Link>
                 </MenuItem>
-                <MenuItem>
-                  <Link to="/cards">Cards</Link>
-                </MenuItem>
               </MenuList>
             </Menu>
           </Flex>
@@ -111,9 +108,6 @@ const Dashboard = () => {
               <Text>
                 <Link to="/transactions">Transactions</Link>
               </Text>
-              <Text>
-                <Link to="/cards">Cards</Link>
-              </Text>
             </Flex>
 
             <Flex flex="1" justifyContent="flex-end" alignItems="center">
@@ -128,7 +122,7 @@ const Dashboard = () => {
         <Box paddingY="5%" color="white" marginTop={{ base: "1%", md: "0" }}>
           <Flex flexDirection={{ base: "column", md: "row" }}>
             <Box flex="1">
-              <Text fontSize="22px" fontWeight="600">
+              <Text fontSize={{ base: "16px", md: "22px" }} fontWeight="600">
                 Welcome, {userInfo.fullName}
               </Text>
               <Text marginTop={{ base: "5%", md: "5%" }}>Total Balance</Text>
@@ -183,8 +177,8 @@ const Dashboard = () => {
                   size={{ base: "xs", md: "sm" }}
                 >
                   <DrawerOverlay />
-                  <DrawerContent width="150%">
-                    <SendMoney balance={userInfo.amount} />
+                  <DrawerContent overflowY="auto" width="150%">
+                    <SendMoney balance={userInfo.amount} euro={userInfo.euro} />
                   </DrawerContent>
                 </Drawer>
               </Flex>
@@ -291,7 +285,7 @@ const Dashboard = () => {
                 <Thead>
                   <Tr width="fit-content">
                     <Text marginX="3%" width="fit-content">
-                      Month: Nov
+                      Month: November
                     </Text>
                   </Tr>
                 </Thead>

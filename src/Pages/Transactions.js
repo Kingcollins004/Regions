@@ -44,6 +44,7 @@ const Transactions = () => {
               paddingY="3%"
               justifyContent="space-between"
               alignItems="center"
+              width="100%"
             >
               <Text marginRight="5%" color="white">
                 <Link to="/dashboard">Back</Link>
@@ -56,7 +57,6 @@ const Transactions = () => {
               <Flex justifyContent="flex-end">
                 <Menu>
                   <MenuButton
-                    marginRight="-100%"
                     backgroundColor="white"
                     as={Button}
                     bgColor="#558800"
@@ -73,27 +73,30 @@ const Transactions = () => {
                     <MenuItem>
                       <Link to="/transactions">Transactions</Link>
                     </MenuItem>
-                    <MenuItem>
-                      <Link to="/cards">Cards</Link>
-                    </MenuItem>
+                   
                   </MenuList>
                 </Menu>
               </Flex>
             </Flex>
           ) : (
-            <Flex paddingY="1%">
-              <Box flex="1">
+            <Flex
+              flex="1"
+              width="100%"
+              justifyContent="space-between"
+              paddingY="1%"
+            >
+              <Box>
                 <Image src={logo} alt="Regions Logo" />
               </Box>
 
               <Flex
                 paddingX="20%"
                 alignItems="center"
+                color="white"
                 flex="2"
                 justifyContent="space-between"
-                color="white"
               >
-                <Text>
+                <Text marginX="2%">
                   <Link to="/dashboard">Overview</Link>
                 </Text>
                 <Text>
@@ -102,9 +105,7 @@ const Transactions = () => {
                 <Text backgroundColor="#88BB00" padding="2% 4%">
                   <Link to="/transactions">Transactions</Link>
                 </Text>
-                <Text>
-                  <Link to="/cards">Cards</Link>
-                </Text>
+                
               </Flex>
 
               <Flex flex="1" justifyContent="flex-end" alignItems="center">
@@ -168,7 +169,7 @@ const Transactions = () => {
           <Table size="sm">
             <Thead>
               <Tr width="fit-content">
-                <Th width="fit-content">Nov</Th>
+                <Th width="fit-content">November</Th>
               </Tr>
             </Thead>
             <Tbody>
