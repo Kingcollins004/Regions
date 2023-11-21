@@ -12,6 +12,7 @@ import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import TransferSuccess from "../Components/TransferSuccess";
 
 const SendMoney = ({ balance, euro }) => {
   const [otpCode, setOtpCode] = useState(["", "", "", "", "", ""]);
@@ -19,6 +20,7 @@ const SendMoney = ({ balance, euro }) => {
   const [timer, setTimer] = useState(90);
   const userInfo = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const [isSuccessful, setIsSuccessful] = useState(false)
 
   const handleOtpCodeChange = (e, index) => {
     const value = e.target.value;
@@ -91,12 +93,15 @@ const SendMoney = ({ balance, euro }) => {
 
     if (enteredOtpCode === "784631") {
       toast.success("Transfer Successful");
-      window.location.reload();
+      setIsSuccessful(true)
     }
   };
 
   return (
     <div>
+    {isSuccessful ? (
+      <TransferSuccess />
+    ) : (
       <Box paddingX="5%">
         <Toaster position="top-center" reverseOrder={false} />
         <Box
@@ -169,6 +174,8 @@ const SendMoney = ({ balance, euro }) => {
           </Box>
         </Box>
       </Box>
+    )}
+      
     </div>
   );
 };

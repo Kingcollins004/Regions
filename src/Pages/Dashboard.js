@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -45,6 +45,7 @@ const Dashboard = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   const btnRef = React.useRef();
   const userInfo = useSelector((state) => state.user);
+  const [openDrawer, setOpenDrawer] = useState("")
 
   return (
     <Box margin="0">
@@ -174,11 +175,11 @@ const Dashboard = () => {
                   placement="right"
                   onClose={onClose}
                   finalFocusRef={btnRef}
-                  size={{ base: "xs", md: "sm" }}
+                  size={{ base: "sm", md: "sm" }}
                 >
                   <DrawerOverlay />
                   <DrawerContent overflowY="auto" width="150%">
-                    <SendMoney balance={userInfo.amount} euro={userInfo.euro} />
+                    <SendMoney onCloseButtonClick={onClose} balance={userInfo.amount} euro={userInfo.euro} />
                   </DrawerContent>
                 </Drawer>
               </Flex>

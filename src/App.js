@@ -14,6 +14,7 @@ import CreateProfile from "./Pages/CreateProfile";
 import ConfirmEmail from "./Pages/ConfirmEmail";
 import Card from "./Pages/Card";
 import Account from "./Pages/Account";
+import TransferSuccess from "./Components/TransferSuccess";
 function App() {
   const theme = extendTheme({
     styles: {
@@ -42,6 +43,7 @@ function App() {
           <Route element={<CreateProfile />} path="create-profile" />
           <Route element={<Card />} path="cards" />
           <Route element={<Account />} path="account" />
+          <Route element={<TransferSuccess />} path="transfer-success" />
         </Routes>
       </Router>
     </ChakraProvider>

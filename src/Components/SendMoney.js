@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Text,
   Box,
@@ -20,21 +20,23 @@ import {
 import cancel from "../Assets/SVG/cancelIcon.svg";
 import banksInAmerica from "../Utilities/BankNames";
 import { useRef } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import Verification from "../Pages/Verification";
 
-const SendMoney = ({ balance, euro }) => {
+const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
   const [isSending, setIsSending] = useState(false);
   const [verificationCode, setVerificationCode] = useState(["", "", "", ""]);
   const inputContainerRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
   const [enterPin, setEnterPin] = useState(true);
-  const userInfo = useSelector((state) => state.user);
+  const [transferAmount, setTransferAmount] = useState("");
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const handleTransferAmountChange = (e) => {
+    setTransferAmount(e.target.value);
   };
 
   const handleCodeChange = (e, index) => {
@@ -50,9 +52,6 @@ const SendMoney = ({ balance, euro }) => {
       inputFields[index + 1].focus();
     }
   };
-
- 
-
 
   const handleCodeKeyUp = (e) => {
     const keyCode = e.keyCode || e.which;
@@ -113,7 +112,8 @@ const SendMoney = ({ balance, euro }) => {
               Send Money
             </Text>
             <Flex flex="1" justifyContent="flex-end">
-              <Image onClick={closeModal} width="15%" src={cancel} />
+              {/* <DrawerCloseButton /> */}
+              <Image onClick={onCloseButtonClick} width="15%" src={cancel} />
             </Flex>
           </Flex>
           {enterPin ? (
@@ -205,7 +205,7 @@ const SendMoney = ({ balance, euro }) => {
               Send Money
             </Text>
             <Flex flex="1" justifyContent="flex-end">
-              <Image width="15%" src={cancel} />
+              <Image onClick={onCloseButtonClick} width="15%" src={cancel} />
             </Flex>
           </Flex>
           <Box marginTop="5%">
@@ -249,7 +249,13 @@ const SendMoney = ({ balance, euro }) => {
           </Box>
           <Box marginTop="5%">
             <Text>Amount</Text>
-            <Input padding="6% 2%" marginTop="3%" />
+            <Input
+              id="password"
+              onChange={handleTransferAmountChange}
+              value={transferAmount}
+              padding="6% 2%"
+              marginTop="3%"
+            />
           </Box>
           <Box marginTop="5%">
             <Text>Narration</Text>
