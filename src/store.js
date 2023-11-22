@@ -4,6 +4,7 @@ import { composeWithDevTools } from "redux-devtools-extension"; // Corrected imp
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import userReducer from "./Feature/userReducer";
+import transactionReducer from "./Feature/transactionReducer";
  // replace with the path to your root reducer
 
 // Middleware configuration (you can include other middleware as needed)
@@ -18,6 +19,7 @@ const persistConfig = {
 // Combine your reducers
 const rootReducer = combineReducers({
   user: userReducer,
+  transactions: transactionReducer,
 
 });
 

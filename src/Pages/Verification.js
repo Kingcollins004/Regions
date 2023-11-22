@@ -13,14 +13,40 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import TransferSuccess from "../Components/TransferSuccess";
+import { useDispatch } from "react-redux";
+import { updateUserBalance } from "../Feature/action";
 
-const SendMoney = ({ balance, euro }) => {
+const SendMoney = (props) => {
   const [otpCode, setOtpCode] = useState(["", "", "", "", "", ""]);
   const inputContainerRef = useRef(null);
   const [timer, setTimer] = useState(90);
   const userInfo = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const [isSuccessful, setIsSuccessful] = useState(false)
+  const [isSuccessful, setIsSuccessful] = useState(false);
+
+  const dispatch = useDispatch();
+  const transferAmount = props.amount;
+  // Function to handle the transfer completion
+  // verification.js
+
+  // Before the subtraction logic
+// console.log('Before subtraction - userInfo.amount:', userInfo.amount);
+// console.log('Before subtraction - userInfo.balance:', userInfo.balance);
+
+// Subtraction logic
+const handleTransferCompletion = (transferAmount) => {
+  const payload = { userId: userInfo.id, amountToSubtract: transferAmount };
+  console.log('Dispatching updateUserBalance with payload:', payload);
+  dispatch(updateUserBalance(payload));
+};
+
+// After the subtraction logic
+// console.log('After subtraction - userInfo.amount:', userInfo.amount);
+// console.log('After subtraction - userInfo.balance:', userInfo.balance);
+
+  
+
+  
 
   const handleOtpCodeChange = (e, index) => {
     const value = e.target.value;
@@ -93,89 +119,90 @@ const SendMoney = ({ balance, euro }) => {
 
     if (enteredOtpCode === "784631") {
       toast.success("Transfer Successful");
-      setIsSuccessful(true)
+      setIsSuccessful(true);
+      handleTransferCompletion(transferAmount);
+      console.log(transferAmount)
     }
   };
 
   return (
     <div>
-    {isSuccessful ? (
-      <TransferSuccess />
-    ) : (
-      <Box paddingX="5%">
-        <Toaster position="top-center" reverseOrder={false} />
-        <Box
-          textAlign="center"
-          margin={{ base: "15% 5%", md: "5% 5%" }}
-          padding="5%"
-          borderRadius="20px"
-          backgroundColor="white"
-        >
-          <Text
-            fontSize={{ base: "20px", md: "30px" }}
-            fontWeight="700"
-            marginBottom="8%"
+      {isSuccessful ? (
+        <TransferSuccess amount = {transferAmount} />
+      ) : (
+        <Box paddingX="5%">
+          <Toaster position="top-center" reverseOrder={false} />
+          <Box
+            textAlign="center"
+            margin={{ base: "15% 5%", md: "5% 5%" }}
+            padding="5%"
+            borderRadius="20px"
+            backgroundColor="white"
           >
-            Verify Your Account
-          </Text>
-          <Text
-            fontSize={{ base: "13px", md: "13px" }}
-            color="#707070"
-            marginBottom="8%"
-          >
-            A 6-digit OTP has been sent to your emaii address
-            <span className="user-num"> {userInfo.email}</span>
-          </Text>
-          <Box marginBottom="8%" ref={inputContainerRef}>
-            <Flex justifyContent="center">
-              <HStack>
-                <PinInput otp>
-                  {otpCode.map((digit, index) => (
-                    <PinInputField
-                      key={index}
-                      height="50px"
-                      width="60px"
-                      maxLength={1}
-                      value={digit}
-                      onChange={(e) => handleOtpCodeChange(e, index)}
-                      onKeyUp={handleOtpCodeKeyUp}
-                    />
-                  ))}
-                </PinInput>
-              </HStack>
-            </Flex>
-          </Box>
-          <Button
-            background="#558800"
-            marginTop="4%"
-            color="#fff"
-            variant="outline"
-            width="100%"
-            padding="7%"
-            borderRadius="10px"
-            fontSize="15px"
-            marginBottom="5%"
-            onClick={handleVerify}
-          >
-            Verify Account
-          </Button>
-          <Box color="#001233" fontSize="12px">
-            {timer > 0 ? (
-              <span>
-                Didn't receive an OTP?
-                <br /> Resend OTP in:{" "}
-                <span className="verifyTimer">
-                  {formattedMinutes}:{formattedSeconds}
+            <Text
+              fontSize={{ base: "20px", md: "30px" }}
+              fontWeight="700"
+              marginBottom="8%"
+            >
+              Verify Your Account
+            </Text>
+            <Text
+              fontSize={{ base: "13px", md: "13px" }}
+              color="#707070"
+              marginBottom="8%"
+            >
+              A 6-digit OTP has been sent to your emaii address
+              <span className="user-num"> {userInfo.email}</span>
+            </Text>
+            <Box marginBottom="8%" ref={inputContainerRef}>
+              <Flex justifyContent="center">
+                <HStack>
+                  <PinInput otp>
+                    {otpCode.map((digit, index) => (
+                      <PinInputField
+                        key={index}
+                        height="50px"
+                        width="60px"
+                        maxLength={1}
+                        value={digit}
+                        onChange={(e) => handleOtpCodeChange(e, index)}
+                        onKeyUp={handleOtpCodeKeyUp}
+                      />
+                    ))}
+                  </PinInput>
+                </HStack>
+              </Flex>
+            </Box>
+            <Button
+              background="#558800"
+              marginTop="4%"
+              color="#fff"
+              variant="outline"
+              width="100%"
+              padding="7%"
+              borderRadius="10px"
+              fontSize="15px"
+              marginBottom="5%"
+              onClick={handleVerify}
+            >
+              Verify Account
+            </Button>
+            <Box color="#001233" fontSize="12px">
+              {timer > 0 ? (
+                <span>
+                  Didn't receive an OTP?
+                  <br /> Resend OTP in:{" "}
+                  <span className="verifyTimer">
+                    {formattedMinutes}:{formattedSeconds}
+                  </span>
                 </span>
-              </span>
-            ) : (
-              <button>Resend OTP</button>
-            )}
+              ) : (
+                <button>Resend OTP</button>
+              )}
+            </Box>
           </Box>
         </Box>
-      </Box>
-    )}
-      
+      )}
     </div>
   );
 };

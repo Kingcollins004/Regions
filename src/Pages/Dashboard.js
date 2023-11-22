@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Button,
@@ -45,8 +45,8 @@ const Dashboard = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   const btnRef = React.useRef();
   const userInfo = useSelector((state) => state.user);
-  const [openDrawer, setOpenDrawer] = useState("")
 
+  const updateBalance =  userInfo.balance;
   return (
     <Box margin="0">
       <Box
@@ -127,9 +127,16 @@ const Dashboard = () => {
                 Welcome, {userInfo.fullName}
               </Text>
               <Text marginTop={{ base: "5%", md: "5%" }}>Total Balance</Text>
-              <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
-                ${userInfo.amount.toLocaleString()}
-              </Text>
+              {userInfo.balance ? (
+                <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
+                  ${updateBalance.toLocaleString()}
+                </Text>
+              ) : (
+                <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
+                  ${userInfo.amount.toLocaleString()}
+                </Text>
+              )}
+
               <Text fontSize="14px" fontWeight="light">
                 $325.32 today, Oct 31st
               </Text>
@@ -179,7 +186,11 @@ const Dashboard = () => {
                 >
                   <DrawerOverlay />
                   <DrawerContent overflowY="auto" width="150%">
-                    <SendMoney onCloseButtonClick={onClose} balance={userInfo.amount} euro={userInfo.euro} />
+                    <SendMoney
+                      onCloseButtonClick={onClose}
+                      balance={userInfo.amount}
+                      euro={userInfo.euro}
+                    />
                   </DrawerContent>
                 </Drawer>
               </Flex>
@@ -221,9 +232,15 @@ const Dashboard = () => {
               <Image marginX="2%" src={percentage} />
               <Text fontSize="12px">12.5%</Text>
             </Flex>
-            <Text fontSize="32px" marginTop="5%" fontWeight="600">
-              ${userInfo.amount.toLocaleString()}
-            </Text>
+            {userInfo.balance ? (
+                <Text fontSize="32px" marginTop="5%" fontWeight="600">
+                  ${updateBalance.toLocaleString()}
+                </Text>
+              ) : (
+                <Text fontSize="32px" marginTop="5%" fontWeight="600">
+                  ${userInfo.amount.toLocaleString()}
+                </Text>
+              )}
           </Box>
           <Box
             height="250px"

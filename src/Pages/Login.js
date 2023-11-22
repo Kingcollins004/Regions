@@ -94,7 +94,8 @@ const Login = () => {
               email: email,
               accountNumber: userData.accountNumber,
               accountType: userData.accountType,
-              ssn: userData.ssn
+              ssn: userData.ssn,
+              id: userData.id
             };
             dispatch(setUser(userInfo));
           } else {

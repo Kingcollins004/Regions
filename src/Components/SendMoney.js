@@ -10,11 +10,6 @@ import {
   HStack,
   PinInput,
   PinInputField,
-  Modal,
-  ModalContent,
-  ModalOverlay,
-  ModalBody,
-  ModalCloseButton,
   Textarea,
 } from "@chakra-ui/react";
 import cancel from "../Assets/SVG/cancelIcon.svg";
@@ -27,16 +22,25 @@ const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
   const [isSending, setIsSending] = useState(false);
   const [verificationCode, setVerificationCode] = useState(["", "", "", ""]);
   const inputContainerRef = useRef(null);
-  const [showModal, setShowModal] = useState(false);
   const [enterPin, setEnterPin] = useState(true);
   const [transferAmount, setTransferAmount] = useState("");
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const [accountNum, setAccountNum] = useState("");
+  const [RoutingNum, setRoutingNum] = useState("");
+  const [swiftCode, setSwiftCode] = useState("");
 
   const handleTransferAmountChange = (e) => {
     setTransferAmount(e.target.value);
+  };
+  const handleAccountNumChange = (e) => {
+    setAccountNum(e.target.value);
+  };
+
+  const handleRoutingNumChange = (e) => {
+    setRoutingNum(e.target.value);
+  };
+
+  const handleSwiftCodeChange = (e) => {
+    setSwiftCode(e.target.value);
   };
 
   const handleCodeChange = (e, index) => {
@@ -85,11 +89,17 @@ const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
     }
   };
 
-  const handleClick = () => {
-    setIsSending(true);
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (!accountNum && !RoutingNum && !swiftCode) {
+      toast.error("Please fill out every information");
+    } else {
+      setIsSending(true);
+    }
+    console.log(transferAmount);
   };
 
-  const handlePin = () => {
+  const handlePin = (e) => {
     const enteredCode = verificationCode.join("");
     if (!enteredCode) {
       toast.error("Please enter your pin");
@@ -98,6 +108,55 @@ const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
       setVerificationCode(["", "", "", ""]); // Clear the verification code after successful PIN entry
     } else {
       toast.error("Please enter a correct pin");
+    }
+  };
+
+  const peopleNames = [
+    "John Smith",
+    "Emily Johnson",
+    "Michael Davis",
+    "Amanda Miller",
+    "Christopher Wilson",
+    "Olivia Taylor",
+    "Daniel Brown",
+    "Sophia Martinez",
+    "Matthew Anderson",
+    "Emma Garcia",
+    "Andrew Jackson",
+    "Grace Thomas",
+    "Ryan White",
+    "Chloe Davis",
+    "David Lee",
+    "Ava Moore",
+    "Joseph Robinson",
+    "Mia Harris",
+    "William Taylor",
+    "Sophie Clark",
+    "Ethan Turner",
+    "Isabella Walker",
+    "Nicholas Harris",
+    "Madison King",
+    "Alexander Wright",
+    "Abigail Hall",
+    "Benjamin Martinez",
+    "Lily Anderson",
+    "Jacob Miller",
+  ];
+
+  const [result, setResult] = useState("");
+  const lookupName = () => {
+    // Clear previous result
+    setResult("");
+
+    // Check if the entered value is a 10-digit number
+    const trimmedAccountNum = accountNum.trim();
+    if (/^\d{9}$/.test(trimmedAccountNum)) {
+      // Get a random name from the array
+      const randomIndex = Math.floor(Math.random() * peopleNames.length);
+      const randomName = peopleNames[randomIndex];
+
+      // Display the result
+      setResult(`${randomName}`);
     }
   };
 
@@ -131,7 +190,15 @@ const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
                   marginBottom="8%"
                   marginTop="8%"
                 >
-                  Enter Transaction OTP for Fund Transfer
+                  Enter Transaction PIN for Fund Transfer
+                </Text>
+
+                <Text
+                  fontSize={{ base: "13px", md: "16px" }}
+                  color="#707070"
+                  marginBottom="8%"
+                >
+                  Transfer ${transferAmount} to {result}
                 </Text>
 
                 <Text
@@ -178,25 +245,8 @@ const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
               </Box>
             </Box>
           ) : (
-            <Verification />
+            <Verification amount = {transferAmount} />
           )}
-
-          <Modal isOpen={showModal} onClose={closeModal}>
-            <ModalOverlay backgroundColor="rgba(255, 255, 255, 0.1)" />
-            <ModalContent
-              borderRadius="25px"
-              padding="0.5%"
-              backgroundColor="#30CF63"
-              margin="600px 22% 0% 22%"
-            >
-              <ModalBody>
-                <ModalCloseButton marginTop="-5px" color="white" />
-                <Text fontSize={{ base: "12px", md: "16px" }} color="white">
-                  Verification Successful.
-                </Text>
-              </ModalBody>
-            </ModalContent>
-          </Modal>
         </Box>
       ) : (
         <Box paddingY="5%" paddingX="5%">
@@ -233,6 +283,9 @@ const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
               placeholder="Enter routing number"
               padding="6% 2%"
               marginTop="3%"
+              id="Amount"
+              onChange={handleRoutingNumChange}
+              value={RoutingNum}
             />
           </Box>
           <Box marginTop="5%">
@@ -241,16 +294,27 @@ const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
               placeholder="Enter swift code"
               padding="6% 2%"
               marginTop="3%"
+              id="Amount"
+              onChange={handleSwiftCodeChange}
+              value={swiftCode}
             />
           </Box>
           <Box marginTop="5%">
             <Text>Beneficiary Account Number</Text>
-            <Input padding="6% 2%" marginTop="3%" />
+            <Input
+              id="AccountNum"
+              onChange={handleAccountNumChange}
+              value={accountNum}
+              padding="6% 2%"
+              marginTop="3%"
+              onInput={lookupName}
+            />
+            <Text>{result}</Text>
           </Box>
           <Box marginTop="5%">
             <Text>Amount</Text>
             <Input
-              id="password"
+              id="Amount"
               onChange={handleTransferAmountChange}
               value={transferAmount}
               padding="6% 2%"
