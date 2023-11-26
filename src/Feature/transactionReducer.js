@@ -8,7 +8,11 @@ const initialState = [];
 const transactionReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(updateTransactionHistory, (state, action) => {
-      return action.payload;
+      if (state === null) {
+        return [action.payload]; // If the state is null, initialize it with a new array
+      }
+
+      return [...state, action.payload]; // Add the new transaction to the existing state
     });
 });
 

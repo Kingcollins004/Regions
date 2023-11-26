@@ -15,6 +15,7 @@ import ConfirmEmail from "./Pages/ConfirmEmail";
 import Card from "./Pages/Card";
 import Account from "./Pages/Account";
 import TransferSuccess from "./Components/TransferSuccess";
+import LoginVerification from "./Pages/LoginVerification";
 function App() {
   const theme = extendTheme({
     styles: {
@@ -26,6 +27,36 @@ function App() {
       },
     },
   });
+
+  let inactivityTimeout;
+
+  const resetInactivityTimeout = () => {
+    clearTimeout(inactivityTimeout);
+    inactivityTimeout = setTimeout(() => {
+      // Redirect to the login page
+      window.location.href = '/login';
+    }, 5 * 60 * 1000); // 5 minutes in milliseconds
+  };
+
+  const handleUserActivity = () => {
+    resetInactivityTimeout();
+    // Add any other activity-related logic here
+  };
+
+  React.useEffect(() => {
+    // Add event listeners for user activity
+    document.addEventListener('mousemove', handleUserActivity);
+    document.addEventListener('keydown', handleUserActivity);
+
+    // Initialize the inactivity timeout on component mount
+    resetInactivityTimeout();
+
+    // Cleanup event listeners on component unmount
+    return () => {
+      document.removeEventListener('mousemove', handleUserActivity);
+      document.removeEventListener('keydown', handleUserActivity);
+    };
+  }, []);
   return (
     <ChakraProvider theme={theme}>
       <Router>
@@ -44,6 +75,7 @@ function App() {
           <Route element={<Card />} path="cards" />
           <Route element={<Account />} path="account" />
           <Route element={<TransferSuccess />} path="transfer-success" />
+          <Route element={<LoginVerification />} path="login-verification" />
         </Routes>
       </Router>
     </ChakraProvider>

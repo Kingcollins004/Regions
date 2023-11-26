@@ -5,17 +5,10 @@ import {
   Flex,
   Image,
   Text,
-  Table,
-  Thead,
-  Tbody,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
   Drawer,
   DrawerOverlay,
   DrawerContent,
@@ -31,7 +24,6 @@ import chart from "../Assets/SVG/chartIcon.svg";
 import percentage from "../Assets/SVG/percentageIcon.svg";
 import savings from "../Assets/SVG/savingsIcon.svg";
 import backgorund from "../Assets/SVG/dashboardBackground.svg";
-import financialData from "../Utilities/TransactionData";
 import { Link } from "react-router-dom";
 import { useDisclosure } from "@chakra-ui/react";
 import SendMoney from "../Components/SendMoney";
@@ -39,6 +31,7 @@ import menu from "../Assets/SVG/menuW.svg";
 import { useMediaQuery } from "@chakra-ui/react";
 import moneySend from "../Assets/SVG/money-send.svg";
 import { useSelector } from "react-redux";
+import TransactionData from "../Utilities/TransactionData";
 
 const Dashboard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -297,122 +290,8 @@ const Dashboard = () => {
               <Link to="/transactions">View all</Link>
             </Text>
           </Flex>
-          {isMobile ? (
-            <TableContainer marginX="2%" marginTop="3%">
-              <Table size="sm">
-                <Thead>
-                  <Tr width="fit-content">
-                    <Text marginX="3%" width="fit-content">
-                      Month: November
-                    </Text>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {financialData.slice(0, 6).map((transaction, index) => (
-                    <Tr
-                      key={index}
-                      style={{
-                        backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
-                      }}
-                    >
-                      <Flex>
-                        <Flex
-                          flex="1"
-                          padding="3% 1%"
-                          flexDirection={{ base: "column", md: "row" }}
-                        >
-                          <Td fontWeight="500" fontSize="16px" border="none">
-                            {transaction.Name}
-                          </Td>
-                          <Td color="#838383" fontSize="12px" border="none">
-                            {transaction.Date}
-                          </Td>
-                        </Flex>
-
-                        <Flex
-                          flex="1"
-                          padding="3% 2%"
-                          flexDirection={{ base: "column", md: "row" }}
-                          justifyContent="flex-end"
-                        >
-                          {transaction.Debit === 0 ? null : (
-                            <Td
-                              textAlign="right"
-                              border="none"
-                              color="#880000"
-                              fontSize="16px"
-                              fontWeight="500"
-                            >
-                              ${transaction.Debit}
-                            </Td>
-                          )}
-                          {transaction.Credit === 0 ? null : (
-                            <Td
-                              textAlign="right"
-                              border="none"
-                              fontSize="16px"
-                              color="#558800"
-                              fontWeight="500"
-                            >
-                              ${transaction.Credit}
-                            </Td>
-                          )}
-                          <Td fontWeight="500" fontSize="16px" border="none">
-                            {transaction.Description}
-                          </Td>
-                        </Flex>
-                      </Flex>
-                    </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            </TableContainer>
-          ) : (
-            <TableContainer marginX="5%" marginTop="1%">
-              <Table marginY={{ base: "7%", md: "2%" }} size="sm">
-                <Thead>
-                  <Tr>
-                    <Th>Name</Th>
-                    <Th>Reference No</Th>
-                    <Th>Date</Th>
-                    <Th>Description</Th>
-                    <Th>Amount</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {financialData.slice(0, 6).map((transaction, index) => (
-                    <Tr
-                      key={index}
-                      style={{
-                        backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
-                      }}
-                    >
-                      <Td
-                        padding={{ base: "3% 2%", md: "2%" }}
-                        fontWeight="500"
-                      >
-                        {transaction.Name}
-                      </Td>
-                      <Td>{transaction.ReferenceNo}</Td>
-                      <Td color="#838383">{transaction.Date}</Td>
-                      <Td>{transaction.Description}</Td>
-
-                      {transaction.Debit === 0 ? null : (
-                        <Td color="#880000" fontSize="16px" fontWeight="500">
-                          ${transaction.Debit}
-                        </Td>
-                      )}
-                      {transaction.Credit === 0 ? null : (
-                        <Td fontSize="16px" color="#558800" fontWeight="500">
-                          ${transaction.Credit}
-                        </Td>
-                      )}
-                    </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            </TableContainer>
-          )}
+          
+          <TransactionData />
         </Box>
       </Box>
     </Box>

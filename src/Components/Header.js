@@ -23,7 +23,7 @@ const Header = () => {
     <div>
       {isMobile ? (
         <Flex
-          paddingX="10%"
+          paddingX="5%"
           paddingTop="3%"
           borderBottom="1px solid lightgray"
           justifyContent="space-between"

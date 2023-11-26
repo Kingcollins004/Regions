@@ -332,7 +332,7 @@ const Account = () => {
             width="80%"
             onClick={""}
           >
-            Complete Profile
+            Update Profile
           </Button>
         </Flex>
       </Box>

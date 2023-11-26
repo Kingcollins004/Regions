@@ -14,27 +14,14 @@ import toast, { Toaster } from "react-hot-toast";
 import TransferSuccess from "../Components/TransferSuccess";
 import { useDispatch } from "react-redux";
 import { updateUserBalance } from "../Feature/action";
+import { useNavigate } from "react-router-dom";
 
-const SendMoney = (props) => {
+const LoginVerification = (props) => {
   const [otpCode, setOtpCode] = useState(["", "", "", "", "", ""]);
   const inputContainerRef = useRef(null);
   const [timer, setTimer] = useState(90);
   const userInfo = useSelector((state) => state.user);
-  const [isSuccessful, setIsSuccessful] = useState(false);
-
-  const dispatch = useDispatch();
-  const transferAmount = props.amount;
-  const description = props.description;
-  const name = props.result;
-  const accountNum = props.accountNum
-  
-
-  // Subtraction logic
-  const handleTransferCompletion = (transferAmount) => {
-    const payload = { userId: userInfo.id, amountToSubtract: transferAmount };
-    console.log("Dispatching updateUserBalance with payload:", payload);
-    dispatch(updateUserBalance(payload));
-  };
+  const navigate = useNavigate()
 
   const handleOtpCodeChange = (e, index) => {
     const value = e.target.value;
@@ -105,24 +92,14 @@ const SendMoney = (props) => {
   const handleVerify = () => {
     const enteredOtpCode = otpCode.join("");
 
-    if (enteredOtpCode === "784631") {
-      toast.success("Transfer Successful");
-      setIsSuccessful(true);
-      handleTransferCompletion(transferAmount);
-      console.log(transferAmount);
+    if (enteredOtpCode === "582465") {
+      toast.success("Verification Successful");
+      navigate("/login-verification")
     }
   };
 
   return (
     <div>
-      {isSuccessful ? (
-        <TransferSuccess
-          amount={transferAmount}
-          name={name}
-          description={description}
-          accountNum={accountNum}
-        />
-      ) : (
         <Box paddingX="5%">
           <Toaster position="top-center" reverseOrder={false} />
           <Box
@@ -195,9 +172,8 @@ const SendMoney = (props) => {
             </Box>
           </Box>
         </Box>
-      )}
     </div>
   );
 };
 
-export default SendMoney;
+export default LoginVerification;

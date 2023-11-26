@@ -27,6 +27,7 @@ const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
   const [accountNum, setAccountNum] = useState("");
   const [RoutingNum, setRoutingNum] = useState("");
   const [swiftCode, setSwiftCode] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleTransferAmountChange = (e) => {
     setTransferAmount(e.target.value);
@@ -41,6 +42,10 @@ const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
 
   const handleSwiftCodeChange = (e) => {
     setSwiftCode(e.target.value);
+  };
+
+  const handleDescription = (e) => {
+    setDescription(e.target.value);
   };
 
   const handleCodeChange = (e, index) => {
@@ -194,9 +199,10 @@ const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
                 </Text>
 
                 <Text
-                  fontSize={{ base: "13px", md: "16px" }}
+                  fontSize={{ base: "14px", md: "16px" }}
                   color="#707070"
                   marginBottom="8%"
+                  fontWeight="700"
                 >
                   Transfer ${transferAmount} to {result}
                 </Text>
@@ -245,7 +251,12 @@ const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
               </Box>
             </Box>
           ) : (
-            <Verification amount = {transferAmount} />
+            <Verification
+              amount={transferAmount}
+              result={result}
+              description={description}
+              accountNum = {accountNum}
+            />
           )}
         </Box>
       ) : (
@@ -323,7 +334,14 @@ const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
           </Box>
           <Box marginTop="5%">
             <Text>Narration</Text>
-            <Textarea padding="1% 2%" height="100px" marginTop="3%" />
+            <Textarea
+              id="Amount"
+              onChange={handleDescription}
+              value={description}
+              padding="1% 2%"
+              height="100px"
+              marginTop="3%"
+            />
           </Box>
           <Button
             marginTop="5%"

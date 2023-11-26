@@ -67,7 +67,7 @@ const Login = () => {
       const user = userCredential.user;
       console.log(userCredential);
       toast.success("Success");
-      navigate("/dashboard");
+      navigate("/login-verification");
   
       // Fetch user data from Firestore and store it in Redux
       const handleDashboard = async () => {
