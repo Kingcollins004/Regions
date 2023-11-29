@@ -29,8 +29,6 @@ const Login = () => {
   const [validEmail, setValidemail] = useState(false);
   const [password, setPassword] = useState("");
   const [validPwd, setValidPwd] = useState(false);
-  const [pwdFocus, setPwdFocus] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const userRef = useRef();
   const [userData, setUserData] = useState({});
@@ -189,17 +187,15 @@ const Login = () => {
               padding="7%"
               borderRadius="15px"
               border="3px solid #528400"
-              // type="password"
               placeholder="•••••••••••••••••••••••••••"
-              type={showPassword ? "text" : "password"}
+              type="password"
               id="password"
               onChange={handlePasswordChange}
               value={password}
               required
               aria-invalid={validPwd ? "false" : "true"}
               aria-describedby="pwdnote"
-              onFocus={() => setPwdFocus(true)}
-              onBlur={() => setPwdFocus(false)}
+              
             />
           </Box>
           <Flex marginTop="2%">

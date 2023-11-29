@@ -94,7 +94,7 @@ const LoginVerification = (props) => {
 
     if (enteredOtpCode === "582465") {
       toast.success("Verification Successful");
-      navigate("/login-verification")
+      navigate("/dashboard")
     }
   };
 
