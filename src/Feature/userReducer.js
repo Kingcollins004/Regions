@@ -5,10 +5,12 @@ import { setUser, updateUserBalance } from './action';
 
 const initialState = null;
 
-// userReducer.js
-
 const userReducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(setUser, (state, action) => {
+      // Handle the setUser action here
+      return action.payload;
+    })
     .addCase(updateUserBalance, (state, action) => {
       if (state && action.payload.userId && action.payload.amountToSubtract) {
         if (state.id === action.payload.userId) {
