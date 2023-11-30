@@ -34,6 +34,7 @@ import { useSelector } from "react-redux";
 const Transactions = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   const userInfo = useSelector((state) => state.user);
+  const transactionData = useSelector((state) => state.transactions);
 
   const seedrandom = require("seedrandom");
 
@@ -45,11 +46,13 @@ const Transactions = () => {
 
   // Function to get a consistent random amount
   const getRandomAmount = () => (rng() * 1000).toFixed(2);
+  const reference = () => (rng() * 1000000000000).toFixed(0);
+
   const financialData = [
     {
       Account: 987654,
       Name: "Martins Richman",
-      ReferenceNo: "212ii75i908621",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-30",
       Description: "Consultation Fee",
       Debit: 0.0,
@@ -58,7 +61,7 @@ const Transactions = () => {
     {
       Account: 123456,
       Name: "John Trevor",
-      ReferenceNo: "686dgj87509753",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-30",
       Description: "Payment for Services",
       Debit: parseFloat(getRandomAmount()),
@@ -67,7 +70,7 @@ const Transactions = () => {
     {
       Account: 789012,
       Name: "Jane Smith",
-      ReferenceNo: "943vds8975986412",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-29",
       Description: "Product Purchase",
       Debit: 0.0,
@@ -76,7 +79,7 @@ const Transactions = () => {
     {
       Account: 456789,
       Name: "Bob Johnson",
-      ReferenceNo: "098jur85289632",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-29",
       Description: "Rent Payment",
       Debit: parseFloat(getRandomAmount()),
@@ -85,7 +88,7 @@ const Transactions = () => {
     {
       Account: 654321,
       Name: "Eva Wilson",
-      ReferenceNo: "874jiyu97500975",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-28",
       Description: "Office Supplies",
       Debit: parseFloat(getRandomAmount()),
@@ -94,7 +97,7 @@ const Transactions = () => {
     {
       Account: 123789,
       Name: "David Lee",
-      ReferenceNo: "063xwr3211263894",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-27",
       Description: "Salary Deposit",
       Debit: 0.0,
@@ -103,7 +106,7 @@ const Transactions = () => {
     {
       Account: 456123,
       Name: "Sara Davis",
-      ReferenceNo: "PQR678",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-26",
       Description: "Advertising Expense",
       Debit: parseFloat(getRandomAmount()),
@@ -112,7 +115,7 @@ const Transactions = () => {
     {
       Account: 789456,
       Name: "Michael Johnson",
-      ReferenceNo: "STU901",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-26",
       Description: "Loan Repayment",
       Debit: 0.0,
@@ -121,7 +124,7 @@ const Transactions = () => {
     {
       Account: 321654,
       Name: "Laura White",
-      ReferenceNo: "VWX234",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-23",
       Description: "Travel Expenses",
       Debit: parseFloat(getRandomAmount()),
@@ -130,7 +133,7 @@ const Transactions = () => {
     {
       Account: 654987,
       Name: "Chris Taylor",
-      ReferenceNo: "YZA567",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-20",
       Description: "Dividend Income",
       Debit: 0.0,
@@ -139,7 +142,7 @@ const Transactions = () => {
     {
       Account: 111222,
       Name: "Emily Davis",
-      ReferenceNo: "ABC789",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-20",
       Description: "Consulting Fee",
       Debit: 0.0,
@@ -148,7 +151,7 @@ const Transactions = () => {
     {
       Account: 333444,
       Name: "Daniel Johnson",
-      ReferenceNo: "XYZ456",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-18",
       Description: "Product Sale",
       Debit: 0.0,
@@ -157,7 +160,7 @@ const Transactions = () => {
     {
       Account: 555666,
       Name: "Olivia White",
-      ReferenceNo: "DEF123",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-16",
       Description: "Expense Reimbursement",
       Debit: parseFloat(getRandomAmount()),
@@ -166,7 +169,7 @@ const Transactions = () => {
     {
       Account: 777888,
       Name: "Matthew Miller",
-      ReferenceNo: "GHI456",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-17",
       Description: "Equipment Purchase",
       Debit: parseFloat(getRandomAmount()),
@@ -175,7 +178,7 @@ const Transactions = () => {
     {
       Account: 999000,
       Name: "Sophia Anderson",
-      ReferenceNo: "JKL789",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-17",
       Description: "Freelance Income",
       Debit: 0.0,
@@ -185,7 +188,7 @@ const Transactions = () => {
     {
       Account: 111333,
       Name: "William Brown",
-      ReferenceNo: "MNO012",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-1",
       Description: "Utility Bill Payment",
       Debit: parseFloat(getRandomAmount()),
@@ -194,7 +197,7 @@ const Transactions = () => {
     {
       Account: 444555,
       Name: "Emma Taylor",
-      ReferenceNo: "PQR345",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-20",
       Description: "Stock Purchase",
       Debit: parseFloat(getRandomAmount()),
@@ -203,7 +206,7 @@ const Transactions = () => {
     {
       Account: 666777,
       Name: "James Wilson",
-      ReferenceNo: "STU678",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-21",
       Description: "Marketing Expenses",
       Debit: parseFloat(getRandomAmount()),
@@ -212,7 +215,7 @@ const Transactions = () => {
     {
       Account: 888999,
       Name: "Ava Johnson",
-      ReferenceNo: "VWX901",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-22",
       Description: "Client Payment",
       Debit: 0.0,
@@ -221,7 +224,7 @@ const Transactions = () => {
     {
       Account: 222333,
       Name: "Noah Davis",
-      ReferenceNo: "YZA234",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-23",
       Description: "Training Fee",
       Debit: 0.0,
@@ -230,7 +233,7 @@ const Transactions = () => {
     {
       Account: 555444,
       Name: "Grace White",
-      ReferenceNo: "BCD567",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-24",
       Description: "Rent Expense",
       Debit: parseFloat(getRandomAmount()),
@@ -239,7 +242,7 @@ const Transactions = () => {
     {
       Account: 777666,
       Name: "Ethan Miller",
-      ReferenceNo: "EFG890",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-25",
       Description: "Website Development",
       Debit: 0.0,
@@ -248,7 +251,7 @@ const Transactions = () => {
     {
       Account: 999888,
       Name: "Isabella Anderson",
-      ReferenceNo: "HIJ123",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-26",
       Description: "Insurance Premium",
       Debit: parseFloat(getRandomAmount()),
@@ -257,7 +260,7 @@ const Transactions = () => {
     {
       Account: 333222,
       Name: "Liam Brown",
-      ReferenceNo: "KLM456",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-27",
       Description: "Conference Registration",
       Debit: parseFloat(getRandomAmount()),
@@ -266,7 +269,7 @@ const Transactions = () => {
     {
       Account: 666999,
       Name: "Sophie Taylor",
-      ReferenceNo: "NOP789",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-28",
       Description: "Software Subscription",
       Debit: parseFloat(getRandomAmount()),
@@ -275,7 +278,7 @@ const Transactions = () => {
     {
       Account: 888111,
       Name: "Jackson Wilson",
-      ReferenceNo: "QRS012",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-29",
       Description: "Repair Expenses",
       Debit: parseFloat(getRandomAmount()),
@@ -284,7 +287,7 @@ const Transactions = () => {
     {
       Account: 222444,
       Name: "Chloe Johnson",
-      ReferenceNo: "TUV345",
+      ReferenceNo: parseFloat(reference()),
       Date: "2023-11-30",
       Description: "Royalty Income",
       Debit: 0.0,
@@ -432,6 +435,60 @@ const Transactions = () => {
               </Tr>
             </Thead>
             <Tbody>
+            {[...transactionData].reverse().map((transaction, index) => {
+                return (
+                  <Tr
+                    key={index}
+                    style={{
+                      backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
+                    }}
+                  >
+                    <Flex>
+                      <Flex
+                        flex="1"
+                        padding="3% 1%"
+                        flexDirection={{ base: "column", md: "row" }}
+                      >
+                        <Td fontWeight="500" fontSize="14px" border="none">
+                          {transaction.name}
+                        </Td>
+                        <Td color="#838383" fontSize="12px" border="none">
+                          {transaction.date}
+                        </Td>
+                      </Flex>
+
+                      <Flex
+                        flex="1"
+                        padding="3% 2%"
+                        flexDirection={{ base: "column", md: "row" }}
+                        justifyContent="flex-end"
+                      >
+                        {transaction.debit === 0 ? null : (
+                          <Td
+                            textAlign="right"
+                            border="none"
+                            color="#880000"
+                            fontSize="14px"
+                            fontWeight="500"
+                          >
+                            - ${transaction.amount}
+                          </Td>
+                        )}
+
+                        <Td
+                          fontWeight="500"
+                          textAlign="right"
+                          fontSize="14px"
+                          border="none"
+                        >
+                          {transaction.description}
+                        </Td>
+                      </Flex>
+                    </Flex>
+                  </Tr>
+                );
+              })}
+
               {financialData.map((transaction, index) => (
                 <Tr
                   key={index}
@@ -504,6 +561,30 @@ const Transactions = () => {
               </Tr>
             </Thead>
             <Tbody>
+
+            {[...transactionData].reverse().map((transaction, index) => {
+                return (
+                  <Tr
+                    key={index}
+                    style={{
+                      backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
+                    }}
+                  >
+                    <Td padding={{ base: "3% 2%", md: "2%" }} fontWeight="500">
+                      {transaction.name}
+                    </Td>
+                    <Td>{parseFloat(reference())}</Td>
+                    <Td color="#838383">{transaction.date}</Td>
+                    <Td>{transaction.description}</Td>
+
+                    {transaction.Debit === 0 ? null : (
+                      <Td color="#880000" fontSize="16px" fontWeight="500">
+                        - ${transaction.amount}
+                      </Td>
+                    )}
+                  </Tr>
+                );
+              })}
               {financialData.map((transaction, index) => (
                 <Tr
                   key={index}
