@@ -467,7 +467,7 @@ const Transactions = () => {
                           fontSize="16px"
                           fontWeight="500"
                         >
-                          ${transaction.Debit}
+                         - ${transaction.Debit}
                         </Td>
                       )}
                       {transaction.Credit === 0 ? null : (
@@ -478,10 +478,10 @@ const Transactions = () => {
                           color="#558800"
                           fontWeight="500"
                         >
-                          ${transaction.Credit}
+                         + ${transaction.Credit}
                         </Td>
                       )}
-                      <Td fontWeight="500" fontSize="16px" border="none">
+                      <Td textAlign="right" fontWeight="500" fontSize="16px" border="none">
                         {transaction.Description}
                       </Td>
                     </Flex>
@@ -517,12 +517,12 @@ const Transactions = () => {
                   <Td>{transaction.Description}</Td>
                   {transaction.Debit === 0 ? null : (
                     <Td color="#880000" fontSize="16px" fontWeight="500">
-                      ${transaction.Debit}
+                     - ${transaction.Debit}
                     </Td>
                   )}
                   {transaction.Credit === 0 ? null : (
                     <Td fontSize="16px" color="#558800" fontWeight="500">
-                      ${transaction.Credit}
+                     + ${transaction.Credit}
                     </Td>
                   )}
                 </Tr>

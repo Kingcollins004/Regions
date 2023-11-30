@@ -27,6 +27,7 @@ const TransactionData = () => {
 
   // Function to get a consistent random amount
   const getRandomAmount = () => (rng() * 1000).toFixed(2);
+  const reference = () => (rng() * 1000000000000).toFixed(0);
   const financialData = [
     {
       Account: 987654,
@@ -324,7 +325,7 @@ const TransactionData = () => {
                             fontSize="14px"
                             fontWeight="500"
                           >
-                            ${transaction.amount} - Debit
+                            - ${transaction.amount}
                           </Td>
                         )}
 
@@ -339,7 +340,6 @@ const TransactionData = () => {
                       </Flex>
                     </Flex>
                   </Tr>
-                  // ... rest of the code
                 );
               })}
 
@@ -378,7 +378,7 @@ const TransactionData = () => {
                           fontSize="14px"
                           fontWeight="500"
                         >
-                          ${transaction.Debit} - Debit
+                          - ${transaction.Debit}
                         </Td>
                       )}
                       {transaction.Credit === 0 ? null : (
@@ -389,7 +389,7 @@ const TransactionData = () => {
                           color="#558800"
                           fontWeight="500"
                         >
-                          ${transaction.Credit} - Credit
+                          + ${transaction.Credit}
                         </Td>
                       )}
                       <Td
@@ -420,6 +420,29 @@ const TransactionData = () => {
               </Tr>
             </Thead>
             <Tbody>
+              {[...transactionData].reverse().map((transaction, index) => {
+                return (
+                  <Tr
+                    key={index}
+                    style={{
+                      backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
+                    }}
+                  >
+                    <Td padding={{ base: "3% 2%", md: "2%" }} fontWeight="500">
+                      {transaction.name}
+                    </Td>
+                    <Td>{parseFloat(reference())}</Td>
+                    <Td color="#838383">{transaction.date}</Td>
+                    <Td>{transaction.description}</Td>
+
+                    {transaction.Debit === 0 ? null : (
+                      <Td color="#880000" fontSize="16px" fontWeight="500">
+                        - ${transaction.amount}
+                      </Td>
+                    )}
+                  </Tr>
+                );
+              })}
               {financialData.slice(0, 6).map((transaction, index) => (
                 <Tr
                   key={index}
@@ -436,12 +459,12 @@ const TransactionData = () => {
 
                   {transaction.Debit === 0 ? null : (
                     <Td color="#880000" fontSize="16px" fontWeight="500">
-                      ${transaction.Debit} - Debit
+                      - ${transaction.Debit}
                     </Td>
                   )}
                   {transaction.Credit === 0 ? null : (
                     <Td fontSize="16px" color="#558800" fontWeight="500">
-                      ${transaction.Credit} - Credit
+                      + ${transaction.Credit}
                     </Td>
                   )}
                 </Tr>

@@ -38,10 +38,25 @@ const Dashboard = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   const btnRef = React.useRef();
   const userInfo = useSelector((state) => state.user);
+  const transactionData = useSelector((state) => state.transactions);
+  
+  const calculateTotalAmount = () => {
+    if (transactionData.length > 0) {
+      return transactionData.reduce((sum, transaction) => {
+        const transactionAmount = Number(transaction.amount) || 0;
+        return sum + transactionAmount;
+      }, 0);
+    } else {
+      return 0; // Return 0 if there are no transactions
+    }
+  };
 
-  const updateBalance =  userInfo.balance;
+  const totalAmount = calculateTotalAmount();
 
-  const balance = userInfo.amount + userInfo.euro
+  const balance = userInfo.amount + userInfo.euro;
+  const updateBalance = balance - -userInfo.balance;
+
+  const reloginBalance = balance - totalAmount
   return (
     <Box margin="0">
       <Box
@@ -128,7 +143,7 @@ const Dashboard = () => {
                 </Text>
               ) : (
                 <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
-                  ${balance.toLocaleString()}
+                  ${reloginBalance.toLocaleString()}
                 </Text>
               )}
 
@@ -228,14 +243,14 @@ const Dashboard = () => {
               <Text fontSize="12px">12.5%</Text>
             </Flex>
             {userInfo.balance ? (
-                <Text fontSize="32px" marginTop="5%" fontWeight="600">
-                  ${updateBalance.toLocaleString()}
-                </Text>
-              ) : (
-                <Text fontSize="32px" marginTop="5%" fontWeight="600">
-                  ${balance.toLocaleString()}
-                </Text>
-              )}
+              <Text fontSize="32px" marginTop="5%" fontWeight="600">
+                ${updateBalance.toLocaleString()}
+              </Text>
+            ) : (
+              <Text fontSize="32px" marginTop="5%" fontWeight="600">
+                ${balance.toLocaleString()}
+              </Text>
+            )}
           </Box>
           <Box
             height="250px"
@@ -292,7 +307,7 @@ const Dashboard = () => {
               <Link to="/transactions">View all</Link>
             </Text>
           </Flex>
-          
+
           <TransactionData />
         </Box>
       </Box>
