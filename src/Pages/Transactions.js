@@ -216,7 +216,7 @@ const Transactions = () => {
       Date: "2023-11-22",
       Description: "Client Payment",
       Debit: 0.0,
-      Credit: 1000.0,
+      Credit: parseFloat(getRandomAmount()),
     },
     {
       Account: 222333,
@@ -225,7 +225,7 @@ const Transactions = () => {
       Date: "2023-11-23",
       Description: "Training Fee",
       Debit: 0.0,
-      Credit: 350.0,
+      Credit: parseFloat(getRandomAmount()),
     },
     {
       Account: 555444,
@@ -233,7 +233,7 @@ const Transactions = () => {
       ReferenceNo: "BCD567",
       Date: "2023-11-24",
       Description: "Rent Expense",
-      Debit: 700.0,
+      Debit: parseFloat(getRandomAmount()),
       Credit: 0.0,
     },
     {
@@ -243,7 +243,7 @@ const Transactions = () => {
       Date: "2023-11-25",
       Description: "Website Development",
       Debit: 0.0,
-      Credit: 900.0,
+      Credit: parseFloat(getRandomAmount()),
     },
     {
       Account: 999888,
@@ -251,7 +251,7 @@ const Transactions = () => {
       ReferenceNo: "HIJ123",
       Date: "2023-11-26",
       Description: "Insurance Premium",
-      Debit: 550.0,
+      Debit: parseFloat(getRandomAmount()),
       Credit: 0.0,
     },
     {
@@ -260,8 +260,8 @@ const Transactions = () => {
       ReferenceNo: "KLM456",
       Date: "2023-11-27",
       Description: "Conference Registration",
-      Debit: 0.0,
-      Credit: 250.0,
+      Debit: parseFloat(getRandomAmount()),
+      Credit: 0.0,
     },
     {
       Account: 666999,
@@ -269,7 +269,7 @@ const Transactions = () => {
       ReferenceNo: "NOP789",
       Date: "2023-11-28",
       Description: "Software Subscription",
-      Debit: 150.0,
+      Debit: parseFloat(getRandomAmount()),
       Credit: 0.0,
     },
     {
@@ -278,7 +278,7 @@ const Transactions = () => {
       ReferenceNo: "QRS012",
       Date: "2023-11-29",
       Description: "Repair Expenses",
-      Debit: 400.0,
+      Debit: parseFloat(getRandomAmount()),
       Credit: 0.0,
     },
     {
@@ -288,7 +288,7 @@ const Transactions = () => {
       Date: "2023-11-30",
       Description: "Royalty Income",
       Debit: 0.0,
-      Credit: 200.0,
+      Credit: parseFloat(getRandomAmount()),
     },
     // Add more objects for additional transactions
   ];
