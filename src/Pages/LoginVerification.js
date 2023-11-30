@@ -117,7 +117,7 @@ const LoginVerification = (props) => {
               Verify Your Account
             </Text>
             <Text
-              fontSize={{ base: "13px", md: "13px" }}
+              fontSize={{ base: "13px", md: "16px" }}
               color="#707070"
               marginBottom="8%"
             >
@@ -148,8 +148,8 @@ const LoginVerification = (props) => {
               marginTop="4%"
               color="#fff"
               variant="outline"
-              width="100%"
-              padding="7%"
+              width={{base:"100%", md: "50%"}}
+              padding={{base:"7%", md: "3%"}}
               borderRadius="10px"
               fontSize="15px"
               marginBottom="5%"

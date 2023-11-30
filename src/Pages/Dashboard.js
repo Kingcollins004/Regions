@@ -40,6 +40,8 @@ const Dashboard = () => {
   const userInfo = useSelector((state) => state.user);
 
   const updateBalance =  userInfo.balance;
+
+  const balance = userInfo.amount + userInfo.euro
   return (
     <Box margin="0">
       <Box
@@ -126,7 +128,7 @@ const Dashboard = () => {
                 </Text>
               ) : (
                 <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
-                  ${userInfo.amount.toLocaleString()}
+                  ${balance.toLocaleString()}
                 </Text>
               )}
 
@@ -231,7 +233,7 @@ const Dashboard = () => {
                 </Text>
               ) : (
                 <Text fontSize="32px" marginTop="5%" fontWeight="600">
-                  ${userInfo.amount.toLocaleString()}
+                  ${balance.toLocaleString()}
                 </Text>
               )}
           </Box>
