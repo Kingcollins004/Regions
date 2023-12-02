@@ -281,13 +281,7 @@ const TransactionData = () => {
       {isMobile ? (
         <TableContainer marginX="2%" marginTop="3%">
           <Table size="sm">
-            <Thead>
-              <Tr width="fit-content">
-                <Text marginX="3%" width="fit-content">
-                  Month: November
-                </Text>
-              </Tr>
-            </Thead>
+            
             <Tbody>
               {[...transactionData].reverse().map((transaction, index) => {
                 return (

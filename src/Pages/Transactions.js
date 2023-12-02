@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -30,11 +30,19 @@ import { Link } from "react-router-dom";
 import menu from "../Assets/SVG/menuW.svg";
 import filter from "../Assets/SVG/filter.svg";
 import { useSelector } from "react-redux";
+import getCompleteFinancialData from "../completeFinancialData";
+
 
 const Transactions = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
-  const userInfo = useSelector((state) => state.user);
+  // const userInfo = useSelector((state) => state.user);
   const transactionData = useSelector((state) => state.transactions);
+  const [selectedMonth, setSelectedMonth] = useState("December");
+  const [financialData, setFinancialData] = useState([]);
+
+  const completeFinancialData = getCompleteFinancialData();
+
+  console.log(completeFinancialData);
 
   const seedrandom = require("seedrandom");
 
@@ -45,256 +53,26 @@ const Transactions = () => {
   const rng = seedrandom(seed);
 
   // Function to get a consistent random amount
-  const getRandomAmount = () => (rng() * 1000).toFixed(2);
+
   const reference = () => (rng() * 1000000000000).toFixed(0);
 
-  const financialData = [
-    {
-      Account: 987654,
-      Name: "Martins Richman",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-30",
-      Description: "Consultation Fee",
-      Debit: 0.0,
-      Credit: userInfo.amount,
-    },
-    {
-      Account: 123456,
-      Name: "John Trevor",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-30",
-      Description: "Payment for Services",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 789012,
-      Name: "Jane Smith",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-29",
-      Description: "Product Purchase",
-      Debit: 0.0,
-      Credit: parseFloat(getRandomAmount()),
-    },
-    {
-      Account: 456789,
-      Name: "Bob Johnson",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-29",
-      Description: "Rent Payment",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 654321,
-      Name: "Eva Wilson",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-28",
-      Description: "Office Supplies",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 123789,
-      Name: "David Lee",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-27",
-      Description: "Salary Deposit",
-      Debit: 0.0,
-      Credit: parseFloat(getRandomAmount()),
-    },
-    {
-      Account: 456123,
-      Name: "Sara Davis",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-26",
-      Description: "Advertising Expense",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 789456,
-      Name: "Michael Johnson",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-26",
-      Description: "Loan Repayment",
-      Debit: 0.0,
-      Credit: parseFloat(getRandomAmount()),
-    },
-    {
-      Account: 321654,
-      Name: "Laura White",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-23",
-      Description: "Travel Expenses",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 654987,
-      Name: "Chris Taylor",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-20",
-      Description: "Dividend Income",
-      Debit: 0.0,
-      Credit: parseFloat(getRandomAmount()),
-    },
-    {
-      Account: 111222,
-      Name: "Emily Davis",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-20",
-      Description: "Consulting Fee",
-      Debit: 0.0,
-      Credit: parseFloat(getRandomAmount()),
-    },
-    {
-      Account: 333444,
-      Name: "Daniel Johnson",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-18",
-      Description: "Product Sale",
-      Debit: 0.0,
-      Credit: parseFloat(getRandomAmount()),
-    },
-    {
-      Account: 555666,
-      Name: "Olivia White",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-16",
-      Description: "Expense Reimbursement",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 777888,
-      Name: "Matthew Miller",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-17",
-      Description: "Equipment Purchase",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 999000,
-      Name: "Sophia Anderson",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-17",
-      Description: "Freelance Income",
-      Debit: 0.0,
-      Credit: parseFloat(getRandomAmount()),
-    },
-    // Additional transactions...
-    {
-      Account: 111333,
-      Name: "William Brown",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-1",
-      Description: "Utility Bill Payment",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 444555,
-      Name: "Emma Taylor",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-20",
-      Description: "Stock Purchase",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 666777,
-      Name: "James Wilson",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-21",
-      Description: "Marketing Expenses",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 888999,
-      Name: "Ava Johnson",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-22",
-      Description: "Client Payment",
-      Debit: 0.0,
-      Credit: parseFloat(getRandomAmount()),
-    },
-    {
-      Account: 222333,
-      Name: "Noah Davis",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-23",
-      Description: "Training Fee",
-      Debit: 0.0,
-      Credit: parseFloat(getRandomAmount()),
-    },
-    {
-      Account: 555444,
-      Name: "Grace White",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-24",
-      Description: "Rent Expense",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 777666,
-      Name: "Ethan Miller",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-25",
-      Description: "Website Development",
-      Debit: 0.0,
-      Credit: parseFloat(getRandomAmount()),
-    },
-    {
-      Account: 999888,
-      Name: "Isabella Anderson",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-26",
-      Description: "Insurance Premium",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 333222,
-      Name: "Liam Brown",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-27",
-      Description: "Conference Registration",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 666999,
-      Name: "Sophie Taylor",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-28",
-      Description: "Software Subscription",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 888111,
-      Name: "Jackson Wilson",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-29",
-      Description: "Repair Expenses",
-      Debit: parseFloat(getRandomAmount()),
-      Credit: 0.0,
-    },
-    {
-      Account: 222444,
-      Name: "Chloe Johnson",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-30",
-      Description: "Royalty Income",
-      Debit: 0.0,
-      Credit: parseFloat(getRandomAmount()),
-    },
-    // Add more objects for additional transactions
-  ];
+  const handleMonthChange = (event) => {
+    const selectedMonth = event.target.value;
+    setSelectedMonth(selectedMonth);
+    filterTransactions(selectedMonth);
+  };
+
+  const filterTransactions = (selectedMonth) => {
+    const filtered = completeFinancialData.filter(
+      (transaction) =>
+        new Date(transaction.Date).toLocaleString("default", {
+          month: "long",
+        }) === selectedMonth
+    );
+    console.log("Complete Financial Data:", completeFinancialData);
+    console.log("Filtered Data:", filtered);
+    setFinancialData(filtered);
+  };
 
   return (
     <Box>
@@ -335,7 +113,6 @@ const Transactions = () => {
                     <MenuItem>
                       <Link to="/transactions">Transactions</Link>
                     </MenuItem>
-                   
                   </MenuList>
                 </Menu>
               </Flex>
@@ -367,7 +144,6 @@ const Transactions = () => {
                 <Text backgroundColor="#88BB00" padding="2% 4%">
                   <Link to="/transactions">Transactions</Link>
                 </Text>
-                
               </Flex>
 
               <Flex flex="1" justifyContent="flex-end" alignItems="center">
@@ -404,25 +180,34 @@ const Transactions = () => {
           borderRadius={{ base: "20px", md: "20px" }}
           border="1px solid #558800"
           width="fit-content"
-          padding={{ base: "2px 4px", md: "2px 2%" }}
+          padding={{ base: "2px 8px", md: "2px 3%" }}
           color="#558800"
           alignItems="center"
           marginTop={{ base: "3%", md: "10px" }}
         >
-          <Image src={filter} />
-          <Select border="none" size="sm" width="110px" fontSize="16px">
+          <Image width="20%" src={filter} />
+          <Select
+            onChange={handleMonthChange}
+            value={selectedMonth}
+            border="none"
+            size="sm"
+            width="110px"
+            fontSize="16px"
+            _focus={{ boxShadow: "none" }}
+          >
             <option value="option1">Filter</option>
-            <option value="option2">Nov</option>
-            <option value="option3">Oct</option>
-            <option value="option4">Sept</option>
-            <option value="option5">Aug</option>
-            <option value="option6">July</option>
-            <option value="option7">Jun</option>
-            <option value="option8">May</option>
-            <option value="option9">Apr</option>
-            <option value="option10">Mar</option>
-            <option value="option11">Feb</option>
-            <option value="option12">Jan</option>
+            <option value="December">Dec</option>
+            <option value="November">Nov</option>
+            <option value="October">Oct</option>
+            <option value="September">Sept</option>
+            <option value="August">Aug</option>
+            <option value="July">July</option>
+            <option value="June">Jun</option>
+            <option value="May">May</option>
+            <option value="April">Apr</option>
+            <option value="March">Mar</option>
+            <option value="Febuary">Feb</option>
+            <option value="January">Jan</option>
           </Select>
         </Flex>
       </Flex>
@@ -431,11 +216,11 @@ const Transactions = () => {
           <Table size="sm">
             <Thead>
               <Tr width="fit-content">
-                <Th width="fit-content">November</Th>
+                <Th width="fit-content">{selectedMonth}</Th>
               </Tr>
             </Thead>
             <Tbody>
-            {[...transactionData].reverse().map((transaction, index) => {
+              {[...transactionData].reverse().map((transaction, index) => {
                 return (
                   <Tr
                     key={index}
@@ -524,7 +309,7 @@ const Transactions = () => {
                           fontSize="16px"
                           fontWeight="500"
                         >
-                         - ${transaction.Debit}
+                          - ${transaction.Debit}
                         </Td>
                       )}
                       {transaction.Credit === 0 ? null : (
@@ -535,10 +320,15 @@ const Transactions = () => {
                           color="#558800"
                           fontWeight="500"
                         >
-                         + ${transaction.Credit}
+                          + ${transaction.Credit}
                         </Td>
                       )}
-                      <Td textAlign="right" fontWeight="500" fontSize="16px" border="none">
+                      <Td
+                        textAlign="right"
+                        fontWeight="500"
+                        fontSize="16px"
+                        border="none"
+                      >
                         {transaction.Description}
                       </Td>
                     </Flex>
@@ -561,8 +351,7 @@ const Transactions = () => {
               </Tr>
             </Thead>
             <Tbody>
-
-            {[...transactionData].reverse().map((transaction, index) => {
+              {[...transactionData].reverse().map((transaction, index) => {
                 return (
                   <Tr
                     key={index}
@@ -598,12 +387,12 @@ const Transactions = () => {
                   <Td>{transaction.Description}</Td>
                   {transaction.Debit === 0 ? null : (
                     <Td color="#880000" fontSize="16px" fontWeight="500">
-                     - ${transaction.Debit}
+                      - ${transaction.Debit}
                     </Td>
                   )}
                   {transaction.Credit === 0 ? null : (
                     <Td fontSize="16px" color="#558800" fontWeight="500">
-                     + ${transaction.Credit}
+                      + ${transaction.Credit}
                     </Td>
                   )}
                 </Tr>
