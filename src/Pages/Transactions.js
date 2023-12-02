@@ -32,17 +32,17 @@ import filter from "../Assets/SVG/filter.svg";
 import { useSelector } from "react-redux";
 import getCompleteFinancialData from "../completeFinancialData";
 
-
 const Transactions = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   // const userInfo = useSelector((state) => state.user);
   const transactionData = useSelector((state) => state.transactions);
   const [selectedMonth, setSelectedMonth] = useState("December");
   const [financialData, setFinancialData] = useState([]);
+  const [userTransaction, setUserTransaction] = useState(false);
 
   const completeFinancialData = getCompleteFinancialData();
 
-  console.log(completeFinancialData);
+  // console.log(completeFinancialData);
 
   const seedrandom = require("seedrandom");
 
@@ -60,6 +60,11 @@ const Transactions = () => {
     const selectedMonth = event.target.value;
     setSelectedMonth(selectedMonth);
     filterTransactions(selectedMonth);
+    if (selectedMonth === "December") {
+      setUserTransaction(true);
+    } else {
+      setUserTransaction(false)
+    }
   };
 
   const filterTransactions = (selectedMonth) => {
@@ -219,9 +224,63 @@ const Transactions = () => {
                 <Th width="fit-content">{selectedMonth}</Th>
               </Tr>
             </Thead>
-            <Tbody>
-              {[...transactionData].reverse().map((transaction, index) => {
-                return (
+            {userTransaction ? (
+              <Tbody>
+                {[...transactionData].reverse().map((transaction, index) => {
+                  return (
+                    <Tr
+                      key={index}
+                      style={{
+                        backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
+                      }}
+                    >
+                      <Flex>
+                        <Flex
+                          flex="1"
+                          padding="3% 1%"
+                          flexDirection={{ base: "column", md: "row" }}
+                        >
+                          <Td fontWeight="500" fontSize="14px" border="none">
+                            {transaction.name}
+                          </Td>
+                          <Td color="#838383" fontSize="12px" border="none">
+                            {transaction.date}
+                          </Td>
+                        </Flex>
+
+                        <Flex
+                          flex="1"
+                          padding="3% 2%"
+                          flexDirection={{ base: "column", md: "row" }}
+                          justifyContent="flex-end"
+                        >
+                          {transaction.debit === 0 ? null : (
+                            <Td
+                              textAlign="right"
+                              border="none"
+                              color="#880000"
+                              fontSize="14px"
+                              fontWeight="500"
+                            >
+                              - ${transaction.amount}
+                            </Td>
+                          )}
+
+                          <Td
+                            fontWeight="500"
+                            textAlign="right"
+                            fontSize="14px"
+                            border="none"
+                          >
+                            {transaction.description}
+                          </Td>
+                        </Flex>
+                      </Flex>
+                    </Tr>
+                  );
+                })}
+
+                {financialData.map((transaction, index) => (
                   <Tr
                     key={index}
                     style={{
@@ -234,11 +293,11 @@ const Transactions = () => {
                         padding="3% 1%"
                         flexDirection={{ base: "column", md: "row" }}
                       >
-                        <Td fontWeight="500" fontSize="14px" border="none">
-                          {transaction.name}
+                        <Td fontWeight="500" fontSize="16px" border="none">
+                          {transaction.Name}
                         </Td>
                         <Td color="#838383" fontSize="12px" border="none">
-                          {transaction.date}
+                          {transaction.Date}
                         </Td>
                       </Flex>
 
@@ -248,94 +307,106 @@ const Transactions = () => {
                         flexDirection={{ base: "column", md: "row" }}
                         justifyContent="flex-end"
                       >
-                        {transaction.debit === 0 ? null : (
+                        {transaction.Debit === 0 ? null : (
                           <Td
                             textAlign="right"
                             border="none"
                             color="#880000"
-                            fontSize="14px"
+                            fontSize="16px"
                             fontWeight="500"
                           >
-                            - ${transaction.amount}
+                            - ${transaction.Debit}
                           </Td>
                         )}
-
+                        {transaction.Credit === 0 ? null : (
+                          <Td
+                            textAlign="right"
+                            border="none"
+                            fontSize="16px"
+                            color="#558800"
+                            fontWeight="500"
+                          >
+                            + ${transaction.Credit}
+                          </Td>
+                        )}
                         <Td
-                          fontWeight="500"
                           textAlign="right"
-                          fontSize="14px"
+                          fontWeight="500"
+                          fontSize="16px"
                           border="none"
                         >
-                          {transaction.description}
+                          {transaction.Description}
                         </Td>
                       </Flex>
                     </Flex>
                   </Tr>
-                );
-              })}
-
-              {financialData.map((transaction, index) => (
-                <Tr
-                  key={index}
-                  style={{
-                    backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
-                  }}
-                >
-                  <Flex>
-                    <Flex
-                      flex="1"
-                      padding="3% 1%"
-                      flexDirection={{ base: "column", md: "row" }}
-                    >
-                      <Td fontWeight="500" fontSize="16px" border="none">
-                        {transaction.Name}
-                      </Td>
-                      <Td color="#838383" fontSize="12px" border="none">
-                        {transaction.Date}
-                      </Td>
-                    </Flex>
-
-                    <Flex
-                      flex="1"
-                      padding="3% 2%"
-                      flexDirection={{ base: "column", md: "row" }}
-                      justifyContent="flex-end"
-                    >
-                      {transaction.Debit === 0 ? null : (
-                        <Td
-                          textAlign="right"
-                          border="none"
-                          color="#880000"
-                          fontSize="16px"
-                          fontWeight="500"
-                        >
-                          - ${transaction.Debit}
-                        </Td>
-                      )}
-                      {transaction.Credit === 0 ? null : (
-                        <Td
-                          textAlign="right"
-                          border="none"
-                          fontSize="16px"
-                          color="#558800"
-                          fontWeight="500"
-                        >
-                          + ${transaction.Credit}
-                        </Td>
-                      )}
-                      <Td
-                        textAlign="right"
-                        fontWeight="500"
-                        fontSize="16px"
-                        border="none"
+                ))}
+              </Tbody>
+            ) : (
+              <Tbody>
+                {financialData.map((transaction, index) => (
+                  <Tr
+                    key={index}
+                    style={{
+                      backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
+                    }}
+                  >
+                    <Flex>
+                      <Flex
+                        flex="1"
+                        padding="3% 1%"
+                        flexDirection={{ base: "column", md: "row" }}
                       >
-                        {transaction.Description}
-                      </Td>
+                        <Td fontWeight="500" fontSize="16px" border="none">
+                          {transaction.Name}
+                        </Td>
+                        <Td color="#838383" fontSize="12px" border="none">
+                          {transaction.Date}
+                        </Td>
+                      </Flex>
+
+                      <Flex
+                        flex="1"
+                        padding="3% 2%"
+                        flexDirection={{ base: "column", md: "row" }}
+                        justifyContent="flex-end"
+                      >
+                        {transaction.Debit === 0 ? null : (
+                          <Td
+                            textAlign="right"
+                            border="none"
+                            color="#880000"
+                            fontSize="16px"
+                            fontWeight="500"
+                          >
+                            - ${transaction.Debit}
+                          </Td>
+                        )}
+                        {transaction.Credit === 0 ? null : (
+                          <Td
+                            textAlign="right"
+                            border="none"
+                            fontSize="16px"
+                            color="#558800"
+                            fontWeight="500"
+                          >
+                            + ${transaction.Credit}
+                          </Td>
+                        )}
+                        <Td
+                          textAlign="right"
+                          fontWeight="500"
+                          fontSize="16px"
+                          border="none"
+                        >
+                          {transaction.Description}
+                        </Td>
+                      </Flex>
                     </Flex>
-                  </Flex>
-                </Tr>
-              ))}
-            </Tbody>
+                  </Tr>
+                ))}
+              </Tbody>
+            )}
           </Table>
         </TableContainer>
       ) : (
@@ -350,54 +421,86 @@ const Transactions = () => {
                 <Th>Amount</Th>
               </Tr>
             </Thead>
-            <Tbody>
-              {[...transactionData].reverse().map((transaction, index) => {
-                return (
+            {userTransaction ? (
+              <Tbody>
+                {[...transactionData].reverse().map((transaction, index) => {
+                  return (
+                    <Tr
+                      key={index}
+                      style={{
+                        backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
+                      }}
+                    >
+                      <Td
+                        padding={{ base: "3% 2%", md: "2%" }}
+                        fontWeight="500"
+                      >
+                        {transaction.name}
+                      </Td>
+                      <Td>{parseFloat(reference())}</Td>
+                      <Td color="#838383">{transaction.date}</Td>
+                      <Td>{transaction.description}</Td>
+
+                      {transaction.Debit === 0 ? null : (
+                        <Td color="#880000" fontSize="16px" fontWeight="500">
+                          - ${transaction.amount}
+                        </Td>
+                      )}
+                    </Tr>
+                  );
+                })}
+
+                {financialData.map((transaction, index) => (
                   <Tr
                     key={index}
                     style={{
                       backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
                     }}
                   >
-                    <Td padding={{ base: "3% 2%", md: "2%" }} fontWeight="500">
-                      {transaction.name}
-                    </Td>
-                    <Td>{parseFloat(reference())}</Td>
-                    <Td color="#838383">{transaction.date}</Td>
-                    <Td>{transaction.description}</Td>
-
+                    <Td padding="2% 2%">{transaction.Name}</Td>
+                    <Td>{transaction.ReferenceNo}</Td>
+                    <Td color="#838383">{transaction.Date}</Td>
+                    <Td>{transaction.Description}</Td>
                     {transaction.Debit === 0 ? null : (
                       <Td color="#880000" fontSize="16px" fontWeight="500">
-                        - ${transaction.amount}
+                        - ${transaction.Debit}
+                      </Td>
+                    )}
+                    {transaction.Credit === 0 ? null : (
+                      <Td fontSize="16px" color="#558800" fontWeight="500">
+                        + ${transaction.Credit}
                       </Td>
                     )}
                   </Tr>
-                );
-              })}
-              {financialData.map((transaction, index) => (
-                <Tr
-                  key={index}
-                  style={{
-                    backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
-                  }}
-                >
-                  <Td padding="2% 2%">{transaction.Name}</Td>
-                  <Td>{transaction.ReferenceNo}</Td>
-                  <Td color="#838383">{transaction.Date}</Td>
-                  <Td>{transaction.Description}</Td>
-                  {transaction.Debit === 0 ? null : (
-                    <Td color="#880000" fontSize="16px" fontWeight="500">
-                      - ${transaction.Debit}
-                    </Td>
-                  )}
-                  {transaction.Credit === 0 ? null : (
-                    <Td fontSize="16px" color="#558800" fontWeight="500">
-                      + ${transaction.Credit}
-                    </Td>
-                  )}
-                </Tr>
-              ))}
-            </Tbody>
+                ))}
+              </Tbody>
+            ) : (
+              <Tbody>
+                {financialData.map((transaction, index) => (
+                  <Tr
+                    key={index}
+                    style={{
+                      backgroundColor: index % 2 === 0 ? "white" : "#EAFEC8",
+                    }}
+                  >
+                    <Td padding="2% 2%">{transaction.Name}</Td>
+                    <Td>{transaction.ReferenceNo}</Td>
+                    <Td color="#838383">{transaction.Date}</Td>
+                    <Td>{transaction.Description}</Td>
+                    {transaction.Debit === 0 ? null : (
+                      <Td color="#880000" fontSize="16px" fontWeight="500">
+                        - ${transaction.Debit}
+                      </Td>
+                    )}
+                    {transaction.Credit === 0 ? null : (
+                      <Td fontSize="16px" color="#558800" fontWeight="500">
+                        + ${transaction.Credit}
+                      </Td>
+                    )}
+                  </Tr>
+                ))}
+              </Tbody>
+            )}
           </Table>
         </TableContainer>
       )}

@@ -55,8 +55,8 @@ const Dashboard = () => {
 
   const balance = userInfo.amount + userInfo.euro;
   const updateBalance = balance - -userInfo.balance;
-
   const reloginBalance = balance - totalAmount
+
   return (
     <Box margin="0">
       <Box
