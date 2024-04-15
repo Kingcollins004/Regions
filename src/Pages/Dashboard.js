@@ -143,7 +143,7 @@ const Dashboard = () => {
                 </Text>
               ) : (
                 <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
-                  ${reloginBalance.toLocaleString()}
+                 ${"1,548,441"}
                 </Text>
               )}
 
