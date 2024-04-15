@@ -286,7 +286,16 @@ const TransactionData = () => {
       Date: "2023-11-30",
       Description: "Housing Investing",
       Debit: 0.0,
-      Credit: "860,800",
+      Credit: "2000",
+    },
+    {
+      Account: 8474930,
+      Name: "Mercy Johnson",
+      ReferenceNo: parseFloat(reference()),
+      Date: "2023-11-30",
+      Description: "Housing Investing",
+      Debit: 0.0,
+      Credit: "2000",
     },
     {
       Account: 987654,

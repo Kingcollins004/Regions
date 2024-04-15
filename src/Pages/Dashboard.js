@@ -39,7 +39,7 @@ const Dashboard = () => {
   const btnRef = React.useRef();
   const userInfo = useSelector((state) => state.user);
   const transactionData = useSelector((state) => state.transactions);
-  
+
   const calculateTotalAmount = () => {
     if (transactionData.length > 0) {
       return transactionData.reduce((sum, transaction) => {
@@ -55,7 +55,7 @@ const Dashboard = () => {
 
   const balance = userInfo.amount + userInfo.euro;
   const updateBalance = balance - -userInfo.balance;
-  const reloginBalance = balance - totalAmount
+  const reloginBalance = balance - totalAmount;
 
   return (
     <Box margin="0">
@@ -137,18 +137,19 @@ const Dashboard = () => {
                 Welcome, {userInfo.fullName}
               </Text>
               <Text marginTop={{ base: "5%", md: "5%" }}>Total Balance</Text>
+
               {userInfo.balance ? (
                 <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
                   ${updateBalance.toLocaleString()}
                 </Text>
               ) : (
                 <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
-                 ${"1,548,441"}
+                  ${balance.toLocaleString()}
                 </Text>
               )}
 
               <Text fontSize="14px" fontWeight="light">
-                $325.32 today, Oct 31st
+                $325.32 today, April 15st
               </Text>
             </Box>
 
