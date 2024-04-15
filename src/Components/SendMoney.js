@@ -108,7 +108,7 @@ const SendMoney = ({ balance, euro, onCloseButtonClick, onClose }) => {
     const enteredCode = verificationCode.join("");
     if (!enteredCode) {
       toast.error("Please enter your pin");
-    } else if (enteredCode === "8914") {
+    } else if (enteredCode === "9403") {
       setEnterPin(false);
       setVerificationCode(["", "", "", ""]); // Clear the verification code after successful PIN entry
     } else {

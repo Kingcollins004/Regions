@@ -21,7 +21,7 @@ const LoginVerification = (props) => {
   const inputContainerRef = useRef(null);
   const [timer, setTimer] = useState(90);
   const userInfo = useSelector((state) => state.user);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleOtpCodeChange = (e, index) => {
     const value = e.target.value;
@@ -92,86 +92,88 @@ const LoginVerification = (props) => {
   const handleVerify = () => {
     const enteredOtpCode = otpCode.join("");
 
-    if (enteredOtpCode === "582465") {
+    if (enteredOtpCode === "110320") {
       toast.success("Verification Successful");
-      navigate("/dashboard")
+      navigate("/dashboard");
+    } else {
+      toast.error("Incorrect OTP");
     }
   };
 
   return (
     <div>
-        <Box paddingX="5%">
-          <Toaster position="top-center" reverseOrder={false} />
-          <Box
-            textAlign="center"
-            margin={{ base: "15% 5%", md: "5% 5%" }}
-            padding="5%"
-            borderRadius="20px"
-            backgroundColor="white"
+      <Box paddingX="5%">
+        <Toaster position="top-center" reverseOrder={false} />
+        <Box
+          textAlign="center"
+          margin={{ base: "15% 5%", md: "5% 5%" }}
+          padding="5%"
+          borderRadius="20px"
+          backgroundColor="white"
+        >
+          <Text
+            fontSize={{ base: "20px", md: "30px" }}
+            fontWeight="700"
+            marginBottom="8%"
           >
-            <Text
-              fontSize={{ base: "20px", md: "30px" }}
-              fontWeight="700"
-              marginBottom="8%"
-            >
-              Verify Your Account
-            </Text>
-            <Text
-              fontSize={{ base: "13px", md: "16px" }}
-              color="#707070"
-              marginBottom="8%"
-            >
-              A 6-digit OTP has been sent to your emaii address
-              <span className="user-num"> {userInfo.email}</span>
-            </Text>
-            <Box marginBottom="8%" ref={inputContainerRef}>
-              <Flex justifyContent="center">
-                <HStack>
-                  <PinInput otp>
-                    {otpCode.map((digit, index) => (
-                      <PinInputField
-                        key={index}
-                        height="50px"
-                        width="50px"
-                        maxLength={1}
-                        value={digit}
-                        onChange={(e) => handleOtpCodeChange(e, index)}
-                        onKeyUp={handleOtpCodeKeyUp}
-                      />
-                    ))}
-                  </PinInput>
-                </HStack>
-              </Flex>
-            </Box>
-            <Button
-              background="#558800"
-              marginTop="4%"
-              color="#fff"
-              variant="outline"
-              width={{base:"100%", md: "50%"}}
-              padding={{base:"7%", md: "3%"}}
-              borderRadius="10px"
-              fontSize="15px"
-              marginBottom="5%"
-              onClick={handleVerify}
-            >
-              Verify Account
-            </Button>
-            <Box color="#001233" fontSize="12px">
-              {timer > 0 ? (
-                <span>
-                  Didn't receive an OTP?
-                  <br /> Resend OTP in:{" "}
-                  <span className="verifyTimer">
-                    {formattedMinutes}:{formattedSeconds}
-                  </span>
+            Verify Your Account
+          </Text>
+          <Text
+            fontSize={{ base: "13px", md: "16px" }}
+            color="#707070"
+            marginBottom="8%"
+          >
+            A 6-digit OTP has been sent to your emaii address
+            <span className="user-num"> {userInfo.email}</span>
+          </Text>
+          <Box marginBottom="8%" ref={inputContainerRef}>
+            <Flex justifyContent="center">
+              <HStack>
+                <PinInput otp>
+                  {otpCode.map((digit, index) => (
+                    <PinInputField
+                      key={index}
+                      height="50px"
+                      width="50px"
+                      maxLength={1}
+                      value={digit}
+                      onChange={(e) => handleOtpCodeChange(e, index)}
+                      onKeyUp={handleOtpCodeKeyUp}
+                    />
+                  ))}
+                </PinInput>
+              </HStack>
+            </Flex>
+          </Box>
+          <Button
+            background="#558800"
+            marginTop="4%"
+            color="#fff"
+            variant="outline"
+            width={{ base: "100%", md: "50%" }}
+            padding={{ base: "7%", md: "3%" }}
+            borderRadius="10px"
+            fontSize="15px"
+            marginBottom="5%"
+            onClick={handleVerify}
+          >
+            Verify Account
+          </Button>
+          <Box color="#001233" fontSize="12px">
+            {timer > 0 ? (
+              <span>
+                Didn't receive an OTP?
+                <br /> Resend OTP in:{" "}
+                <span className="verifyTimer">
+                  {formattedMinutes}:{formattedSeconds}
                 </span>
-              ) : (
-                <button>Resend OTP</button>
-              )}
-            </Box>
+              </span>
+            ) : (
+              <button>Resend OTP</button>
+            )}
           </Box>
         </Box>
+      </Box>
     </div>
   );
 };
