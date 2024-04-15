@@ -36,7 +36,7 @@ const Transactions = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   // const userInfo = useSelector((state) => state.user);
   const transactionData = useSelector((state) => state.transactions);
-  const [selectedMonth, setSelectedMonth] = useState("December");
+  const [selectedMonth, setSelectedMonth] = useState("April");
   const [financialData, setFinancialData] = useState([]);
   const [userTransaction, setUserTransaction] = useState(false);
 
@@ -60,7 +60,7 @@ const Transactions = () => {
     const selectedMonth = event.target.value;
     setSelectedMonth(selectedMonth);
     filterTransactions(selectedMonth);
-    if (selectedMonth === "December") {
+    if (selectedMonth === "April") {
       setUserTransaction(true);
     } else {
       setUserTransaction(false)
@@ -201,18 +201,18 @@ const Transactions = () => {
             _focus={{ boxShadow: "none" }}
           >
             <option value="option1">Filter</option>
-            <option value="December">Dec</option>
-            <option value="November">Nov</option>
-            <option value="October">Oct</option>
-            <option value="September">Sept</option>
-            <option value="August">Aug</option>
-            <option value="July">July</option>
-            <option value="June">Jun</option>
-            <option value="May">May</option>
-            <option value="April">Apr</option>
-            <option value="March">Mar</option>
-            <option value="Febuary">Feb</option>
             <option value="January">Jan</option>
+            <option value="Febuary">Feb</option>
+            <option value="March">Mar</option>
+            <option value="April">Apr</option>
+            <option value="May">May</option>
+            <option value="June">Jun</option>
+            <option value="July">July</option>
+            <option value="August">Aug</option>
+            <option value="September">Sept</option>
+            <option value="October">Oct</option>
+            <option value="November">Nov</option>
+            <option value="December">Dec</option>
           </Select>
         </Flex>
       </Flex>

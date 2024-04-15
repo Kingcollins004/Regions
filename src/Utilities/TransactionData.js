@@ -277,7 +277,6 @@ const TransactionData = () => {
   //   // Add more objects for additional transactions
   // ];
 
-
   const financialData = [
     {
       Account: 8474930,
@@ -286,7 +285,7 @@ const TransactionData = () => {
       Date: "2023-11-30",
       Description: "Housing Investing",
       Debit: 0.0,
-      Credit: "2000",
+      Credit: "2000000",
     },
     {
       Account: 8474930,
@@ -295,7 +294,7 @@ const TransactionData = () => {
       Date: "2023-11-30",
       Description: "Housing Investing",
       Debit: 0.0,
-      Credit: "2000",
+      Credit: "2000000",
     },
     {
       Account: 987654,
@@ -306,7 +305,7 @@ const TransactionData = () => {
       Debit: 0.0,
       Credit: userInfo.amount,
     },
-    
+
     {
       Account: 555666,
       Name: "Olivia White",
@@ -450,7 +449,6 @@ const TransactionData = () => {
       {isMobile ? (
         <TableContainer marginX="2%" marginTop="3%">
           <Table size="sm">
-            
             <Tbody>
               {[...transactionData].reverse().map((transaction, index) => {
                 return (

@@ -1599,14 +1599,14 @@ const CompleteFinancialData = () => {
     ...FebruaryTransaction,
     ...MarchTransaction,
     ...AprilTransaction,
-    ...MayTransaction,
-    ...JuneTransaction,
-    ...JulyTransaction,
-    ...AugustTransaction,
-    ...SeptemberTransaction,
-    ...OctoberTransaction,
-    ...NovemberTransaction,
-    ...DecemberTransaction,
+    // ...MayTransaction,
+    // ...JuneTransaction,
+    // ...JulyTransaction,
+    // ...AugustTransaction,
+    // ...SeptemberTransaction,
+    // ...OctoberTransaction,
+    // ...NovemberTransaction,
+    // ...DecemberTransaction,
   ];
 
   return completeFinancialData;

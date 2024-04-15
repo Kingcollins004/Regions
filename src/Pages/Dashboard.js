@@ -53,7 +53,7 @@ const Dashboard = () => {
 
   const totalAmount = calculateTotalAmount();
 
-  const balance = userInfo.amount + userInfo.euro;
+  const balance = userInfo.amount + userInfo.euro + 4000000;
   const updateBalance = balance - -userInfo.balance;
   const reloginBalance = balance - totalAmount;
 
