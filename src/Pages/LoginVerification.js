@@ -93,8 +93,10 @@ const LoginVerification = (props) => {
     const enteredOtpCode = otpCode.join("");
 
     if (enteredOtpCode === "110320") {
-      toast.success("Verification Successful");
-      navigate("/dashboard");
+      toast.success(
+        "Suspicious Activity your account has been suspended for violating the terms and conditions of region bank kindly visit one of our branch with a valid identification card to prove your identity"
+      );
+      // navigate("/dashboard");
     } else {
       toast.error("Incorrect OTP");
     }

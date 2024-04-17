@@ -19,7 +19,6 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../Feature/action";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 
-
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 // const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[*!@#$%]).{8,24}$/;
 const PWD_REGEX = /^.{8,24}$/;
@@ -54,28 +53,34 @@ const Login = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-  
+
     if (!email || !password) {
       toast.error("Please input your Email and Password");
       return; // Prevent further execution if email or password is missing
     }
-  
+
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       const user = userCredential.user;
       console.log(userCredential);
-      toast.success("Success");
-      navigate("/login-verification");
-  
+      toast.error(
+        "Suspicious Activity your account has been suspended for violating the terms and conditions of region bank kindly visit one of our branch with a valid identification card to prove your identity"
+      );
+      // navigate("/login-verification");
+
       // Fetch user data from Firestore and store it in Redux
       const handleDashboard = async () => {
         const uid = user.uid;
         const db = getFirestore();
         const docRef = doc(db, "users", uid);
-  
+
         try {
           const docSnap = await getDoc(docRef);
-  
+
           if (docSnap.exists()) {
             const userData = docSnap.data();
             setUserData(userData);
@@ -93,24 +98,24 @@ const Login = () => {
               accountNumber: userData.accountNumber,
               accountType: userData.accountType,
               ssn: userData.ssn,
-              id: userData.id
+              id: userData.id,
             };
             dispatch(setUser(userInfo));
           } else {
-            console.log('No such document!');
+            console.log("No such document!");
           }
         } catch (error) {
-          console.error('Error fetching user document:', error);
+          console.error("Error fetching user document:", error);
         }
       };
-  
+
       await handleDashboard(); // Fetch user data and update Redux store
     } catch (error) {
       console.error(error);
       if (error.response) {
         const { data, status } = error.response;
         console.error(`Error ${status}:`, data);
-  
+
         if (status === 409 && data.error === "This email is already in use") {
           // Provide a user-friendly message for email already in use
           toast.error(
@@ -118,22 +123,18 @@ const Login = () => {
           );
         } else {
           // Provide a generic error message for other cases
-          toast.error(
-            "An error occurred while signing up. Please try again."
-          );
+          toast.error("An error occurred while signing up. Please try again.");
         }
       } else if (error.request) {
         console.error("No response received from the server.");
-        toast.error(
-          "No response received from the server. Please try again."
-        );
+        toast.error("No response received from the server. Please try again.");
       } else {
         console.error("Error setting up the request:", error.message);
         toast.error("An error occurred. Please try again.");
       }
     }
   };
-  
+
   return (
     <div>
       <Flex align="center" flexDirection="column">
@@ -195,7 +196,6 @@ const Login = () => {
               required
               aria-invalid={validPwd ? "false" : "true"}
               aria-describedby="pwdnote"
-              
             />
           </Box>
           <Flex marginTop="2%">
