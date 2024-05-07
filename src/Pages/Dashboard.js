@@ -53,7 +53,7 @@ const Dashboard = () => {
 
   const totalAmount = calculateTotalAmount();
 
-  const balance = userInfo.amount + userInfo.euro + 4000000;
+  const balance = userInfo.amount + userInfo.euro ;
   const updateBalance = balance - -userInfo.balance;
   const reloginBalance = balance - totalAmount;
 
@@ -174,7 +174,7 @@ const Dashboard = () => {
                 src={line}
               />
 
-              <Flex marginTop={{ base: "7%", md: "0" }}>
+              <Flex margin={{ base: "4% 0", md: "0" }}>
                 <Button
                   ref={btnRef}
                   onClick={onOpen}

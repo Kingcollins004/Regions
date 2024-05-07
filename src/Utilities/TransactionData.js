@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Flex,
-  Text,
   Table,
   Thead,
   Tbody,
@@ -278,24 +277,24 @@ const TransactionData = () => {
   // ];
 
   const financialData = [
-    {
-      Account: 8474930,
-      Name: "Jame Willson",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-30",
-      Description: "Housing Investing",
-      Debit: 0.0,
-      Credit: "2000000",
-    },
-    {
-      Account: 8474930,
-      Name: "Mercy Johnson",
-      ReferenceNo: parseFloat(reference()),
-      Date: "2023-11-30",
-      Description: "Housing Investing",
-      Debit: 0.0,
-      Credit: "2000000",
-    },
+    // {
+    //   Account: 8474930,
+    //   Name: "Jame Willson",
+    //   ReferenceNo: parseFloat(reference()),
+    //   Date: "2023-11-30",
+    //   Description: "Housing Investing",
+    //   Debit: 0.0,
+    //   Credit: "2000000",
+    // },
+    // {
+    //   Account: 8474930,
+    //   Name: "Mercy Johnson",
+    //   ReferenceNo: parseFloat(reference()),
+    //   Date: "2023-11-30",
+    //   Description: "Housing Investing",
+    //   Debit: 0.0,
+    //   Credit: "2000000",
+    // },
     {
       Account: 987654,
       Name: "Martins Richman",
