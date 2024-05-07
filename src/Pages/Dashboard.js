@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -35,6 +35,7 @@ import TransactionData from "../Utilities/TransactionData";
 
 const Dashboard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [transaction, setTransaction] = useState(false);
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   const btnRef = React.useRef();
   const userInfo = useSelector((state) => state.user);
@@ -53,9 +54,14 @@ const Dashboard = () => {
   const totalAmount = calculateTotalAmount();
 
   const balance = userInfo.amount + userInfo.euro;
-  if (transactionData) {
-  }
-  const updateBalance = balance - transactionData[0].amount;
+
+  useEffect(() => {
+    if (transactionData.length > 0) {
+      setTransaction(true);
+    }
+  }, []);
+
+  const updateBalance = balance - transactionData[0]?.amount;
   const reloginBalance = balance - totalAmount;
   // console.log(transactionData[0].amount);
 
@@ -140,7 +146,7 @@ const Dashboard = () => {
               </Text>
               <Text marginTop={{ base: "5%", md: "5%" }}>Total Balance</Text>
 
-              {transactionData ? (
+              {transaction ? (
                 <Text color="#F9F9F9" fontSize="42px" fontWeight="600">
                   ${updateBalance.toLocaleString()}
                 </Text>
@@ -245,7 +251,7 @@ const Dashboard = () => {
               <Image marginX="2%" src={percentage} />
               <Text fontSize="12px">12.5%</Text>
             </Flex>
-            {transactionData ? (
+            {transaction ? (
               <Text fontSize="32px" marginTop="5%" fontWeight="600">
                 ${updateBalance.toLocaleString()}
               </Text>
