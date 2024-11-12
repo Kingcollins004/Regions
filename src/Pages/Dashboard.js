@@ -157,7 +157,7 @@ const Dashboard = () => {
               )}
 
               <Text fontSize="14px" fontWeight="light">
-                $325.32 today, September 17th
+                $325.32 today, November 06th
               </Text>
             </Box>
 

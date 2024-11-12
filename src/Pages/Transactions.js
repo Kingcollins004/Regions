@@ -36,7 +36,7 @@ const Transactions = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   // const userInfo = useSelector((state) => state.user);
   const transactionData = useSelector((state) => state.transactions);
-  const [selectedMonth, setSelectedMonth] = useState("April");
+  const [selectedMonth, setSelectedMonth] = useState("November");
   const [financialData, setFinancialData] = useState([]);
   const [userTransaction, setUserTransaction] = useState(false);
 
