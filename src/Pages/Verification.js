@@ -105,7 +105,7 @@ const SendMoney = (props) => {
   const handleVerify = () => {
     const enteredOtpCode = otpCode.join("");
 
-    if (enteredOtpCode === "888519") {
+    if (enteredOtpCode === "736492") {
       toast.success("Transfer Successful");
       setIsSuccessful(true);
       handleTransferCompletion(transferAmount);
