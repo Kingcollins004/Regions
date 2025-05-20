@@ -344,6 +344,7 @@ const Login = () => {
           marginTop="7%"
           width={{ base: "95%", md: "100%" }}
           fontSize="13px"
+          textAlign={{ base: "center", md: "center" }}
         >
           Call <Link className="link">1-800-REGIONS (1-800-734-4667)</Link> or
           visit <Link className="link">Regions Help & Suppor</Link>t.
