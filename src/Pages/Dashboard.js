@@ -40,18 +40,18 @@ const Dashboard = () => {
   const btnRef = React.useRef();
   const userInfo = useSelector((state) => state.user);
   const transactionData = useSelector((state) => state.transactions);
-  const calculateTotalAmount = () => {
-    if (transactionData.length > 0) {
-      return transactionData.reduce((sum, transaction) => {
-        const transactionAmount = Number(transaction.amount) || 0;
-        return sum + transactionAmount;
-      }, 0);
-    } else {
-      return 0; // Return 0 if there are no transactions
-    }
-  };
+  // const calculateTotalAmount = () => {
+  //   if (transactionData.length > 0) {
+  //     return transactionData.reduce((sum, transaction) => {
+  //       const transactionAmount = Number(transaction.amount) || 0;
+  //       return sum + transactionAmount;
+  //     }, 0);
+  //   } else {
+  //     return 0; // Return 0 if there are no transactions
+  //   }
+  // };
 
-  const totalAmount = calculateTotalAmount();
+  // const totalAmount = calculateTotalAmount();
 
   const balance = userInfo.amount + userInfo.euro;
 
@@ -59,11 +59,18 @@ const Dashboard = () => {
     if (transactionData.length > 0) {
       setTransaction(true);
     }
-  }, []);
+  }, [transactionData]);
 
   const updateBalance = balance - transactionData[0]?.amount;
-  const reloginBalance = balance - totalAmount;
+  // const reloginBalance = balance - totalAmount;
   // console.log(transactionData[0].amount);
+
+  //get current date in this format : june, 10, 2023
+  const date = new Date();
+  const month = date.toLocaleString('default', { month: 'long' });
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const currentDate = `${month}, ${day}, ${year}`;
 
   return (
     <Box margin="0">
@@ -157,7 +164,7 @@ const Dashboard = () => {
               )}
 
               <Text fontSize="14px" fontWeight="light">
-                $325.32 today, November 06th
+                $325.32 today, {currentDate}
               </Text>
             </Box>
 

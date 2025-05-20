@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -36,11 +36,14 @@ const Transactions = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   // const userInfo = useSelector((state) => state.user);
   const transactionData = useSelector((state) => state.transactions);
-  const [selectedMonth, setSelectedMonth] = useState("November");
+  const [selectedMonth, setSelectedMonth] = useState("May");
   const [financialData, setFinancialData] = useState([]);
   const [userTransaction, setUserTransaction] = useState(false);
+  const [completeFinancialData, setCompleteFinancialData] = useState(null);
 
-  const completeFinancialData = getCompleteFinancialData();
+  useEffect(() => {
+    setCompleteFinancialData(getCompleteFinancialData());
+  }, []);
 
   // console.log(completeFinancialData);
 
@@ -63,7 +66,7 @@ const Transactions = () => {
     if (selectedMonth === "April") {
       setUserTransaction(true);
     } else {
-      setUserTransaction(false)
+      setUserTransaction(false);
     }
   };
 
@@ -74,8 +77,8 @@ const Transactions = () => {
           month: "long",
         }) === selectedMonth
     );
-    console.log("Complete Financial Data:", completeFinancialData);
-    console.log("Filtered Data:", filtered);
+    // console.log("Complete Financial Data:", completeFinancialData);
+    // console.log("Filtered Data:", filtered);
     setFinancialData(filtered);
   };
 

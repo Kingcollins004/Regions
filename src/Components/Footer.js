@@ -300,7 +300,7 @@ const Footer = () => {
         </Flex>
       </Box>
       <Box marginBottom="5%" textAlign="center" marginTop="5%" paddingX="10%">
-        <Text fontSize="14px">2024 Regions Bank. All Rights Reserved.</Text>
+        <Text fontSize="14px">2025 Regions Bank. All Rights Reserved.</Text>
         <Text fontSize="14px">
           {" "}
           Regions, the Regions logo, and the LifeGreen bike are registered
