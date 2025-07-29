@@ -277,17 +277,35 @@ const TransactionData = () => {
   // ];
 
   const financialData = [
+    {
+      Account: 8474930,
+      Name: "ROJA PARFUMS GULF LLC",
+      ReferenceNo: parseFloat(reference()),
+      Date: "2025-07-19",
+      Description: "ROJA‑DXB‑2025‑0720 – Roja Parfums Dubai – Zephyr A. Genovese",
+      Debit: 7860.0,
+      Credit: 0,
+    },
+    {
+      Account: 2375391,
+      Name: "La Maison Élégance LLC",
+      ReferenceNo: parseFloat(reference()),
+      Date: "2025-07-18",
+      Description: "LM-2025-0789",
+      Debit: 12500.0,
+      Credit: 0,
+    },
+    {
+      Account: 1192837,
+      Name: "Aurora Sky Club FZ-LLC",
+      ReferenceNo: parseFloat(reference()),
+      Date: "2025-07-17",
+      Description: "ASC-2025-0451 - VIP Table",
+      Debit: 11340.0,
+      Credit: 0,
+    },
     // {
-    //   Account: 8474930,
-    //   Name: "Jame Willson",
-    //   ReferenceNo: parseFloat(reference()),
-    //   Date: "2025-11-30",
-    //   Description: "Housing Investing",
-    //   Debit: 0.0,
-    //   Credit: "2000000",
-    // },
-    // {
-    //   Account: 8474930,
+    //   Account: 8474930
     //   Name: "Mercy Johnson",
     //   ReferenceNo: parseFloat(reference()),
     //   Date: "2025-11-30",
@@ -485,7 +503,7 @@ const TransactionData = () => {
                             fontSize="14px"
                             fontWeight="500"
                           >
-                            - ${transaction.amount}
+                            - ${transaction?.amount?.toLocaleString()}
                           </Td>
                         )}
 
@@ -538,10 +556,10 @@ const TransactionData = () => {
                           fontSize="14px"
                           fontWeight="500"
                         >
-                          - ${transaction.Debit}
+                          - ${transaction.Debit?.toLocaleString()}
                         </Td>
                       )}
-                      {transaction.Credit === 0 ? null : (
+                      {transaction?.Credit === 0 ? null : (
                         <Td
                           textAlign="right"
                           border="none"
@@ -549,7 +567,7 @@ const TransactionData = () => {
                           color="#558800"
                           fontWeight="500"
                         >
-                          + ${transaction.Credit}
+                          + ${transaction?.Credit?.toLocaleString()}
                         </Td>
                       )}
                       <Td
@@ -597,7 +615,7 @@ const TransactionData = () => {
 
                     {transaction.Debit === 0 ? null : (
                       <Td color="#880000" fontSize="16px" fontWeight="500">
-                        - ${transaction.amount}
+                        - ${transaction?.amount?.toLocaleString()}
                       </Td>
                     )}
                   </Tr>
@@ -619,12 +637,12 @@ const TransactionData = () => {
 
                   {transaction.Debit === 0 ? null : (
                     <Td color="#880000" fontSize="16px" fontWeight="500">
-                      - ${transaction.Debit}
+                      - ${transaction.Debit?.toLocaleString()}
                     </Td>
                   )}
                   {transaction.Credit === 0 ? null : (
                     <Td fontSize="16px" color="#558800" fontWeight="500">
-                      + ${transaction.Credit}
+                      + ${transaction.Credit?.toLocaleString()}
                     </Td>
                   )}
                 </Tr>
