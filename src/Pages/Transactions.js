@@ -36,7 +36,7 @@ const Transactions = () => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
   // const userInfo = useSelector((state) => state.user);
   const transactionData = useSelector((state) => state.transactions);
-  const [selectedMonth, setSelectedMonth] = useState("May");
+  const [selectedMonth, setSelectedMonth] = useState("July");
   const [financialData, setFinancialData] = useState([]);
   const [userTransaction, setUserTransaction] = useState(false);
   const [completeFinancialData, setCompleteFinancialData] = useState(null);
@@ -63,7 +63,7 @@ const Transactions = () => {
     const selectedMonth = event.target.value;
     setSelectedMonth(selectedMonth);
     filterTransactions(selectedMonth);
-    if (selectedMonth === "April") {
+    if (selectedMonth === "July") {
       setUserTransaction(true);
     } else {
       setUserTransaction(false);
